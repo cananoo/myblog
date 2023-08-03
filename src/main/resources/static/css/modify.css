@@ -1,8 +1,41 @@
 
 /* 修改导航栏上下间距 em 是一种相对长度单位，表示相对于当前元素的字体大小。具体地说，1em 等于当前元素的字体大小*/
+
+.pd {
+    padding: 0.3em !important;
+}
+
 .me {
     padding-top: 0.2em !important;
     padding-bottom: 0.2em !important;
+}
+.me1 {
+    padding-top: 0.3em !important;
+    padding-bottom: 0.3em !important;
+}
+.me2 {
+    padding-top: 0.5em !important;
+    padding-bottom: 0.5em !important;
+}
+.me3 {
+    padding-top: 1em !important;
+    padding-bottom: 1em !important;
+}
+.me4 {
+    padding-top: 2em !important;
+    padding-bottom: 2em !important;
+}
+.me5 {
+    padding-top: 3em !important;
+    padding-bottom: 3em !important;
+}
+.me6 {
+    padding-top: 4em !important;
+    padding-bottom: 4em !important;
+}
+.me7 {
+    padding-top: 5em !important;
+    padding-bottom: 5em !important;
 }
 .foot {
     padding-top: 5em !important;
@@ -25,4 +58,22 @@
 /*透明度*/
 .text-opacity {
     opacity: 0.8 !important;
+}
+
+/*
+使block元素变成行内元素
+ */
+.toLineBlock {
+    display: inline-block !important;
+}
+
+.imgsize {
+    width: 250px !important;
+    height: 100px !important;
+}
+
+/*修改盒子最大宽度和居中*/
+.m-container {
+    max-width: 72em !important;
+    margin: auto !important;
 }
