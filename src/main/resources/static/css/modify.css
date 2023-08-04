@@ -77,3 +77,68 @@
     max-width: 72em !important;
     margin: auto !important;
 }
+/*
+修改盒子上下间距
+ */
+.mymargin {
+    margin-top: 0.3em !important;
+    margin-bottom: 0.3em !important;
+}
+
+.mymargin-top {
+    margin-top: 1.5em !important;
+}
+
+/*color*/
+.cBlack {
+    color: #000000 !important;
+}
+.cWhite {
+    color: #ffffff !important;
+}
+.cGray {
+    color: #808080 !important;
+}
+.cRed {
+    color: #ff0000 !important;
+}
+.cBlue {
+    color: #0000ff !important;
+}
+.cGreen {
+    color: #008000 !important;
+}
+.cYellow {
+    color: #ffff00 !important;
+}
+.cPink {
+    color: #ffc0cb !important;
+}
+.cPurple {
+    color: #800080 !important;
+}
+.cOrange {
+    color: #ffa500 !important;
+}
+.cBrown {
+    color: #a52a2a !important;
+}
+.cCyan {
+    color: #00ffff !important;
+}
+.cGold {
+    color: #ffd700 !important;
+}
+.cSilver {
+    color: #c0c0c0 !important;
+}
+.cLime {
+    color: #00ff00 !important;
+}
+.cMagenta {
+    color: #ff00ff !important;
+}
+
+.cDark {
+    color: #2f2f2f !important;
+}
