@@ -89,6 +89,16 @@
     margin-top: 1.5em !important;
 }
 
+/*
+绝对定位
+ */
+.top-right {
+    position: absolute !important;
+    top: 0 !important;
+    right: 0 !important;
+}
+
+
 /*color*/
 .cBlack {
     color: #000000 !important;
@@ -141,4 +151,23 @@
 
 .cDark {
     color: #2f2f2f !important;
+}
+
+/*
+手机端隐藏
+ */
+@media screen and (max-width: 768px) {
+    .mobilehide {
+        display: none !important;
+
+    }
+}
+
+/*
+非手机端隐藏
+ */
+@media screen and (min-width: 768px) {
+    .mobileshow {
+        display: none !important;
+    }
 }
