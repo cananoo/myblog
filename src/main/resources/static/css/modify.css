@@ -1,4 +1,15 @@
 
+/*
+设置背景图片
+ */
+body {
+   background: url("../images/bg.png") no-repeat center center fixed;
+}
+
+
+
+
+
 /* 修改导航栏上下间距 em 是一种相对长度单位，表示相对于当前元素的字体大小。具体地说，1em 等于当前元素的字体大小*/
 
 .pd {
@@ -37,10 +48,21 @@
     padding-top: 5em !important;
     padding-bottom: 5em !important;
 }
+
+/*
+修改左右内边距
+ */
+.me-lr{
+    padding-left: 4em !important;
+    padding-right: 4em !important;
+}
+
 .foot {
     padding-top: 5em !important;
     padding-bottom: 5em !important;
 }
+
+
 /*字体大小*/
 .text-size {
     font-size: 5px !important;
@@ -57,7 +79,7 @@
 
 /*透明度*/
 .text-opacity {
-    opacity: 0.8 !important;
+    opacity: 0.7 !important;
 }
 
 /*
@@ -77,6 +99,14 @@
     max-width: 72em !important;
     margin: auto !important;
 }
+
+/*修改盒子最大宽度和居中*/
+.m-container-small {
+    max-width: 60em !important;
+    margin: auto !important;
+}
+
+
 /*
 修改盒子上下间距
  */
@@ -170,4 +200,10 @@
     .mobileshow {
         display: none !important;
     }
+}
+/*
+修改页脚背景颜色
+ */
+.footcolor {
+    background-color: powderblue !important;
 }

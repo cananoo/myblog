@@ -14,7 +14,7 @@
 
   <!--导航栏-->
     <!-- 解释ui inverted attached segment：ui是semantic-ui的样式，inverted是反色，attached是附着在上面，segment用于分段,me是css类标签 -->
-  <nav class="ui inverted attached segment me">
+  <nav class="ui inverted attached segment me text-opacity ">
       	<!-- 解释ui container：container是容器,用于达到最佳显示效果 -->
     <div class="ui container">
         <!-- 解释ui inverted secondary menu：inverted是反色，secondary次要菜单，menu是菜单,stackable：堆叠的,屏幕小时可堆叠在一块 -->
@@ -22,10 +22,11 @@
             <!-- 解释ui teal header item：teal是蓝绿色，header是标题，item表示一组条目 -->
             <h2 class="ui teal header item">Blog</h2>
             <!-- 解释<i class="home icon"></i>：i是图标，home是图标名字，icon是图标,mobilehide：手机端隐藏,gg:为JS获取标签实现显示隐藏条目而用 -->
-            <a href="#" class="gg item mobilehide"><i class="home icon"></i>首页</a>
-            <a href="#" class="gg item mobilehide"><i class="idea icon"></i>分类</a>
-            <a href="#" class="gg item mobilehide"><i class="tags icon"></i>标签</a>
-            <a href="#" class="gg item mobilehide"><i class="info icon"></i>关于我</a>
+            <a href="#" class="gg item mobilehide "><i class="home icon"></i>首页</a>
+            <a href="#" class="gg item mobilehide "><i class="idea icon" ></i>分类</a>
+            <a href="#" class="gg item mobilehide "><i class="tags icon"></i>标签</a>
+            <a href="#" class="gg item mobilehide "><i class="clone icon"></i>归档</a>
+            <a href="#" class="gg item mobilehide "><i class="info icon"></i>关于我</a>
            <div class="right item">
               <!-- 解释ui icon inverted transparent input：transparent是透明，input是输入框 -->
                 <div class="ui icon inverted transparent input">
@@ -43,7 +44,7 @@
   </nav>
 
   <!--主体内容-->
-  <div class="m-container me4">
+  <div class="m-container me4 text-opacity">
       <div class="ui container">
     <div class="ui stackable grid me2">
         	<!-- 左侧博客列表 -->
@@ -366,39 +367,39 @@
 
   <!--底部-->
   <!-- 解释ui inverted vertical segment:vertical填充类似于attached，segment是模块 -->
-  <footer class="ui inverted vertical segment foot">
-     <div class="ui center aligned container">
+  <footer class="ui  vertical inverted segment foot text-opacity">
+     <div class="ui  center aligned container ">
           <!-- 解释:grid是网格 把整个横向页面分为16份，便于拆分 divided 显示分割线 -->
-         <div class="ui divided inverted stackable grid">
-             <div class="three wide column">
-                    <img src="./static/images/wechat.png" class="ui centered aligned rounded image" alt="" style="width: 120px">
+         <div class="ui divided inverted stackable grid ">
+             <div class=" three wide column">
+                    <img src="./static/images/wechat.png" class="ui centered aligned rounded image " alt="" style="width: 120px">
              </div>
              <div class="three wide column">
                  <h4 class="ui inverted header text-opacity">最新博客</h4>
                  <!--完成清单-->
-                 <div class="ui inverted link list">
-                        <a href="#" class="item">Java</a>
-                        <a href="#" class="item">Python</a>
-                        <a href="#" class="item">Linux</a>
-                        <a href="#" class="item">C++</a>
+                 <div class="ui inverted link list ">
+                        <a href="#" class="item ">Java</a>
+                        <a href="#" class="item ">Python</a>
+                        <a href="#" class="item ">Linux</a>
+                        <a href="#" class="item ">C++</a>
                  </div>
              </div>
-             <div class="three wide column">
-                 <h4 class="ui inverted header text-opacity">联系方式</h4>
-                  <h6 class="ui text-opacity text-size" >QQ: 123456789</h6>
-                    <h6 class="text-opacity text-size">微信: 123456789</h6>
+             <div class="three wide column ">
+                 <h4 class="ui inverted header text-opacity ">联系方式</h4>
+                  <h6 class="ui text-opacity text-size " >QQ: 123456789</h6>
+                    <h6 class="text-opacity text-size ">微信: 123456789</h6>
              </div>
              <div class="seven wide column">
-                 <h4 class="ui inverted header text-opacity">关于我</h4>
+                 <h4 class="ui inverted header text-opacity ">关于我</h4>
 
-               <p class="text-opacity text-size text-line">我是一个热爱技术的小白，喜欢研究新技术，喜欢分享，喜欢交流，喜欢结交朋友，喜欢看书，喜欢运动，喜欢旅游，喜欢美食，喜欢生活，喜欢一切美好的事物。</p>
+               <p class="text-opacity text-size text-line ">我是一个热爱技术的小白，喜欢研究新技术，喜欢分享，喜欢交流，喜欢结交朋友，喜欢看书，喜欢运动，喜欢旅游，喜欢美食，喜欢生活，喜欢一切美好的事物。</p>
              </div>
          </div>
 
          <!-- 解释ui inverted section divider：section是模块，divider是分割线 -->
          <div class="ui inverted section divider">
              </br></br></br>
-             <p class="text-size text-opacity text-space text-line"> CopyRight © 2023---2013  All Rights Reserved.</p>
+             <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2013  All Rights Reserved.</p>
          </div>
 
      </div>
