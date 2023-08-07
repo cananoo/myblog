@@ -74,7 +74,7 @@
               </div>
                      <h2 class="ui centered aligned header">二刺螈圣经</h2>
                        <br>
-                      <div id="content" class="me-lr" >
+                      <div id="content" class="me-lr-responsive" >
                           <p>1. 没必要的事就不做，必要的事就尽快做。&mdash;&mdash;冰菓</p>
                           <p>2. 因为触碰的差别而察觉到真相，应该说是侥幸吧。&mdash;&mdash;猫物语</p>
                           <p>3. 没有努力到要哭的程度，不甘心就可以了&mdash;&mdash;花牌情缘</p>
@@ -87,7 +87,7 @@
                           <p>10. 即使忘记了一起生活的伙伴的长相，也不会忘记深刻在灵魂里的羁绊。&mdash;&mdash;Angel Bests</p>
                       </div>
                      <!--标签-->
-                      <div class="me-lr me3">
+                      <div class="me-lr-responsive me3">
                           <div class="ui  teal basic left  label">
                               圣经
                           </div>
@@ -95,18 +95,153 @@
                     <!-- 赞赏 -->
               <div class="ui center aligned basic segment">
                   <!-- circular button：圆形按钮 -->
-                     <button class="ui orange basic circular button">
+                     <button id="payButton" class="ui orange basic circular button">
                          赞赏
                      </button>
+              </div>
+               <!-- ui fluid popup  transition hidden：引入一个隐藏的弹出框弹出二维码（需要配合js）payQ无样式-用来传递js -->
+              <div class="ui payQ flowing popup  transition hidden " >
+              <div class="ui orange basic label" >
+                    <!--inherit：继承上级label字体大小，不然images标签会默认设置为0-->
+                  <div class="ui images " style="font-size: inherit !important;">
+                  <div class="image">
+                      <img src="./static/images/wechat.png" alt="" class="ui rounded bordered image " style="width: 120px">
+                      <div>微信</div>
+                  </div>
+                  <div class="image">
+                      <img src="./static/images/wechat.png" alt="" class="ui rounded bordered image" style="width: 120px">
+                      <div>支付宝</div>
+                  </div>
+                  </div>
+              </div>
               </div>
           </div>
 
             <!--positive message：一个消息框样式 -->
           <div class="ui attached positive message">
-              博客信息
+              <!--博客信息-->
+              <div class="ui grid">
+                  <div class="eleven wide column">
+                       <!--bulleted list：无序列表 -->
+                      <div class="ui bulleted middle aligned list">
+                          <div class="item">作者: Cananoo</div>
+                          <div class="item">发表时间: 2023-10-02 09:08</div>
+                          <div class="item">版权声名: 转载请标明源地址</div>
+                          <div class="item">最新内容: 请添加右侧二维码</div>
+                      </div>
+                  </div>
+                  <div class="five wide column">
+                      <img src="./static/images/wechat.png" alt="" class="ui right floated rounded bordered image" style="width: 110px">
+                  </div>
+              </div>
           </div>
            <div class="ui bottom attached segment">
-               留言区域
+               <!--留言区域列表-->
+                 <div class="ui teal segment">
+                     <!--直接复制semantic ui的评论模块代码即可-->
+                     <div class="ui comments">
+                         <h3 class="ui dividing header">评论区</h3>
+                         <div class="comment">
+                             <a class="avatar">
+                                 <img src="https://th.bing.com/th/id/OIP.vCLFLlp4ToBItAdqOpB4IwHaHa?pid=ImgDet&rs=1">
+                             </a>
+                             <div class="content">
+                                 <a class="author">Matt</a>
+                                 <div class="metadata">
+                                     <span class="date">今天下午 5:42</span>
+                                 </div>
+                                 <div class="text">太赞了！ </div>
+                                 <div class="actions">
+                                     <a class="reply">回复</a>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="comment">
+                             <a class="avatar">
+                                 <img src="https://img.nyato.com/data/upload/2020/0717/18/5f11783635fc3.jpg!autoxauto">
+                             </a>
+                             <div class="content">
+                                 <a class="author">Elliot Fu</a>
+                                 <div class="metadata">
+                                     <span class="date">昨天上午12:30</span>
+                                 </div>
+                                 <div class="text">
+                                     <p>這對我的研究是非常有用.謝謝!</p>
+                                 </div>
+                                 <div class="actions">
+                                     <a class="reply">回复</a>
+                                 </div>
+                             </div>
+                             <div class="comments">
+                                 <div class="comment">
+                                     <a class="avatar">
+                                         <img src="https://th.bing.com/th/id/OIP.FUVMWHUuCm-O_JYn0F238gHaHa?pid=ImgDet&rs=1">
+                                     </a>
+                                     <div class="content">
+                                         <a class="author">Jenny Hess</a>
+                                         <div class="metadata">
+                                             <span class="date">刚刚</span>
+                                         </div>
+                                         <div class="text">艾略特你永远是多么正确 :) </div>
+                                         <div class="actions">
+                                             <a class="reply">回复</a>
+                                         </div>
+                                     </div>
+                                 </div>
+                             </div>
+                         </div>
+                         <div class="comment">
+                             <a class="avatar">
+                                 <img src="https://pic1.zhimg.com/v2-8d2ea2dafb6042c27bebf768984f72a8_r.jpg">
+                             </a>
+                             <div class="content">
+                                 <a class="author">Joe Henderson</a>
+                                 <div class="metadata">
+                                     <span class="date">5 天以前</span>
+                                 </div>
+                                 <div class="text">老兄，这太棒了。非常感谢。 </div>
+                                 <div class="actions">
+                                     <a class="reply">回复</a>
+                                 </div>
+                             </div>
+                         </div>
+                         <form class="ui reply form">
+                             <div class="field">
+                                 <textarea></textarea>
+                             </div>
+                             <div class="ui basic right aligned segment">
+                             <div class="ui  blue labeled submit icon button">
+                                 <i class="icon edit"></i>  添加回复
+                             </div>
+                             </div>
+                         </form>
+                     </div>
+                 </div>
+                <!--留言区域表单-->
+               <div class="ui form">
+                   <div class="field">
+                    <textarea  name="content" placeholder="请输入.." ></textarea>
+               </div>
+                   <div class="fields">
+
+                          <div class="field m-mobile-full">
+                              <div class="ui left icon input">
+                             <i class="user icon"></i>
+                            <input type="text" name="name" placeholder="请输入昵称">
+                            </div>
+                          </div>
+                       <div class="field m-mobile-full">
+                           <div class="ui left icon input">
+                               <i class="mail icon"></i>
+                               <input type="text" name="email" placeholder="请输入邮箱">
+                           </div>
+                       </div>
+                           <div class="field m-mobile-full ">
+                               <button class="ui teal button m-mobile-full "><i class="small edit icon"></i> 发布</button>
+                           </div>
+                       </div>
+                   </div>
+               </div>
            </div>
       </div>
   </div>
@@ -160,8 +295,15 @@
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 <!-- 获取样式标签,进行操作,实现点击切换--如果含gg的标签中有m-mobile-hide类，就删除，否则添加 -->
  <script>
+     <!--手机端下拉菜单 -->
      $('.menu.toggle').click(function(){
             $('.gg').toggleClass('mobilehide');
+     });
+     <!--赞赏功能显示 -->
+     $('#payButton').popup({
+         popup : $('.payQ.popup'),
+            on    : 'click',
+         position   : 'bottom center'
      });
  </script>
 </body>

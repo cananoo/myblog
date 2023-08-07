@@ -49,13 +49,6 @@ body {
     padding-bottom: 5em !important;
 }
 
-/*
-修改左右内边距
- */
-.me-lr{
-    padding-left: 4em !important;
-    padding-right: 4em !important;
-}
 
 .foot {
     padding-top: 5em !important;
@@ -183,20 +176,42 @@ body {
     color: #2f2f2f !important;
 }
 
+
 /*
-手机端隐藏
+手机端
  */
 @media screen and (max-width: 768px) {
+    /*
+     手机端隐藏
+     */
     .mobilehide {
         display: none !important;
+    }
 
+    /*
+         手机端改变左右间距
+         */
+    .me-lr-responsive {
+        padding-left: 0em !important;
+        padding-right: 0em !important;
+    }
+
+    /*
+        手机端充满宽度
+        */
+    .m-mobile-full{
+        width: 100% !important;
+        margin-bottom: 1em !important;
     }
 }
 
 /*
-非手机端隐藏
+PC端
  */
 @media screen and (min-width: 768px) {
+    /*
+       电脑端隐藏
+       */
     .mobileshow {
         display: none !important;
     }
