@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <!-- 设置移动端缩放比例 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>关于我</title>
+    <!-- 引入semantic-ui样式 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="./static/css/modify.css">
+</head>
+<body>
+
+  <!--导航栏-->
+    <!-- 解释ui inverted attached segment：ui是semantic-ui的样式，inverted是反色，attached是附着在上面，segment用于分段,me是css类标签 -->
+  <nav class="ui inverted attached segment me text-opacity ui-shadow ">
+      	<!-- 解释ui container：container是容器,用于达到最佳显示效果 -->
+    <div class="ui container">
+        <!-- 解释ui inverted secondary menu：inverted是反色，secondary次要菜单，menu是菜单,stackable：堆叠的,屏幕小时可堆叠在一块 -->
+        <div class="ui inverted secondary stackable menu">
+            <!-- 解释ui teal header item：teal是蓝绿色，header是标题，item表示一组条目 -->
+            <h2 class="ui teal header item">Blog</h2>
+            <!-- 解释<i class="home icon"></i>：i是图标，home是图标名字，icon是图标,mobilehide：手机端隐藏,gg:为JS获取标签实现显示隐藏条目而用 -->
+            <a href="#" class="gg item mobilehide "><i class="home icon"></i>首页</a>
+            <a href="#" class="gg item mobilehide "><i class="idea icon" ></i>分类</a>
+            <a href="#" class="gg item mobilehide "><i class="tags icon"></i>标签</a>
+            <a href="#" class="gg item mobilehide "><i class="clone icon"></i>归档</a>
+            <a href="#" class="active gg item mobilehide "><i class="info icon"></i>关于我</a>
+           <div class="right item">
+              <!-- 解释ui icon inverted transparent input：transparent是透明，input是输入框 -->
+                <div class="ui icon inverted transparent input">
+                    <input type="text" placeholder="Search...">
+                     <!-- 解释<i class="search link icon"></i>：i是图标，search是图标名字，link是链接，icon是图标 -->
+                    <i class="search link icon"></i>
+                </div>
+           </div>
+        </div>
+    </div>
+      <!-- toggle:这里无显示意义，这是为了JS能够获取到这个标签，从而实现点击按钮显示隐藏左侧菜单 -->
+      <a href="#" class="ui toggle black icon button top-right mobileshow" >
+            <i class="sidebar  icon"></i>
+      </a>
+  </nav>
+
+  <!--主体内容-->
+  <div class="m-container-small me4 text-opacity">
+      <div class="ui container">
+       <div class="ui stackable grid">
+           <div class="eleven wide column">
+               <div class="ui segment"><img src="https://pic4.zhimg.com/v2-b76becbb2b3049c8507293bd4dfbf8b7_r.jpg" alt="" class="ui rounded image imgsize2"></div>
+
+           </div>
+           <div class="five wide column">
+               <div class="ui segments mymargin-top" style="width: 300px">
+                   <div class="ui  top attached segment">
+                       <div class="ui header">关于我</div>
+                   </div>
+                   <div class="ui attached segment">
+                       <p class="cDark text-size text-line">我是一个热爱技术的小白，喜欢研究新技术，喜欢分享，喜欢交流，喜欢结交朋友，喜欢看书，喜欢运动，喜欢旅游，喜欢美食，喜欢生活，喜欢一切美好的事物。</p>
+                       <p class="cDark text-size text-line"> 本博客是我学习前端的一个练手项目，目前还在开发中，后续会不断完善，欢迎大家提出宝贵的意见和建议。</p>
+                   </div>
+                   <div class="ui attached segment">
+                       <div class="ui pink basic label mymargin">编程</div>
+                       <div class="ui pink basic label mymargin">写作</div>
+                       <div class="ui pink basic label mymargin">思考</div>
+                       <div class="ui pink basic label mymargin">运动</div>
+                   </div>
+                   <div class="ui  attached segment">
+                       <div class="ui teal basic label mymargin">java</div>
+                       <div class="ui teal basic label mymargin">c++</div>
+                       <div class="ui teal basic label mymargin">python</div>
+                       <div class="ui teal basic label mymargin">React</div>
+                   </div>
+                   <div class="ui bottom attached segment">
+                       <a href="#" ><i class="circular github icon marginleft"></i></a>
+                       <a href="#" class="wx"><i class="circular wechat icon marginleft"></i></a>
+                       <!--myqq 配合JS实现点击显示隐藏qq号码--即data-content -->
+                       <a href="#" class="myqq" data-content="2059997196" data-position="bottom center" ><i class="circular qq icon marginleft"></i></a>
+                   </div>
+               </div>
+               <div class="ui wechat-qr flowing popup transition hidden">
+                   <img src="./static/images/wechat.png" alt="" class="ui rounded image" style="width: 80px">
+               </div>
+           </div>
+       </div>
+      </div>
+  </div>
+
+  <!--底部-->
+  <!-- 解释ui inverted vertical segment:vertical填充类似于attached，segment是模块 -->
+  <footer class="ui  vertical inverted segment foot text-opacity">
+     <div class="ui  center aligned container ">
+          <!-- 解释:grid是网格 把整个横向页面分为16份，便于拆分 divided 显示分割线 -->
+         <div class="ui divided inverted stackable grid ">
+             <div class=" three wide column">
+                    <img src="./static/images/wechat.png" class="ui centered aligned rounded image " alt="" style="width: 120px">
+             </div>
+             <div class="three wide column">
+                 <h4 class="ui inverted header text-opacity">最新博客</h4>
+                 <!--完成清单-->
+                 <div class="ui inverted link list ">
+                        <a href="#" class="item ">Java</a>
+                        <a href="#" class="item ">Python</a>
+                        <a href="#" class="item ">Linux</a>
+                        <a href="#" class="item ">C++</a>
+                 </div>
+             </div>
+             <div class="three wide column ">
+                 <h4 class="ui inverted header text-opacity ">联系方式</h4>
+                  <h6 class="ui text-opacity text-size " >QQ: 123456789</h6>
+                    <h6 class="text-opacity text-size ">微信: 123456789</h6>
+             </div>
+             <div class="seven wide column">
+                 <h4 class="ui inverted header text-opacity ">关于我</h4>
+
+               <p class="text-opacity text-size text-line ">我是一个热爱技术的小白，喜欢研究新技术，喜欢分享，喜欢交流，喜欢结交朋友，喜欢看书，喜欢运动，喜欢旅游，喜欢美食，喜欢生活，喜欢一切美好的事物。</p>
+             </div>
+         </div>
+
+         <!-- 解释ui inverted section divider：section是模块，divider是分割线 -->
+         <div class="ui inverted section divider">
+             </br></br></br>
+             <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2013  All Rights Reserved.</p>
+         </div>
+
+     </div>
+
+  </footer>
+
+
+
+<!-- 引入jquery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<!-- 引入semantic-ui样式 -->
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<!-- 获取样式标签,进行操作,实现点击切换--如果含gg的标签中有mobilehide类，就删除，否则添加 -->
+ <script>
+     <!--手机端下拉菜单 -->
+     $('.toggle').click(function(){
+            $('.gg').toggleClass('mobilehide');
+     });
+
+     $('.myqq').popup();
+
+     $('.wx').popup({
+         popup : $('.wechat-qr'),
+         position : 'bottom center'
+     });
+ </script>
+</body>
+</html>

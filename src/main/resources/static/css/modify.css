@@ -86,6 +86,10 @@ body {
     width: 250px !important;
     height: 100px !important;
 }
+.imgsize2 {
+    width: 800px !important;
+    height: 500px !important;
+}
 
 /*修改盒子最大宽度和居中*/
 .m-container {
@@ -110,6 +114,10 @@ body {
 
 .mymargin-top {
     margin-top: 1.5em !important;
+}
+
+.marginleft {
+    margin-left: 1em !important;
 }
 
 /*
