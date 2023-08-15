@@ -4,9 +4,14 @@
     <meta charset="UTF-8">
     <!-- 设置移动端缩放比例 -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>博客管理</title>
+    <title>博客发布</title>
+
     <!-- 引入semantic-ui样式 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+
+    <!--引入editor.md编辑器-->
+    <link rel="stylesheet" href="../static/lib/editormd/css/editormd.min.css">
+
     <!-- 引入自定义样式 -->
     <link rel="stylesheet" href="../static/css/modify.css">
 </head>
@@ -58,7 +63,7 @@
 
 
   <!--主体内容-->
-  <div class="m-container-small me4 text-opacity">
+  <div class="m-container-small me4 ">
       <div class="ui container">
           <form action="#" method="post" class="ui form">
               <div class=" field">
@@ -78,9 +83,20 @@
                   </div>
                   </div>
                 <div class="field">
-                    <textarea name="content" id="" cols="30" rows="10" placeholder="内容"></textarea>
-                </div>
+                    <!--style="z-index: 1 !important;": 使编辑器在下拉框之上，叠放层次在最上层-->
+                    <div id="md-content" style="z-index: 1 !important;">
+                        <textarea name="content" placeholder="内容" style="display:none;">
+   [TOC]
+#### Disabled options
 
+- TeX (Based on KaTeX);
+- Emoji;
+- Task lists;
+- HTML tags decode;
+- Flowchart and Sequence Diagram;
+</textarea>
+                    </div>
+                </div>
               <div class="two fields">
                     <div class="field">
                         <!--action:使标签与下拉框连接紧密-->
@@ -100,7 +116,7 @@
                     </div>
                     <div class="field">
                         <div class="ui left labeled action input text-opacity">
-                            <label class="ui compact red basic label">分类</label>
+                            <label class="ui compact red basic label">标签</label>
                             <div class="ui fluid selection multiple search dropdown">
                                 <input type="hidden" name="tag">
                                 <i class="dropdown icon"></i>
@@ -117,7 +133,7 @@
 
               <div class="field">
                   <div class="ui left labeled input text-opacity">
-                      <label for="" class="ui teal basic label">首图</label>
+                      <label  class="ui teal basic label">首图</label>
                       <input type="text" name="indexPicture" placeholder="首图引用地址">
                   </div>
               </div>
@@ -207,13 +223,39 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 <!-- 引入semantic-ui样式 -->
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-<!-- 获取样式标签,进行操作,实现点击切换--如果含gg的标签中有mobilehide类标签，就删除，否则添加 -->
+
+  <!--引入editor.md编辑器-->
+  <script src="../static/lib/editormd/editormd.min.js"></script>
+
+
+
+  <!--复用所下载文件夹example中的simple.html文件中的Js-->
+  <script type="text/javascript">
+      var contentEditor;
+
+      $(function() {
+          <!--解释：这里的md-content是textarea外层div的id-->
+          contentEditor = editormd("md-content", {
+              width   : "100%",
+              height  : 640,
+              syncScrolling : "single",
+              <!--解释：这里的path是lib文件夹的路径,一定要写对-->
+              path    : "../static/lib/editormd/lib/",
+              emoji:true,
+          });
+      });
+  </script>
+
+
+
  <script>
-     <!--手机端下拉菜单 -->
+     <!--手机端下拉菜单,通过toggle实现 -->
+     <!-- 获取样式标签,进行操作,实现点击切换,如果含gg的标签中有mobilehide类标签,就删除,否则添加 -->
      $('.menu.toggle').click(function(){
             $('.gg').toggleClass('mobilehide');
      });
 
+        <!--下拉菜单-->
      $('.ui.dropdown').dropdown(
             {
                 //触发方式:鼠标悬浮
@@ -262,7 +304,7 @@
              }
          }
      });
-
  </script>
+
 </body>
 </html>
