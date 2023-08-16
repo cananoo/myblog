@@ -7,6 +7,15 @@
     <title>详情页</title>
     <!-- 引入semantic-ui样式 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <!-- 引入typo.css样式 ,注意这里引用的是改过了的，原版的文件会和Semantic UI有所冲突，直接拿来用就可以了-->
+    <!--具体更多使用方法可以参考下载的typo.html的例子-->
+    <link rel="stylesheet" href="./static/css/typo.css">
+    <!--引入animate.css动画库-->
+    <!--具体效果可参考https://animate.style/-->
+    <link rel="stylesheet" href="./static/css/animate.css">
+    <!--引入prism.css代码高亮库-->
+    <!--具体效果可参考https://prismjs.com/,将内容放在<pre><code class="language-css"></code></pre>中即可-->
+    <link rel="stylesheet" href="./static/lib/prism/prism.css">
     <!-- 引入自定义样式 -->
     <link rel="stylesheet" href="./static/css/modify.css">
 </head>
@@ -44,7 +53,7 @@
   </nav>
 
   <!--主体内容-->
-  <div class="m-container-small me4 text-opacity">
+  <div class="m-container-small me4 text-opacity ">
       <div class="ui container">
           <div class="ui top attached segment">
               <!-- 作者-->
@@ -62,7 +71,7 @@
                   </div>
               </div>
           </div>
-          <div class="ui attached segment">
+          <div class="ui attached segment animate__animated animate__fadeIn">
               <!-- 图片 -->
               <img src="https://p.qpic.cn/dnfbbspic/0/dnfbbs_dnfbbs_dnf_gamebbs_qq_com_forum_201911_22_083548z4dn4295a5ej89ad.jpg/0" alt="" class="ui fluid rounded image">
           </div>
@@ -74,7 +83,8 @@
               </div>
                      <h2 class="ui centered aligned header">二刺螈圣经</h2>
                        <br>
-                      <div id="content" class="me-lr-responsive" >
+                            <!--typo typo-selection：内容排版插件 -->
+                      <div id="content" class="typo typo-selection me-lr-responsive" >
                           <p>1. 没必要的事就不做，必要的事就尽快做。&mdash;&mdash;冰菓</p>
                           <p>2. 因为触碰的差别而察觉到真相，应该说是侥幸吧。&mdash;&mdash;猫物语</p>
                           <p>3. 没有努力到要哭的程度，不甘心就可以了&mdash;&mdash;花牌情缘</p>
@@ -85,6 +95,15 @@
                           <p>8. 我觉得你比我幸福，因为你可以选择爱我或不爱我，而我只能选择爱你或更爱你。&mdash;&mdash;school days</p>
                           <p>9. 即使交不到100个朋友也没关系，只要交到比100个朋友更重要的朋友，&mdash;&mdash;我的朋友很少</p>
                           <p>10. 即使忘记了一起生活的伙伴的长相，也不会忘记深刻在灵魂里的羁绊。&mdash;&mdash;Angel Bests</p>
+                          <!--如果内容中包含table，那么可以在table标签中添加class="ui table"，就能实现semantic-ui自适应屏幕的样式了-->
+                          <!--代码高亮 ui-corner-all:设置圆角css-->
+                          <pre class="ui-corner-all"><code class="language-css" >
+    public class HelloWorld {
+        public static void main(String[] args) {
+             System.out.println("Hello World!");
+       }
+}
+                          </code></pre>
                       </div>
                      <!--标签-->
                       <div class="me-lr-responsive me3">
@@ -294,7 +313,10 @@
 <!-- 引入semantic-ui样式 -->
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 <!-- 获取样式标签,进行操作,实现点击切换--如果含gg的标签中有m-mobile-hide类，就删除，否则添加 -->
- <script>
+  <!--引入prism.js代码高亮库-->
+  <script src="./static/lib/prism/prism.js"></script>
+
+  <script>
      <!--手机端下拉菜单 -->
      $('.menu.toggle').click(function(){
             $('.gg').toggleClass('mobilehide');

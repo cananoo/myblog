@@ -250,3 +250,8 @@ PC端
     /*解释：水平偏移量，垂直偏移量，模糊半径，阴影颜色（三色，透明度）*/
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2) !important;
 }
+
+/*圆角*/
+.ui-corner-all {
+    border-radius: 0.5em !important;
+}
