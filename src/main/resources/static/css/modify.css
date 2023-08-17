@@ -133,6 +133,12 @@ body {
     right: 0 !important;
 }
 
+.m-fixed {
+    position: fixed !important;
+    top: 500px !important;
+    right: 0 !important;
+}
+
 
 /*color*/
 .cBlack {
