@@ -56,8 +56,9 @@
   </nav>
 
   <!--主体内容-->
-  <div class="m-container-small me4 text-opacity ">
-      <div class="ui container">
+  <!--waypoint:滚动检测内容-->
+  <div id="waypoint" class="m-container-small me4 text-opacity ">
+      <div  class="ui container">
           <div class="ui top attached segment">
               <!-- 作者-->
               <div class="ui horizontal link list">
@@ -613,20 +614,29 @@ h5,h6{font-size:1em;}
       </div>
   </div>
 
-  <!--右侧固定栏-->
-  <div class="ui vertical icon buttons m-fixed" style="z-index: 1 !important;">
+  <!--右侧固定栏,style="display: none" 默认不显示-->
+  <div  class="ui vertical icon buttons m-fixed "   style="display: none">
       <button type="button" class="ui teal button catalogue">目录</button>
       <!--comment-container：为留言区域的id ，可点击直接跳转到留言区域 -->
       <a href="#comment-container" class="ui teal button">留言</a>
-      <button class="ui button"><i class="wechat icon"></i></button>
-      <a href="#" class="ui button"><i class="chevron up icon"></i></a>
+      <button class="ui wx button"><i class="wechat icon"></i></button>
+      <div id="toTop" class="ui button"><i class="chevron up icon"></i></div>
   </div>
 
+  <!--目录隐藏域-->
   <div class="ui catalogue-container flowing popup  transition hidden " style="width: 250px !important;">
       <ol class="js-toc">
          <!--注意：修改tocbot.css中.toc-link::before的height为20px,否则会有适配问题-->
       </ol>
   </div>
+
+ <!--微信二维码隐藏域-->
+  <div id="test" class="ui wechat-qr flowing popup transition hidden" style="width: 100px">
+      <!--<img src="./static/images/wechat.png" alt="" class="ui rounded image " style="width: 80px">-->
+
+  </div>
+
+
 
   <br>
   <br>
@@ -682,6 +692,12 @@ h5,h6{font-size:1em;}
   <script src="./static/lib/prism/prism.js"></script>
 <!-- 引入tocbot目录插件 -->
 <script src="./static/lib/tocbot/tocbot.min.js"></script>
+  <!--引入qrcode.js二维码插件-->
+    <script src="./static/lib/qrcode/qrcode.min.js"></script>
+  <!--引入scrollTo.js插件，cdn地址引入-->
+  <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.3/jquery.scrollTo.min.js"></script>
+  <!--引入waypoints.js插件-->
+    <script src="./static/lib/waypoints/jquery.waypoints.min.js"></script>
   <script>
 
      <!--手机端下拉菜单 -->
@@ -713,6 +729,42 @@ h5,h6{font-size:1em;}
          // For headings inside relative or absolute positioned containers within content.
          hasInnerContainers: true,
      });
+    <!--微信二维码功能显示 -->
+     $('.wx').popup({
+         popup : $('.wechat-qr'),
+         position : 'left center'
+     });
+
+     <!--qrcode.js二维码插件的使用,官方复制即可-->
+     var qrcode = new QRCode("test", {
+         <!--需要生成二维码的标签地址-->
+         text: "http://jindo.dev.naver.com/collie",
+         width: 110,
+         height: 110,
+         colorDark : "#000000",
+         colorLight : "#ffffff",
+         correctLevel : QRCode.CorrectLevel.H
+     });
+
+        <!--scrollTo返回顶部功能-->
+        $('#toTop').click(function(){
+            <!--0:表示距离顶部的距离，500：表示滚动的速度-->
+            $.scrollTo(0,500);
+        });
+
+        <!--waypoints.js插件的使用,官网复制,实现滚动时，右侧状态栏显示-->
+     var waypoint = new Waypoint({
+         element: document.getElementById('waypoint'),
+         handler: function(direction) {
+            if (direction == 'down') {
+                $('.m-fixed').show(500);
+            }else {
+                <!--隐藏,参数为渐变速度-->
+                $('.m-fixed').hide(500);
+            }
+
+         }
+     })
  </script>
 </body>
 </html>
