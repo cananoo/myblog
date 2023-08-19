@@ -1,3 +1,2 @@
-*.js linguist-language=1
-*.css linguist-language=2
-*.html linguist-language=3
+special-vendored-path/* linguist-vendored
+jquery.js linguist-vendored=false
