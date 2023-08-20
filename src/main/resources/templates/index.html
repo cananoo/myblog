@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
+<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<head th:replace="_fragments :: head(~{::title})"> <!--Thymeleaf的片段,这里引用的_fragments.html中的head片段,并且替换title参数-->
     <meta charset="UTF-8">
     <!-- 设置移动端缩放比例 -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -8,13 +8,13 @@
     <!-- 引入semantic-ui样式 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
     <!-- 引入自定义样式 -->
-    <link rel="stylesheet" href="../static/css/modify.css">
+    <link rel="stylesheet" href="../static/css/modify.css" > <!--th:href="@{/css/modify.css}" Thymeleaf模板引擎，否则无法引入成功-->
 </head>
 <body>
 
   <!--导航栏-->
     <!-- 解释ui inverted attached segment：ui是semantic-ui的样式，inverted是反色，attached是附着在上面，segment用于分段,me是css类标签 -->
-  <nav class="ui inverted attached segment me text-opacity ui-shadow ">
+  <nav th:replace="_fragments :: menu(1)" class="ui inverted attached segment me text-opacity ui-shadow ">
       	<!-- 解释ui container：container是容器,用于达到最佳显示效果 -->
     <div class="ui container">
         <!-- 解释ui inverted secondary menu：inverted是反色，secondary次要菜单，menu是菜单,stackable：堆叠的,屏幕小时可堆叠在一块 -->
@@ -22,7 +22,7 @@
             <!-- 解释ui teal header item：teal是蓝绿色，header是标题，item表示一组条目 -->
             <h2 class="ui teal header item">Blog</h2>
             <!-- 解释<i class="home icon"></i>：i是图标，home是图标名字，icon是图标,mobilehide：手机端隐藏,gg:为JS获取标签实现显示隐藏条目而用 -->
-            <a href="#" class="active gg item mobilehide "><i class="home icon"></i>首页</a>
+            <a href="#" class="gg item mobilehide "><i class="home icon"></i>首页</a>
             <a href="#" class="gg item mobilehide "><i class="idea icon" ></i>分类</a>
             <a href="#" class="gg item mobilehide "><i class="tags icon"></i>标签</a>
             <a href="#" class="gg item mobilehide "><i class="clone icon"></i>归档</a>
@@ -356,7 +356,7 @@
                        <h4> 扫码关注我</h4>
             </div>
             <div class="ui centered card " style="width: 11em">
-                <img src="../static/images/wechat.png" alt="" class="ui rounded image" >
+                <img  src="../static/images/wechat.png" th:src="@{images/wechat.png}" alt="" class="ui rounded image" >
             </div>
 
 
@@ -367,12 +367,12 @@
 
   <!--底部-->
   <!-- 解释ui inverted vertical segment:vertical填充类似于attached，segment是模块 -->
-  <footer class="ui  vertical inverted segment foot text-opacity">
+  <footer th:replace="_fragments :: footer" class="ui  vertical inverted segment foot text-opacity">
      <div class="ui  center aligned container ">
           <!-- 解释:grid是网格 把整个横向页面分为16份，便于拆分 divided 显示分割线 -->
          <div class="ui divided inverted stackable grid ">
              <div class=" three wide column">
-                    <img src="../static/images/wechat.png" class="ui centered aligned rounded image " alt="" style="width: 120px">
+                    <img src="../static/images/wechat.png" th:src="@{images/wechat.png}" class="ui centered aligned rounded image " alt="" style="width: 120px">
              </div>
              <div class="three wide column">
                  <h4 class="ui inverted header text-opacity">最新博客</h4>
@@ -408,12 +408,17 @@
 
 
 
-<!-- 引入jquery -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<!-- 引入semantic-ui样式 -->
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-<!-- 获取样式标签,进行操作,实现点击切换--如果含gg的标签中有m-mobile-hide类，就删除，否则添加 -->
- <script>
+
+  <!--下面的语法注释在静态页面是注释，被Thymeleaf模板引擎解析后就不是注释了，而是真正的代码，所以要注释掉-->
+ <!--/*/<th:block  th:replace="_fragments :: script"/*/-->
+      <!-- 引入jquery -->
+      <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+      <!-- 引入semantic-ui样式 -->
+      <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+ <!--/*/</th:block>/*/-->
+
+  <!-- 获取样式标签,进行操作,实现点击切换--如果含gg的标签中有m-mobile-hide类，就删除，否则添加 -->
+  <script>
      $('.menu.toggle').click(function(){
             $('.gg').toggleClass('mobilehide');
      });
