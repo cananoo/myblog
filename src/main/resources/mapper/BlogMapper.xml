@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.myblog.mapper.BlogMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.myblog.pojo.Blog">
+            <id property="id" column="id" jdbcType="BIGINT"/>
+            <result property="title" column="title" jdbcType="VARCHAR"/>
+            <result property="content" column="content" jdbcType="VARCHAR"/>
+            <result property="firstPicture" column="first_picture" jdbcType="VARCHAR"/>
+            <result property="flag" column="flag" jdbcType="VARCHAR"/>
+            <result property="views" column="views" jdbcType="INTEGER"/>
+            <result property="appreciation" column="appreciation" jdbcType="BIT"/>
+            <result property="shareStatement" column="share_statement" jdbcType="BIT"/>
+            <result property="commentabled" column="commentabled" jdbcType="BIT"/>
+            <result property="published" column="published" jdbcType="BIT"/>
+            <result property="recommend" column="recommend" jdbcType="BIT"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="typeId" column="type_id" jdbcType="BIGINT"/>
+            <result property="userId" column="user_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,title,content,
+        first_picture,flag,views,
+        appreciation,share_statement,commentabled,
+        published,recommend,create_time,
+        update_time,type_id,user_id
+    </sql>
+</mapper>
