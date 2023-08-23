@@ -2,6 +2,7 @@ package com.example.myblog.mapper;
 
 import com.example.myblog.pojo.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
 * @author ASUS
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2023-08-22 20:00:32
 * @Entity com.example.myblog.pojo.User
 */
+@Repository
 public interface UserMapper extends BaseMapper<User> {
 
 }

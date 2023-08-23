@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})"> <!--Thymeleaf的片段,这里引用的_fragments.html中的head片段,并且替换title参数-->
+    <meta charset="UTF-8">
+    <!-- 设置移动端缩放比例 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>login</title>
+    <!-- 引入semantic-ui样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="../../static/css/modify.css" > <!--th:href="@{/css/modify.css}" Thymeleaf模板引擎，否则无法引入成功-->
+</head>
+<body>
+<br>
+<br>
+<br>
+<div class="m-container-small me7 text-opacity" style="width: 30em !important;">
+    <div class="ui container">
+        <!--直接拿semantic ui的示例登录页面-->
+        <div class="ui middle aligned center aligned grid">
+            <div class="column">
+                <h2 class="ui teal image header">
+                    <div class="content">
+                        管理后台登录
+                    </div>
+                </h2>
+                <form class="ui large form mymargin-top" method="post" th:action="@{/admin/login}">
+                    <div class="ui  segment">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="用户名">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="密码">
+                            </div>
+                        </div>
+                        <button class="ui fluid large teal submit button">登   录</button>
+                    </div>
+
+                    <div class="ui error mini message"></div>  <!--表单验证区域-->
+                    <!--后端传来的messsage不为空的时候打印message-->
+                    <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名或密码错误</div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--/*/<th:block  th:replace="_fragments :: script"/*/-->
+<!-- 引入jquery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<!-- 引入semantic-ui样式 -->
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+
+<script>
+    <!--表单验证-->
+    $('.ui.form').form({
+        fields:{
+            username:{
+                identifier:'username',
+                rules:[
+                    {
+                        type:'empty',
+                        prompt:'请输入账号'
+                    }
+                ]
+            },
+            password:{
+                identifier:'password',
+                rules:[
+                    {
+                        type:'empty',
+                        prompt:'请输入密码'
+                    }
+                ]
+            }
+        }
+    });
+
+</script>
+
+</body>
+</html>

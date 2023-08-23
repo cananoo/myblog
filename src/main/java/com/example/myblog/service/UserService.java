@@ -10,4 +10,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 */
 public interface UserService extends IService<User> {
 
+ //登录验证
+ User checkUser(String username,String password);
+
 }

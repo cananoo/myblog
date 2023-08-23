@@ -28,27 +28,31 @@
 <!--主体部分-->
 <body>
 
-<!--导航栏-->
+<!--后台导航栏-->
 <!-- 解释ui inverted attached segment：ui是semantic-ui的样式，inverted是反色，attached是附着在上面，segment用于分段,me是css类标签 -->
-<nav th:fragment="menu(n)" class="ui inverted attached segment me text-opacity ui-shadow ">
+<nav th:fragment="menu(n)" class="ui inverted attached segment me text-opacity ui-shadow " style="z-index: 1 !important;">
     <!-- 解释ui container：container是容器,用于达到最佳显示效果 -->
     <div class="ui container">
         <!-- 解释ui inverted secondary menu：inverted是反色，secondary次要菜单，menu是菜单,stackable：堆叠的,屏幕小时可堆叠在一块 -->
         <div class="ui inverted secondary stackable menu">
             <!-- 解释ui teal header item：teal是蓝绿色，header是标题，item表示一组条目 -->
-            <h2 class="ui teal header item">Blog</h2>
+            <h2 class="ui teal header item">管理后台</h2>
             <!-- 解释<i class="home icon"></i>：i是图标，home是图标名字，icon是图标,mobilehide：手机端隐藏,gg:为JS获取标签实现显示隐藏条目而用 -->
-            <a href="#" class="gg item mobilehide " th:classappend="${n == 1} ? 'active'"><i class="home icon"></i>首页</a>    <!--th:classappend="${n == 1} ? 'active'"：Thymeleaf的条件判断，如果n==1，就添加active样式-->
+            <a href="#" class="gg item mobilehide " th:classappend="${n == 1} ? 'active'"><i class="home icon"></i>博客</a>
             <a href="#" class="gg item mobilehide " th:classappend="${n == 2} ? 'active'"><i class="idea icon" ></i>分类</a>
             <a href="#" class="gg item mobilehide " th:classappend="${n == 3} ? 'active'"><i class="tags icon"></i>标签</a>
-            <a href="#" class="gg item mobilehide " th:classappend="${n == 4} ? 'active'"><i class="clone icon"></i>归档</a>
-            <a href="#" class="gg item mobilehide " th:classappend="${n == 5} ? 'active'"><i class="info icon"></i>关于我</a>
-            <div class="right item">
-                <!-- 解释ui icon inverted transparent input：transparent是透明，input是输入框 -->
-                <div class="ui icon inverted transparent input">
-                    <input type="text" placeholder="Search...">
-                    <!-- 解释<i class="search link icon"></i>：i是图标，search是图标名字，link是链接，icon是图标 -->
-                    <i class="search link icon"></i>
+
+            <div class="ui right aligned item mobilehide">
+                <!--下面是下拉菜单-直接使用semantic-ui提供的即可-->
+                <div class="ui inline dropdown">
+                    <div class="text">
+                        <img class="ui avatar image" src="https://pic4.zhimg.com/v2-b9030ce2af99a6a5e71ed3aaf37caf97_r.jpg">
+                        Cananoo
+                    </div>
+                    <i class="dropdown icon "></i>
+                    <div class="menu" style="width: 500px">
+                        <a class="ui  item " style="width: 80px"  th:href="@{/admin/logout}" >注销</a>
+                    </div>
                 </div>
             </div>
         </div>
