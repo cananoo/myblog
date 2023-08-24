@@ -2,6 +2,7 @@ package com.example.myblog.controller;
 
 import com.example.myblog.pojo.User;
 import com.example.myblog.service.UserService;
+import com.example.myblog.util.MD5Utils;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,14 +18,17 @@ public class LoginController {
     @Autowired
     private UserService userService;
 
+    //登录页
     @GetMapping
     public String loginPage(){
         return "admin/login";
     }
 
+
+    //登录进入管理首页
     @PostMapping("/login")
     public String login(String username, String password, HttpSession session, RedirectAttributes attributes){
-        User user = userService.checkUser(username, password);
+        User user = userService.checkUser(username, MD5Utils.code(password));
         if (user != null){
             user.setPassword(null); // 不要把密码传到前端(不安全)
         session.setAttribute("user",user);
@@ -35,6 +39,7 @@ public class LoginController {
         }
     }
 
+    //注销操作
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.removeAttribute("user");
