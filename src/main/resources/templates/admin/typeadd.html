@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" >
-<head>
+<head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <!-- 设置移动端缩放比例 -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>博客发布</title>
+    <title>分类新增</title>
 
     <!-- 引入semantic-ui样式 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
@@ -19,7 +19,7 @@
 
   <!--导航栏-->
     <!-- 解释ui inverted attached segment：ui是semantic-ui的样式，inverted是反色，attached是附着在上面，segment用于分段,me是css类标签 -->
-  <nav class="ui inverted attached segment me text-opacity ui-shadow " style="z-index: 1 !important;">
+  <nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment me text-opacity ui-shadow " style="z-index: 1 !important;">
       	<!-- 解释ui container：container是容器,用于达到最佳显示效果 -->
     <div class="ui container">
         <!-- 解释ui inverted secondary menu：inverted是反色，secondary次要菜单，menu是菜单,stackable：堆叠的,屏幕小时可堆叠在一块 -->
@@ -61,124 +61,39 @@
       </div>
   </div>
 
-
+<br>
+  <br>
+  <br>
+  <br>
   <!--主体内容-->
   <div class="m-container-small me4 ">
       <div class="ui container">
           <form action="#" method="post" class="ui form">
-              <div class=" field">
-                  <div class="ui left labeled input text-opacity">
-                      <!--compact:使标签长度随内容变化-->
-                      <div class="ui red compact basic selection dropdown label">
-                          <input type="hidden" value="原创">
-                          <i class="dropdown icon"></i>
-                          <div class="text">原创</div>
-                          <div class="menu">
-                              <div class="item" data-value="原创">原创</div>
-                              <div class="item" data-value="转载">转载</div>
-                              <div class="item" data-value="翻译">翻译</div>
-                          </div>
-                      </div>
-                  <input type="text" name="title" placeholder="标题">
-                  </div>
-                  </div>
-                <div class="field">
-                    <!--style="z-index: 1 !important;": 使编辑器在下拉框之上，叠放层次在最上层-->
-                    <div id="md-content" style="z-index: 1 !important;">
-                        <textarea name="content" placeholder="内容" style="display:none;">
-   [TOC]
-#### Disabled options
-
-- TeX (Based on KaTeX);
-- Emoji;
-- Task lists;
-- HTML tags decode;
-- Flowchart and Sequence Diagram;
-</textarea>
-                    </div>
-                </div>
-              <div class="two fields" >
-                    <div class="field " style="z-index: 1 !important;">
-                        <!--action:使标签与下拉框连接紧密-->
-                        <div class="ui left labeled action input ">
-                            <label class="ui compact red basic label">分类</label>
-                            <!--multiple search:提供多选功能和搜索功能-->
-                            <div class="ui fluid selection multiple search dropdown">
-                                <input type="hidden" name="type">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">分类</div>
-                                <div class="menu">
-                                    <div class="item" data-value="1">错误日志</div>
-                                    <div class="item" data-value="2">开发手册</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="field " style="z-index: 1 !important;">
-                        <div class="ui left labeled action input ">
-                            <label class="ui compact red basic label">标签</label>
-                            <div class="ui fluid selection multiple search dropdown">
-                                <input type="hidden" name="tag">
-                                <i class="dropdown icon"></i>
-                                <div class="default text"> 标签</div>
-                                <div class="menu">
-                                    <div class="item" data-value="1">java</div>
-                                    <div class="item" data-value="2">python</div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-              </div>
-
               <div class="field">
                   <div class="ui left labeled input text-opacity">
-                      <label  class="ui teal basic label">首图</label>
-                      <input type="text" name="indexPicture" placeholder="首图引用地址">
+                      <label  class="ui teal basic label">名称</label>
+                      <input type="text" name="typename" placeholder="分类名称">
                   </div>
               </div>
-
-              <div class="inline fields" style="margin-left: 550px">
-                  <div class="field">
-                      <!--class="hidden":默认不选中-->
-                      <input type="checkbox" id="recommend"  checked name="recommend" class="hidden">
-                      <label for="recommend">推荐</label>
-                  </div>
-                  <div class="field">
-                      <!--class="hidden":默认不选中-->
-                      <input type="checkbox" id="shareInfo" name="shareInfo" class="hidden">
-                      <label for="shareInfo">转载声名</label>
-                  </div>
-                  <div class="field">
-                      <!--class="hidden":默认不选中-->
-                      <input type="checkbox" id="appreciation" name="appreciation" class="hidden">
-                      <label for="appreciation">赞赏</label>
-                  </div>
-                  <div class="field">
-                      <!--class="hidden":默认不选中-->
-                      <input type="checkbox" id="comment" name="comment" class="hidden">
-                      <label for="comment">评论</label>
-                  </div>
-              </div>
-
               <!--展示错误提示-->
               <div class="ui error message"></div>
 
               <div class="ui right aligned container">
                   <!--onclick="window.history.go(-1):返回上一页-->
                   <button class="ui button" type="button" onclick="window.history.go(-1)">返回</button>
-                  <button class="ui secondary button">保存</button>
-                  <button class="ui teal  button">发布</button>
+                  <button class="ui teal  button">提交</button>
               </div>
-
-
           </form>
       </div>
   </div>
+  <br>
+  <br>
+  <br>
+  <br><br>
 
   <!--底部-->
   <!-- 解释ui inverted vertical segment:vertical填充类似于attached，segment是模块 -->
-  <footer class="ui  vertical inverted segment foot text-opacity">
+  <footer th:replace="admin/_fragments :: footer" class="ui  vertical inverted segment foot text-opacity">
      <div class="ui  center aligned container ">
           <!-- 解释:grid是网格 把整个横向页面分为16份，便于拆分 divided 显示分割线 -->
          <div class="ui divided inverted stackable grid ">
@@ -219,32 +134,15 @@
 
 
 
-<!-- 引入jquery -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<!-- 引入semantic-ui样式 -->
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
-
-  <!--引入editor.md编辑器-->
-  <script src="../../static/lib/editormd/editormd.min.js"></script>
 
 
+  <!--/*/<th:block  th:replace="_fragments :: script"/*/-->
+  <!-- 引入jquery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+  <!-- 引入semantic-ui样式 -->
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+  <!--/*/</th:block>/*/-->
 
-  <!--复用所下载文件夹example中的simple.html文件中的Js-->
-  <script type="text/javascript">
-      var contentEditor;
-
-      $(function() {
-          <!--解释：这里的md-content是textarea外层div的id-->
-          contentEditor = editormd("md-content", {
-              width   : "100%",
-              height  : 640,
-              syncScrolling : "single",
-              <!--解释：这里的path是lib文件夹的路径,一定要写对-->
-              path    : "../../static/lib/editormd/lib/",
-              emoji:true,
-          });
-      });
-  </script>
 
 
 

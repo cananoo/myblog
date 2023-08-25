@@ -1,7 +1,14 @@
 package com.example.myblog.service;
 
+
+
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.myblog.pojo.Type;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.ui.Model;
+
+import java.util.List;
+
 
 /**
 * @author ASUS
@@ -9,5 +16,20 @@ import com.baomidou.mybatisplus.extension.service.IService;
 * @createDate 2023-08-22 20:04:03
 */
 public interface TypeService extends IService<Type> {
+
+    //新增类型
+    void saveType(Type type);
+
+    //根据id查询类型
+    Type getTypeById(long id);
+
+    //根据id修改类型名称
+    void updateTypeById(long id,String name);
+
+    //根据id删除类型
+    void  deleteTypeById(long id);
+
+    //返回固定页面的数据
+    List<Type> findPage(Page<Type> page);
 
 }
