@@ -25,9 +25,10 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type>
     private  TypeMapper typeMapper;
 
     //新增类型
-    public void saveType(Type type) {
+    public int saveType(Type type) {
 
-         typeMapper.insert(type);
+        int insert = typeMapper.insert(type);
+        return insert;
     }
 
     //根据id查找类型

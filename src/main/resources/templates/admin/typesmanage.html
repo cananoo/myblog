@@ -76,10 +76,10 @@
               </tr>
               </thead>
               <tbody>
-              <tr th:each="type : ${list}">
-                  <!--每页都按5行数据进行排列-->
-                  <td th:if="${type.id % 5 == 0}" data-label="Name">5</td>
-                  <td th:unless="${type.id % 5 == 0}" th:text="${type.id}%5" data-label="Name">1</td>
+              <tr th:each="type,iterStat: ${list}">
+                  <!--每页都按5行数据进行排列,这里用迭代器,不用类型id，因为删除后的id不会候补-->
+                  <td th:if="${(iterStat.index+1) % 5 == 0}" data-label="Name">5</td>
+                  <td th:unless="${(iterStat.index+1) % 5 == 0}" th:text="${iterStat.index+1}%5" data-label="Name">1</td>
                   <td th:text="${type.name}" data-label="Age">练习清单</td>
                   <td>
                       <a href="#" th:href="@{/admin/types/edit(id=${type.id})}" class="ui mini teal basic button">编辑</a>
@@ -89,8 +89,8 @@
               </tbody>
               <!--复用semantic ui的分页样式-->
               <tfoot>
-              <tr ><th colspan="6">
-                  <div class="ui  pagination mini menu">
+              <tr ><th colspan="3">
+                  <div class="ui  pagination mini menu" th:if="${pagetotal > 1}">
                       <!--根据后端传来的当前页和总页数调整分页样式-->
                       <a th:if="${current > 1}" class="item" th:href="@{/admin/types(pagenum=${current}-1)}">上一页</a>
                       <a th:if="${current > 2}" th:href="@{/admin/types(pagenum=${current}-2)}" th:text="${current}-2" class="item">1</a>

@@ -18,7 +18,7 @@ import java.util.List;
 public interface TypeService extends IService<Type> {
 
     //新增类型
-    void saveType(Type type);
+    int saveType(Type type);
 
     //根据id查询类型
     Type getTypeById(long id);
