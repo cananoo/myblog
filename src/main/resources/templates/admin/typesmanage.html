@@ -51,7 +51,7 @@
   <!--二级导航-->
   <div class="ui attached inverted pointing menu text-opacity2">
       <div class="ui container" >
-          <a href="#" class="item ">发布</a>
+          <a href="#" th:href="@{/admin/types/input}" class="active item ">新增</a>
           <a href="#" class="active teal item ">列表</a>
       </div>
   </div>
@@ -60,9 +60,17 @@
   <!--主体内容-->
   <div class="m-container-small me4 text-opacity">
       <div class="ui container">
-
-          <br>
-          <br>
+          <!--验证-->
+          <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+              <i class="close icon"></i>
+              <div class="header">提示:</div>
+              <p th:text="${message}">恭喜，删除成功！</p>
+          </div>
+          <div class="ui negative message" th:unless="${#strings.isEmpty(error)}">
+              <i class="close icon"></i>
+              <div class="header">提示:</div>
+              <p th:text="${error}">抱歉，删除失败！</p>
+          </div>
           <br>
           <br>
           <br>
@@ -77,13 +85,13 @@
               </thead>
               <tbody>
               <tr th:each="type,iterStat: ${list}">
-                  <!--每页都按5行数据进行排列,这里用迭代器,不用类型id，因为删除后的id不会候补-->
-                  <td th:if="${(iterStat.index+1) % 5 == 0}" data-label="Name">5</td>
-                  <td th:unless="${(iterStat.index+1) % 5 == 0}" th:text="${iterStat.index+1}%5" data-label="Name">1</td>
+                  <!--每页都按5行(由${size}指定)数据进行排列,这里用迭代器,不用类型id，因为删除后的id不会候补-->
+                  <td th:if="${(iterStat.index+1)} % ${size} == 0" data-label="Name">5</td>
+                  <td th:unless="${(iterStat.index+1)} % ${size} == 0" th:text="${iterStat.index+1}%5" data-label="Name">1</td>
                   <td th:text="${type.name}" data-label="Age">练习清单</td>
                   <td>
                       <a href="#" th:href="@{/admin/types/edit(id=${type.id})}" class="ui mini teal basic button">编辑</a>
-                      <a href="#"  th:href="@{/admin//types/delete(id=${type.id})}" class="ui mini red basic button">删除</a>
+                      <a href="#"  th:href="@{/admin/types/delete(id=${type.id},dpage=${current})}" class="ui mini red basic button">删除</a>
                   </td>
               </tr>
               </tbody>
@@ -95,8 +103,9 @@
                       <a th:if="${current > 1}" class="item" th:href="@{/admin/types(pagenum=${current}-1)}">上一页</a>
                       <a th:if="${current > 2}" th:href="@{/admin/types(pagenum=${current}-2)}" th:text="${current}-2" class="item">1</a>
                       <a th:if="${current > 1}" th:href="@{/admin/types(pagenum=${current}-1)}" th:text="${current}-1" class="item">2</a>
-                      <a th:href="@{/admin/types(pagenum=${current})}" th:text="${current}" class="item">3</a>
-                      <a th:if="${current < pagetotal}" th:href="@{/admin/types(pagenum=${current}+1)}" th:text="${current}+1" class="item">4</a>
+                      <a th:href="@{/admin/types(pagenum=${current})}" th:text="${current}" class="item active">3</a>
+                      <a th:if="${current+1 <= pagetotal}" th:href="@{/admin/types(pagenum=${current}+1)}" th:text="${current}+1" class="item">4</a>
+                      <a th:if="${current+2 <= pagetotal}" th:href="@{/admin/types(pagenum=${current}+2)}" th:text="${current}+2" class="item">4</a>
                       <a th:if="${current < pagetotal}" th:href="@{/admin/types(pagenum=${current}+1)}" class="item">下一页</a>
                   </div>
                   <a href="#"  th:href="@{/admin/types/input}" class="ui mini right floated orange basic button">新增</a>
@@ -171,6 +180,11 @@
                 on:'hover'
             }
      );
+
+     <!--关闭message,注意message后面有一个空格-->
+     $('.message .close').on('click',function () {
+         $(this).closest('.message').transition('fade');
+     });
  </script>
 </body>
 </html>

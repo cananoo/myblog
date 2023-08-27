@@ -56,7 +56,7 @@
   <!--二级导航-->
   <div class="ui attached inverted pointing menu text-opacity2" >
       <div class="ui container" >
-          <a href="#" class="active teal item ">发布</a>
+          <a href="#" class="active teal item ">新增</a>
           <a th:href="@{/admin/types}" class=" item ">列表</a>
       </div>
   </div>
@@ -68,16 +68,32 @@
   <!--主体内容-->
   <div class="m-container-small me4 ">
       <div class="ui container">
-          <form th:action="@{/admin/types/save}" method="post" class="ui form">
-              <div class="field">
+           <!--验证-->
+          <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+              <i class="close icon"></i>
+              <div class="header">提示:</div>
+              <p th:text="${message}">恭喜，添加成功！</p>
+          </div>
+          <div class="ui negative message" th:unless="${#strings.isEmpty(error)}">
+              <i class="close icon"></i>
+              <div class="header">提示:</div>
+              <p th:text="${error}">抱歉，添加失败！</p>
+          </div>
+          <div class="ui negative message" th:unless="${#strings.isEmpty(existed)}">
+              <i class="close icon"></i>
+              <div class="header">提示:</div>
+              <p th:text="${existed}">类型已存在!</p>
+          </div>
+
+          <form th:action="@{/admin/types/save}" method="post" class="ui form ">
+              <div class="required field">
                   <div class="ui left labeled input text-opacity">
                       <label  class="ui teal basic label">名称</label>
                       <input type="text" name="typename" placeholder="分类名称">
                   </div>
               </div>
               <!--展示错误提示-->
-              <div class="ui error message"></div>
-
+              <div class="ui error message text-opacity"></div>
               <div class="ui right aligned container">
                   <!--onclick="window.history.go(-1):返回上一页-->
                   <button class="ui button" type="button" onclick="window.history.go(-1)">返回</button>
@@ -164,44 +180,24 @@
      <!--表单验证-->
      $('.ui.form').form({
          fields:{
-             title:{
-                 identifier:'title',
+             typename:{
+                 identifier:'typename',
                  rules:[
                      {
                          type:'empty',
-                         prompt:'请输入标题'
-                     }
-                 ]
-             },
-             content:{
-                 identifier:'content',
-                 rules:[
-                     {
-                         type:'empty',
-                         prompt:'请输入内容'
-                     }
-                 ]
-             },
-             type:{
-                 identifier:'type',
-                 rules:[
-                     {
-                         type:'empty',
-                         prompt:'请选择分类'
-                     }
-                 ]
-             },
-             tag:{
-                 identifier:'tag',
-                 rules:[
-                     {
-                         type:'empty',
-                         prompt:'请选择标签'
+                         prompt:'请输入名称'
                      }
                  ]
              }
          }
      });
+
+     <!--关闭message,注意message后面有一个空格-->
+     $('.message .close').on('click',function () {
+         $(this).closest('.message').transition('fade');
+     });
+
+
  </script>
 
 </body>

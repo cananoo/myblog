@@ -24,12 +24,15 @@ public interface TypeService extends IService<Type> {
     Type getTypeById(long id);
 
     //根据id修改类型名称
-    void updateTypeById(long id,String name);
+    int updateTypeById(long id,String name);
 
     //根据id删除类型
-    void  deleteTypeById(long id);
+    int deleteTypeById(long id);
 
     //返回固定页面的数据
     List<Type> findPage(Page<Type> page);
+
+    //根据name返回类型
+    Type findTypeByName(String name);
 
 }

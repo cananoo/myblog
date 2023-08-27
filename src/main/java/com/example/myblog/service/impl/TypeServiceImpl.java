@@ -39,16 +39,17 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type>
     }
 
     //根据id修改类型
-    public void updateTypeById(long id,String name) {
+    public int updateTypeById(long id,String name) {
         UpdateWrapper<Type> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("id",id)
                      .set("name",name);
-          typeMapper.update(null, updateWrapper);
+         return typeMapper.update(null, updateWrapper);
     }
 
     //根据id删除类型
-    public void deleteTypeById(long id) {
-        typeMapper.deleteById(id);
+    public int deleteTypeById(long id) {
+        int i = typeMapper.deleteById(id);
+        return i;
     }
 
     //根据类型id升序分页查询
@@ -60,6 +61,16 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type>
         List<Type> records = typePage.getRecords();
        return records;
     }
+
+    //根据name返回类型
+    public Type findTypeByName(String name) {
+        QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
+          queryWrapper.eq("name", name);
+
+        Type type = typeMapper.selectOne(queryWrapper);
+        return type;
+    }
+
 }
 
 
