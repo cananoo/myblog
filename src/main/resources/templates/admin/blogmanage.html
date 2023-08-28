@@ -61,7 +61,7 @@
   <div class="m-container-small me4 text-opacity">
       <div class="ui container">
           <!--表单-->
-          <form action="#" method="post" class="ui segment form">
+          <form action="#" method="post" class="ui secondary segment form">
 
               <div class="fields">
                   <!--field : form表单中的一行 inline:字段的标签可以在旁边而不用在上面显示-->
@@ -70,15 +70,16 @@
                   </div>
                   <div class="inline field">
                       <!--选择下拉菜单-->
-                      <div class="ui selection dropdown">
+                      <div class="ui selection dropdown"  >
                           <input type="hidden" name="type">
                           <i class="dropdown icon"></i>
                           <!--默认显示的文本-->
                           <div class="defualt text text-opacity">分类</div>
                           <div class="menu">
                               <!--data-value:将来传给后端的值-->
-                              <div class="item" data-value="1">错误日志</div>
-                              <div class="item" data-value="2">开发者手册</div>
+                              <span th:each="type : ${types}">
+                                  <div  th:text="${type.name}" class="item" data-value="1">错误日志</div>
+                              </span>
                           </div>
                       </div>
                   </div>
@@ -98,7 +99,7 @@
 
           <br>
           <!--表格-直接使用semantic ui 提供的样式,celled:添加网格线-->
-          <table class="ui celled table">
+          <table class="ui compact teal celled table">
               <thead>
               <tr>
                   <th></th>
@@ -110,23 +111,16 @@
               </tr>
               </thead>
               <tbody>
-              <tr>
-                  <td data-label="Name">1</td>
-                  <td data-label="Age">练习清单</td>
-                  <td data-label="Job">认知神级</td>
-                  <td>是</td>
-                  <td>2023年8月13日22点40分</td>
-                  <td>
-                      <a href="#" class="ui mini teal basic button">编辑</a>
-                      <a href="#" class="ui mini red basic button">删除</a>
-                  </td>
-              </tr>
-              <tr>
-                  <td data-label="Name">2</td>
-                  <td data-label="Age">导数</td>
-                  <td data-label="Job">启动</td>
-                  <td>是</td>
-                  <td>2023年8月13日23点13分</td>
+              <tr th:each="blog,iterStat : ${list}">
+                  <td th:if="${(iterStat.index+1)} % ${size} == 0" th:text="${size}" data-label="id" >3</td>
+                  <td th:unless="${(iterStat.index+1)} % ${size} == 0" th:text="${iterStat.index+1}%5" data-label="id" >1</td>
+                  <td th:text="${blog.title}" data-label="title">练习清单</td>
+                  <!--实现 类型id 与 类型名称的映射-->
+              <span th:each="type : ${types}">
+                  <td th:if="${blog.typeId} == ${type.id}" th:text="${type.name}" data-label="type">认知神级</td>
+              </span>
+                  <td th:text="${blog.recommend}" data-label="recommend">是</td>
+                  <td th:text="${blog.updateTime}" data-label="update">2023年8月13日22点40分</td>
                   <td>
                       <a href="#" class="ui mini teal basic button">编辑</a>
                       <a href="#" class="ui mini red basic button">删除</a>
@@ -136,13 +130,15 @@
               <!--复用semantic ui的分页样式-->
               <tfoot>
               <tr><th colspan="6">
-                  <div class="ui  pagination mini menu">
-                      <a class=" item">上一页</a>
-                      <a class="item">1</a>
-                      <a class="item">2</a>
-                      <a class="item">3</a>
-                      <a class="item">4</a>
-                      <a class="item">下一页</a>
+                  <div class="ui  pagination mini menu" th:if="${pagetotal > 1}">
+                      <!--根据后端传来的当前页和总页数调整分页样式-->
+                      <a th:if="${current > 1}" class="item" th:href="@{/admin/blogs(blognum=${current}-1)}">上一页</a>
+                      <a th:if="${current > 2}" th:href="@{/admin/blogs(blognum=${current}-2)}" th:text="${current}-2" class="item">1</a>
+                      <a th:if="${current > 1}" th:href="@{/admin/blogs(blognum=${current}-1)}" th:text="${current}-1" class="item">2</a>
+                      <a th:href="@{/admin/blogs(blognum=${current})}" th:text="${current}" class="item active">3</a>
+                      <a th:if="${current+1 <= pagetotal}" th:href="@{/admin/blogs(blognum=${current}+1)}" th:text="${current}+1" class="item">4</a>
+                      <a th:if="${current+2 <= pagetotal}" th:href="@{/admin/blogs(blognum=${current}+2)}" th:text="${current}+2" class="item">4</a>
+                      <a th:if="${current < pagetotal}" th:href="@{/admin/blogs(blognum=${current}+1)}" class="item">下一页</a>
                   </div>
                   <a href="#" class="ui mini right floated orange basic button">新增</a>
               </th>

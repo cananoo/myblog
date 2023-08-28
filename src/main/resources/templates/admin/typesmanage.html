@@ -84,10 +84,10 @@
               </tr>
               </thead>
               <tbody>
-              <tr th:each="type,iterStat: ${list}">
+              <tr th:each="type,iterStat : ${list}">
                   <!--每页都按5行(由${size}指定)数据进行排列,这里用迭代器,不用类型id，因为删除后的id不会候补-->
-                  <td th:if="${(iterStat.index+1)} % ${size} == 0" data-label="Name">5</td>
-                  <td th:unless="${(iterStat.index+1)} % ${size} == 0" th:text="${iterStat.index+1}%5" data-label="Name">1</td>
+                  <td th:if="${(iterStat.index+1)} % ${size} == 0" th:text="${size}" data-label="num">5</td>
+                  <td th:unless="${(iterStat.index+1)} % ${size} == 0" th:text="${iterStat.index+1}%5" data-label="num">1</td>
                   <td th:text="${type.name}" data-label="Age">练习清单</td>
                   <td>
                       <a href="#" th:href="@{/admin/types/edit(id=${type.id})}" class="ui mini teal basic button">编辑</a>

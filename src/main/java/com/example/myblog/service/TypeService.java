@@ -35,4 +35,7 @@ public interface TypeService extends IService<Type> {
     //根据name返回类型
     Type findTypeByName(String name);
 
+    //查找所有分类
+    List<Type> findAllType();
+
 }

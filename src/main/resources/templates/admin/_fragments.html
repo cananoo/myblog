@@ -46,8 +46,9 @@
                 <!--下面是下拉菜单-直接使用semantic-ui提供的即可-->
                 <div class="ui inline dropdown">
                     <div class="text">
-                        <img class="ui avatar image" src="https://pic4.zhimg.com/v2-b9030ce2af99a6a5e71ed3aaf37caf97_r.jpg">
-                        Cananoo
+                        <!--从session中动态获取用户信息进行展示-->
+                        <img th:src="${session.user.avatar}" class="ui avatar image" src="https://pic4.zhimg.com/v2-b9030ce2af99a6a5e71ed3aaf37caf97_r.jpg">
+                       <span th:text="${session.user.nickname}">Cananoo</span>
                     </div>
                     <i class="dropdown icon "></i>
                     <div class="menu" style="width: 500px">

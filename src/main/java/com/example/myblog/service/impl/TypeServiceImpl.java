@@ -70,7 +70,11 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type>
         Type type = typeMapper.selectOne(queryWrapper);
         return type;
     }
-
+    // 查找所有分类
+    public List<Type> findAllType() {
+        List<Type> types = typeMapper.selectList(null);
+        return types;
+    }
 }
 
 
