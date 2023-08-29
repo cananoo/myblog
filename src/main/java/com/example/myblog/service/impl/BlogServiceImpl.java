@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.example.myblog.pojo.Blog;
-import com.example.myblog.pojo.Type;
 import com.example.myblog.service.BlogService;
 import com.example.myblog.mapper.BlogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,10 +51,13 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
 
     //根据博客内容返回固定页面的数据
     public List<Blog> findBlogPage(Page<Blog> page, Blog blog) {
+        if (blog == null){
+            return  blogMapper.selectPage(page, null).getRecords();
+        }
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("update_time")
                 .like(blog.getTitle()!=null&& !"".equals(blog.getTitle()),"title",blog.getTitle())
-                .eq(blog.getTypeId()!=null,"typeId",blog.getTypeId())
+                .eq(blog.getTypeId()!=null,"type_id",blog.getTypeId())
                 .eq(blog.getRecommend()!=null,"recommend",blog.getRecommend());
         Page<Blog> blogPage = blogMapper.selectPage(page, queryWrapper);
         List<Blog> records = blogPage.getRecords();

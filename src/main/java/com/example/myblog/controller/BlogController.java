@@ -1,6 +1,5 @@
 package com.example.myblog.controller;
 
-
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.myblog.pojo.Blog;
 import com.example.myblog.pojo.Type;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -25,8 +25,13 @@ public class BlogController {
     @Autowired
     private TypeService typeService;
 
+    // 博客展示页面
     @GetMapping("/blogs")
-    public String blogs(@RequestParam(value = "blognum",defaultValue = "1") String blognum,Model model, HttpSession session,Blog blog){
+    public String blogs(@RequestParam(value = "blognum",defaultValue = "1") String blognum, Model model, HttpSession session){
+
+
+        Blog blog = (Blog) session.getAttribute("blog");
+
         long l ;
         if (session.getAttribute("bdpage") != null){
             l = Long.parseLong((String) session.getAttribute("bdpage"));
@@ -34,13 +39,17 @@ public class BlogController {
         }else {
             l = Long.parseLong(blognum);
         }
-        Page<Blog> page = new Page<>(l,5);
+
+          Page<Blog>   page = new Page<>(l,5);
+
         List<Blog> list = blogService.findBlogPage(page, blog);
         long current = page.getCurrent() ;
         long pagetotal = page.getPages();
         long size = page.getSize();
 
+
         List<Type> allType = typeService.findAllType();
+
 
         model.addAttribute("list",list)
                 .addAttribute("current",current)
@@ -49,4 +58,13 @@ public class BlogController {
                 .addAttribute("types",allType);
         return "admin/blogmanage";
     }
+
+//博客添加搜索条件
+   @PostMapping("/blogs/search")
+    private  String searchBlogs(Blog blog,HttpSession session){
+        session.setAttribute("blog",blog);
+        return  "redirect:/admin/blogs";
+    }
+
+
 }

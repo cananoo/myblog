@@ -61,8 +61,7 @@
   <div class="m-container-small me4 text-opacity">
       <div class="ui container">
           <!--表单-->
-          <form action="#" method="post" class="ui secondary segment form">
-
+          <form th:action="@{/admin/blogs/search}" method="post" class="ui secondary segment form">
               <div class="fields">
                   <!--field : form表单中的一行 inline:字段的标签可以在旁边而不用在上面显示-->
                   <div class="inline field">
@@ -70,18 +69,17 @@
                   </div>
                   <div class="inline field">
                       <!--选择下拉菜单-->
-                      <div class="ui selection dropdown"  >
-                          <input type="hidden" name="type">
+                      <div class="ui selection dropdown" >
+                          <input type="hidden"  name="typeId">
                           <i class="dropdown icon"></i>
                           <!--默认显示的文本-->
                           <div class="defualt text text-opacity">分类</div>
-                          <div class="menu">
+                          <div class="menu"  >
                               <!--data-value:将来传给后端的值-->
-                              <span th:each="type : ${types}">
-                                  <div  th:text="${type.name}" class="item" data-value="1">错误日志</div>
-                              </span>
+                                 <div th:each="type : ${types}" class="item" th:data-value="${type.id}"  th:text="${type.name}" >错误日志</div>
                           </div>
                       </div>
+
                   </div>
                   <div class="field">
                       <div class="ui  checkbox "style="margin-top: 10px">
@@ -91,7 +89,7 @@
                       </div>
                   </div>
                   <div class="field">
-                      <button class="ui mini teal basic button "style="margin-top: 5px"><i class="search icon"></i>搜索</button>
+                      <button  class="ui mini teal basic button " style="margin-top: 5px"><i class="search icon"></i>搜索</button>
                   </div>
               </div>
           </form>
@@ -122,8 +120,8 @@
                   <td th:text="${blog.recommend}" data-label="recommend">是</td>
                   <td th:text="${blog.updateTime}" data-label="update">2023年8月13日22点40分</td>
                   <td>
-                      <a href="#" class="ui mini teal basic button">编辑</a>
-                      <a href="#" class="ui mini red basic button">删除</a>
+                      <a href="#" th:href="@{/admin/blogs/edit(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
+                      <a href="#" th:href="@{/admin/blogs/delete(id=${blog.id})}" class="ui mini red basic button">删除</a>
                   </td>
               </tr>
               </tbody>
@@ -147,7 +145,7 @@
 
       </div>
   </div>
-
+  <br><br><br>
   <!--底部-->
   <!-- 解释ui inverted vertical segment:vertical填充类似于attached，segment是模块 -->
   <footer th:replace="admin/_fragments :: footer" class="ui  vertical inverted segment foot text-opacity">
@@ -211,6 +209,20 @@
                 on:'hover'
             }
      );
+
+     <!--使用performance.navigation.type判断是否是刷新页面，设置list 为session中的的list-->
+        if(performance.navigation.type == 1){
+            var list = sessionStorage.getItem("list");
+            if(list != null){
+                $("#list").html(list);
+            }
+        }
+
+
+
+
  </script>
+
+
 </body>
 </html>
