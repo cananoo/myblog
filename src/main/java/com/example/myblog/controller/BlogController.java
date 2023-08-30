@@ -22,48 +22,62 @@ public class BlogController {
 
     @Autowired
     private BlogService blogService;
+
     @Autowired
     private TypeService typeService;
 
     // 博客展示页面
     @GetMapping("/blogs")
-    public String blogs(@RequestParam(value = "blognum",defaultValue = "1") String blognum, Model model, HttpSession session){
-
-
-        Blog blog = (Blog) session.getAttribute("blog");
-
+    public String blogs(@RequestParam(value = "current",defaultValue = "1") String current, Model model, HttpSession session){
         long l ;
         if (session.getAttribute("bdpage") != null){
             l = Long.parseLong((String) session.getAttribute("bdpage"));
             session.removeAttribute("bdpage");
         }else {
-            l = Long.parseLong(blognum);
+            l = Long.parseLong(String.valueOf(current));
         }
-
-          Page<Blog>   page = new Page<>(l,5);
-
-        List<Blog> list = blogService.findBlogPage(page, blog);
-        long current = page.getCurrent() ;
+        Page<Blog> page = new Page<>(l,5);
+        List<Blog> list = blogService.findBlogPage(page, null);
+        long c = page.getCurrent() ;
         long pagetotal = page.getPages();
         long size = page.getSize();
-
-
         List<Type> allType = typeService.findAllType();
-
-
         model.addAttribute("list",list)
-                .addAttribute("current",current)
+                .addAttribute("current",c)
                 .addAttribute("pagetotal",pagetotal)
                 .addAttribute("size",size)
                 .addAttribute("types",allType);
         return "admin/blogmanage";
     }
 
-//博客添加搜索条件
-   @PostMapping("/blogs/search")
-    private  String searchBlogs(Blog blog,HttpSession session){
-        session.setAttribute("blog",blog);
-        return  "redirect:/admin/blogs";
+    //博客添加搜索条件
+    @PostMapping("/blogs/search")
+    public  String searchBlogs(@RequestParam(value = "current",defaultValue = "1") String current, Model model, HttpSession session,Blog blog){
+        long l ;
+        if (session.getAttribute("bdpage") != null){
+            l = Long.parseLong((String) session.getAttribute("bdpage"));
+            session.removeAttribute("bdpage");
+        }else {
+            l = Long.parseLong(String.valueOf(current));
+        }
+        Page<Blog> page = new Page<>(l,5);
+
+        //如果没有选上推荐，就不传值(所有列表都展示)
+        if (!blog.getRecommend()){
+            blog.setRecommend(null);
+        }
+
+        List<Blog> list = blogService.findBlogPage(page, blog);
+        long c = page.getCurrent() ;
+        long pagetotal = page.getPages();
+        long size = page.getSize();
+        List<Type> allType = typeService.findAllType();
+        model.addAttribute("list",list)
+                .addAttribute("current",c)
+                .addAttribute("pagetotal",pagetotal)
+                .addAttribute("size",size)
+                .addAttribute("types",allType);
+        return  "admin/blogmanage :: bloglist";
     }
 
 
