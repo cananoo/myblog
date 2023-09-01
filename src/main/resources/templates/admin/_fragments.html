@@ -7,8 +7,11 @@
     <!-- 设置移动端缩放比例 -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title th:replace="${title}">抽取页</title>  <!--Thymeleaf的替换,可以在其他页面引用,替换指定参数-->
+
     <!-- 引入semantic-ui样式 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+    <!--引入editor.md编辑器-->
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
     <!-- 引入typo.css样式 ,注意这里引用的是改过了的，原版的文件会和Semantic UI有所冲突，直接拿来用就可以了-->
     <!--具体更多使用方法可以参考下载的typo.html的例子-->
     <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">

@@ -143,7 +143,7 @@
                     <a onclick="page(this)" th:attr="current=${current}+2" th:if="${current+2 <= pagetotal}"  th:text="${current}+2" class="item">4</a>
                     <a onclick="page(this)" th:attr="current=${current}+1" th:if="${current < pagetotal}"  class="item">下一页</a>
                 </div>
-                <a href="#" class="ui mini right floated orange basic button">新增</a>
+                <a href="#" th:href="@{/admin/blogs/toadd}" class="ui mini right floated orange basic button">新增</a>
             </th>
             </tr></tfoot>
         </table>

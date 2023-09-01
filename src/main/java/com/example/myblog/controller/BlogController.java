@@ -80,5 +80,12 @@ public class BlogController {
         return  "admin/blogmanage :: bloglist";
     }
 
+    // 跳转到新增页面
+    @GetMapping("/blogs/toadd")
+    public  String toAddBlog(Model model){
+        List<Type> allType = typeService.findAllType();
+        model.addAttribute("types",allType);
+        return  "admin/blogpublish";
+    }
 
 }
