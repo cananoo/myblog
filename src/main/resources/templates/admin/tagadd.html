@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <!-- 设置移动端缩放比例 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>标签新增</title>
+
+    <!-- 引入semantic-ui样式 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
+
+    <!--引入editor.md编辑器-->
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css">
+
+    <!-- 引入自定义样式 -->
+    <link rel="stylesheet" href="../../static/css/modify.css">
+</head>
+<body>
+
+<!--导航栏-->
+<!-- 解释ui inverted attached segment：ui是semantic-ui的样式，inverted是反色，attached是附着在上面，segment用于分段,me是css类标签 -->
+<nav th:replace="admin/_fragments :: menu(3)" class="ui inverted attached segment me text-opacity ui-shadow " style="z-index: 1 !important;">
+    <!-- 解释ui container：container是容器,用于达到最佳显示效果 -->
+    <div class="ui container">
+        <!-- 解释ui inverted secondary menu：inverted是反色，secondary次要菜单，menu是菜单,stackable：堆叠的,屏幕小时可堆叠在一块 -->
+        <div class="ui inverted secondary stackable menu">
+            <!-- 解释ui teal header item：teal是蓝绿色，header是标题，item表示一组条目 -->
+            <h2 class="ui teal header item">管理后台</h2>
+            <!-- 解释<i class="home icon"></i>：i是图标，home是图标名字，icon是图标,mobilehide：手机端隐藏,gg:为JS获取标签实现显示隐藏条目而用 -->
+            <a href="#" class="active gg item mobilehide "><i class="home icon"></i>博客</a>
+            <a href="#" class="gg item mobilehide "><i class="idea icon" ></i>分类</a>
+            <a href="#" class="gg item mobilehide "><i class="tags icon"></i>标签</a>
+
+            <div class="ui right aligned item mobilehide ">
+                <!--下面是下拉菜单-直接使用semantic-ui提供的即可-->
+                <div class="ui inline dropdown" >
+                    <div class="text">
+                        <img class="ui avatar image" src="https://pic4.zhimg.com/v2-b9030ce2af99a6a5e71ed3aaf37caf97_r.jpg">
+                        Cananoo
+                    </div>
+                    <i class="dropdown icon "></i>
+                    <div class="menu" style="width: 500px "  >
+                        <div class="ui  item " style="width: 80px" >注销</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- menu toggle:这里无显示意义，这是为了JS能够获取到这个标签，从而实现点击按钮显示隐藏左侧菜单 -->
+    <a href="#" class="ui menu toggle black icon button top-right mobileshow" >
+        <i class="sidebar  icon"></i>
+    </a>
+</nav>
+
+<!--二级导航-->
+<div class="ui attached inverted pointing menu text-opacity2" >
+    <div class="ui container" >
+        <a href="#" class="active teal item ">新增</a>
+        <a th:href="@{/admin/tags}" class=" item ">列表</a>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<!--主体内容-->
+<div id="tagadd">
+    <div th:fragment="addtag" class="m-container-small me4 ">
+        <div class="ui container">
+            <!--验证-->
+            <div  class="ui success message text-opacity" th:unless="${#strings.isEmpty(message)}">
+                <i class="close icon"></i>
+                <div class="header">提示:</div>
+                <p th:text="${message}">恭喜，添加成功！</p>
+            </div>
+            <div class="ui negative message text-opacity" th:unless="${#strings.isEmpty(error)}">
+                <i class="close icon"></i>
+                <div class="header">提示:</div>
+                <p th:text="${error}">抱歉，添加失败！</p>
+            </div>
+            <div class="ui negative message text-opacity" th:unless="${#strings.isEmpty(existed)}">
+                <i class="close icon"></i>
+                <div class="header">提示:</div>
+                <p th:text="${existed}">类型已存在!</p>
+            </div>
+            <div   class="ui form ">
+                <div class="required field">
+                    <div class="ui left labeled input text-opacity">
+                        <label  class="ui teal basic label">名称</label>
+                        <input type="text" name="tagname" placeholder="分类名称">
+                    </div>
+                </div>
+                <!--展示错误提示-->
+                <div class="ui error message text-opacity"></div>
+                <div class="ui right aligned container">
+                    <!--onclick="window.history.go(-1):返回上一页-->
+                    <button class="ui button" type="button" onclick="window.history.go(-1)">返回</button>
+                    <button onclick="add(this)" class="ui teal  button">提交</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br><br>
+
+<!--底部-->
+<!-- 解释ui inverted vertical segment:vertical填充类似于attached，segment是模块 -->
+<footer th:replace="admin/_fragments :: footer" class="ui  vertical inverted segment foot text-opacity">
+    <div class="ui  center aligned container ">
+        <!-- 解释:grid是网格 把整个横向页面分为16份，便于拆分 divided 显示分割线 -->
+        <div class="ui divided inverted stackable grid ">
+            <div class=" three wide column">
+                <img src="../../static/images/wechat.png" class="ui centered aligned rounded image " alt="" style="width: 120px">
+            </div>
+            <div class="three wide column">
+                <h4 class="ui inverted header text-opacity">最新博客</h4>
+                <!--完成清单-->
+                <div class="ui inverted link list ">
+                    <a href="#" class="item ">Java</a>
+                    <a href="#" class="item ">Python</a>
+                    <a href="#" class="item ">Linux</a>
+                    <a href="#" class="item ">C++</a>
+                </div>
+            </div>
+            <div class="three wide column ">
+                <h4 class="ui inverted header text-opacity ">联系方式</h4>
+                <h6 class="ui text-opacity text-size " >QQ: 123456789</h6>
+                <h6 class="text-opacity text-size ">微信: 123456789</h6>
+            </div>
+            <div class="seven wide column">
+                <h4 class="ui inverted header text-opacity ">关于我</h4>
+
+                <p class="text-opacity text-size text-line ">我是一个热爱技术的小白，喜欢研究新技术，喜欢分享，喜欢交流，喜欢结交朋友，喜欢看书，喜欢运动，喜欢旅游，喜欢美食，喜欢生活，喜欢一切美好的事物。</p>
+            </div>
+        </div>
+
+        <!-- 解释ui inverted section divider：section是模块，divider是分割线 -->
+        <div class="ui inverted section divider">
+            </br></br></br>
+            <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2013  All Rights Reserved.</p>
+        </div>
+
+    </div>
+
+</footer>
+
+
+
+
+
+<!--/*/<th:block  th:replace="_fragments :: script"/*/-->
+<!-- 引入jquery -->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+<!-- 引入semantic-ui样式 -->
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+
+
+
+<script>
+    <!--手机端下拉菜单,通过toggle实现 -->
+    <!-- 获取样式标签,进行操作,实现点击切换,如果含gg的标签中有mobilehide类标签,就删除,否则添加 -->
+    $('.menu.toggle').click(function(){
+        $('.gg').toggleClass('mobilehide');
+    });
+
+    <!--下拉菜单-->
+    $('.ui.dropdown').dropdown(
+        {
+            //触发方式:鼠标悬浮
+            on:'hover'
+        }
+    );
+
+    <!--表单验证-->
+    $('.ui.form').form({
+        fields:{
+            tagname:{
+                identifier:'tagname',
+                rules:[
+                    {
+                        tag:'empty',
+                        prompt:'请输入名称'
+                    }
+                ]
+            }
+        }
+    });
+
+
+    function loadadd(){
+        $('#tagadd').load(/*[[@{/admin/tags/save}]]*/"/admin/tags/save",{
+            tagname:$('[name="tagname"]').val(),
+        });
+    }
+    function add(obj){
+        loadadd();
+    }
+
+    <!--关闭message,注意message后面有一个空格-->  //这里用局部刷新，就无法关闭消息框了，等有办法了解决
+    $('.message .close').on('click',function () {
+        $(this).closest('.message').transition('fade');
+    });
+
+
+</script>
+
+</body>
+</html>

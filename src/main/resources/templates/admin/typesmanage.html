@@ -58,7 +58,8 @@
 
 
   <!--主体内容-->
-  <div class="m-container-small me4 text-opacity">
+  <div id="type-content">
+      <div th:fragment="typelist" class="m-container-small me4 text-opacity">
       <div class="ui container">
           <!--验证-->
           <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
@@ -91,7 +92,11 @@
                   <td th:text="${type.name}" data-label="Age">练习清单</td>
                   <td>
                       <a href="#" th:href="@{/admin/types/edit(id=${type.id})}" class="ui mini teal basic button">编辑</a>
-                      <a href="#"  th:href="@{/admin/types/delete(id=${type.id},dpage=${current})}" class="ui mini red basic button">删除</a>
+                      <a href="#"  onclick="dele(this)" th:attr="deid=${type.id}"  class="ui mini red basic button">删除</a>
+                      <!--隐藏域，用于传递当前id,动态赋值-->
+                      <input type="hidden" name="deid" >
+                      <!--隐藏域，用于传递当前页数,动态赋值-->
+                      <input type="hidden" name="dpage" th:value="${current}" >
                   </td>
               </tr>
               </tbody>
@@ -100,14 +105,17 @@
               <tr ><th colspan="3">
                   <div class="ui  pagination mini menu" th:if="${pagetotal > 1}">
                       <!--根据后端传来的当前页和总页数调整分页样式-->
-                      <a th:if="${current > 1}" class="item" th:href="@{/admin/types(pagenum=${current}-1)}">上一页</a>
-                      <a th:if="${current > 2}" th:href="@{/admin/types(pagenum=${current}-2)}" th:text="${current}-2" class="item">1</a>
-                      <a th:if="${current > 1}" th:href="@{/admin/types(pagenum=${current}-1)}" th:text="${current}-1" class="item">2</a>
-                      <a th:href="@{/admin/types(pagenum=${current})}" th:text="${current}" class="item active">3</a>
-                      <a th:if="${current+1 <= pagetotal}" th:href="@{/admin/types(pagenum=${current}+1)}" th:text="${current}+1" class="item">4</a>
-                      <a th:if="${current+2 <= pagetotal}" th:href="@{/admin/types(pagenum=${current}+2)}" th:text="${current}+2" class="item">4</a>
-                      <a th:if="${current < pagetotal}" th:href="@{/admin/types(pagenum=${current}+1)}" class="item">下一页</a>
+                      <a onclick="page(this)" th:attr="current=${current}-1" th:if="${current > 1}" class="item" >上一页</a>
+                      <a onclick="page(this)" th:attr="current=${current}-2" th:if="${current > 2}"  th:text="${current}-2" class="item">1</a>
+                      <a onclick="page(this)" th:attr="current=${current}-1" th:if="${current > 1}"  th:text="${current}-1" class="item">2</a>
+                      <a onclick="page(this)" th:attr="current=${current}"   th:text="${current}" class="item active">3</a>
+                      <a onclick="page(this)" th:attr="current=${current}+1" th:if="${current+1 <= pagetotal}"  th:text="${current}+1" class="item">4</a>
+                      <a onclick="page(this)" th:attr="current=${current}+2" th:if="${current+2 <= pagetotal}"  th:text="${current}+2" class="item">4</a>
+                      <a onclick="page(this)" th:attr="current=${current}+1" th:if="${current < pagetotal}"  class="item">下一页</a>
                   </div>
+                  <!--隐藏域，用于传递当前页数,动态赋值-->
+                  <input type="hidden" name="current" >
+
                   <a href="#"  th:href="@{/admin/types/input}" class="ui mini right floated orange basic button">新增</a>
               </th>
               </tr></tfoot>
@@ -115,6 +123,8 @@
 
       </div>
   </div>
+  </div>
+
   <br>
   <br>
   <!--底部-->
@@ -151,7 +161,7 @@
          <!-- 解释ui inverted section divider：section是模块，divider是分割线 -->
          <div class="ui inverted section divider">
              </br></br></br>
-             <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2013  All Rights Reserved.</p>
+             <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2023  All Rights Reserved.</p>
          </div>
 
      </div>
@@ -185,6 +195,36 @@
      $('.message .close').on('click',function () {
          $(this).closest('.message').transition('fade');
      });
+       //列表局部刷新
+     //把值传给后端
+     function loaddata(){
+         $('#type-content').load(/*[[@{/admin/types/pages}]]*/"/admin/types/pages",{
+             current:$('[name="current"]').val()
+         });
+     }
+     //给前端赋值
+     function page(obj){
+         $("[name='current']").val($(obj).attr('current'));
+         loaddata();
+     }
+
+
+     //局部删除
+     //把值传给后端
+     function loaddelete(){
+         $('#type-content').load(/*[[@{/admin/types/delete}]]*/"/admin/types/delete",{
+             dpage:$('[name="dpage"]').val(),
+             deid:$('[name="deid"]').val()
+         });
+     }
+     //给前端赋值
+     function dele(obj){
+         $("[name='deid']").val($(obj).attr('deid'));
+         loaddelete();
+     }
+
+
+
  </script>
 </body>
 </html>

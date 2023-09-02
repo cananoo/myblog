@@ -113,8 +113,7 @@
                                 <i class="dropdown icon"></i>
                                 <div class="default text"> 标签</div>
                                 <div class="menu">
-                                    <div class="item" data-value="1">java</div>
-                                    <div class="item" data-value="2">python</div>
+                                    <div th:each="tag : ${tags}" th:data-value="${tag.name}" th:text="${tag.name}" class="item" data-value="1">java</div>
                                 </div>
                             </div>
                         </div>

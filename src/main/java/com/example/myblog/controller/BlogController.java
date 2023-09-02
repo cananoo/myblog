@@ -2,8 +2,10 @@ package com.example.myblog.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.myblog.pojo.Blog;
+import com.example.myblog.pojo.Tag;
 import com.example.myblog.pojo.Type;
 import com.example.myblog.service.BlogService;
+import com.example.myblog.service.TagService;
 import com.example.myblog.service.TypeService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class BlogController {
     @Autowired
     private TypeService typeService;
 
+    @Autowired
+    private TagService tagService;
+
     // 博客展示页面
     @GetMapping("/blogs")
     public String blogs(@RequestParam(value = "current",defaultValue = "1") String current, Model model, HttpSession session){
@@ -42,11 +47,14 @@ public class BlogController {
         long pagetotal = page.getPages();
         long size = page.getSize();
         List<Type> allType = typeService.findAllType();
+        List<Tag> allTag = tagService.findAllTag();
         model.addAttribute("list",list)
                 .addAttribute("current",c)
                 .addAttribute("pagetotal",pagetotal)
                 .addAttribute("size",size)
-                .addAttribute("types",allType);
+                .addAttribute("types",allType)
+                .addAttribute("tags",allTag)
+        ;
         return "admin/blogmanage";
     }
 
@@ -72,11 +80,13 @@ public class BlogController {
         long pagetotal = page.getPages();
         long size = page.getSize();
         List<Type> allType = typeService.findAllType();
+        List<Tag> allTag = tagService.findAllTag();
         model.addAttribute("list",list)
                 .addAttribute("current",c)
                 .addAttribute("pagetotal",pagetotal)
                 .addAttribute("size",size)
-                .addAttribute("types",allType);
+                .addAttribute("types",allType)
+                .addAttribute("tags",allTag);
         return  "admin/blogmanage :: bloglist";
     }
 
@@ -84,7 +94,9 @@ public class BlogController {
     @GetMapping("/blogs/toadd")
     public  String toAddBlog(Model model){
         List<Type> allType = typeService.findAllType();
-        model.addAttribute("types",allType);
+        List<Tag> allTag = tagService.findAllTag();
+        model.addAttribute("types",allType)
+                .addAttribute("tags",allTag);
         return  "admin/blogpublish";
     }
 
