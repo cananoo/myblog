@@ -56,8 +56,8 @@
   <!--二级导航-->
   <div class="ui attached inverted pointing menu text-opacity2" >
       <div class="ui container" >
-          <a href="#" class="active teal item ">发布</a>
-          <a href="#" class=" item ">列表</a>
+          <a href="#" th:href="@{/admin/blogs/toadd}" class="active item">发布</a>
+          <a href="#" th:href="@{/admin/blogs}" class=" teal item ">列表</a>
       </div>
   </div>
 
@@ -65,7 +65,7 @@
   <!--主体内容-->
   <div class="m-container me4 ">
       <div class="ui container">
-          <form id="blog-form" th:action="@{/admin/blogs/add}" method="post" class="ui form">
+          <form id="blog-form" th:action="@{/admin/blogs/updateoradd}" method="post" class="ui form">
               <div class="required field">
                   <div class="ui left labeled input text-opacity">
                       <!--compact:使标签长度随内容变化-->
@@ -92,15 +92,16 @@
                     <div class="required field " style="z-index: 1 !important;">
                         <!--action:使标签与下拉框连接紧密-->
                         <div class="ui left labeled action input ">
-                            <label class="ui compact red basic label">分类</label>
-                            <!--multiple search:提供多选功能和搜索功能-->
-                            <div class="ui fluid selection multiple search dropdown">
-                                <input type="hidden" name="typeId">
+                            <label class="ui  compact red basic label">分类</label>
+                            <!--选择下拉菜单-->
+                            <div class="ui fluid selection dropdown" >
+                                <input type="hidden"  name="typeId">
                                 <i class="dropdown icon"></i>
-                                <div class="default text">分类</div>
-                                <div  class="menu">
-                                    <!--这里一定要是th:data-value 才可已多选-->
-                                    <div th:each="type : ${types}" th:data-value="${type.name}" th:text="${type.name}" class="item" data-value="1">错误日志</div>
+                                <!--默认显示的文本-->
+                                <div class="defualt text text-opacity">分类</div>
+                                <div class="menu"  >
+                                    <!--data-value:将来传给后端的值-->
+                                    <div th:each="type : ${types}" class="item" th:data-value="${type.id}"  th:text="${type.name}" >错误日志</div>
                                 </div>
                             </div>
                         </div>
@@ -108,12 +109,13 @@
                     <div class="field " style="z-index: 1 !important;">
                         <div class="ui left labeled action input ">
                             <label class="ui compact red basic label">标签</label>
+                            <!--multiple search:提供多选功能和搜索功能-->
                             <div class="ui fluid selection multiple search dropdown">
-                                <input type="hidden" name="tag">
+                                <input type="hidden" name="tags">
                                 <i class="dropdown icon"></i>
                                 <div class="default text"> 标签</div>
                                 <div class="menu">
-                                    <div th:each="tag : ${tags}" th:data-value="${tag.name}" th:text="${tag.name}" class="item" data-value="1">java</div>
+                                    <div th:each="tag : ${tags}" th:data-value="${tag.id}" th:text="${tag.name}" class="item" data-value="1">java</div>
                                 </div>
                             </div>
                         </div>
@@ -130,23 +132,23 @@
 
               <div class="inline fields" style="margin-left: 550px">
                   <div class="field">
-                      <!--class="hidden":默认不选中-->
-                      <input type="checkbox" id="recommend"  checked name="recommend" class="hidden">
+
+                      <input type="checkbox" id="recommend"  checked name="recommend">
                       <label for="recommend">推荐</label>
                   </div>
                   <div class="field">
-                      <!--class="hidden":默认不选中-->
-                      <input type="checkbox" id="shareStatement" name="shareStatement" class="hidden">
+
+                      <input type="checkbox" id="shareStatement" name="shareStatement" >
                       <label for="shareStatement">转载声名</label>
                   </div>
                   <div class="field">
-                      <!--class="hidden":默认不选中-->
-                      <input type="checkbox" id="appreciation" name="appreciation" class="hidden">
+
+                      <input type="checkbox" id="appreciation" name="appreciation" >
                       <label for="appreciation">赞赏</label>
                   </div>
                   <div class="field">
-                      <!--class="hidden":默认不选中-->
-                      <input type="checkbox" id="commentabled" name="commentabled" class="hidden">
+
+                      <input type="checkbox" id="commentabled" name="commentabled" >
                       <label for="commentabled">评论</label>
                   </div>
               </div>

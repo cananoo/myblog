@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.myblog.mapper.BlogTagsMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.myblog.pojo.BlogTags">
+            <result property="blogsId" column="blogs_id" jdbcType="BIGINT"/>
+            <result property="tagsId" column="tags_id" jdbcType="BIGINT"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        blogs_id,tags_id
+    </sql>
+</mapper>

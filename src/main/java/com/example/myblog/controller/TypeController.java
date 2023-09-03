@@ -73,14 +73,14 @@ public class TypeController {
     }
 
     //跳转到修改页面 (共用页面)
-    @GetMapping("types/edit")
+    @GetMapping("/types/edit")
     public String edit(@RequestParam("id") String id,HttpSession session){
         session.setAttribute("id",id);
        return  "admin/typeadd";
     }
 
     //分类新增和修改
-    @PostMapping("types/save")
+    @PostMapping("/types/save")
     public String saveAndEidtType(@RequestParam("typename") String typename, Model model, HttpSession session){
         String id = (String) session.getAttribute("id");
         Type typeByName = typeService.findTypeByName(typename);

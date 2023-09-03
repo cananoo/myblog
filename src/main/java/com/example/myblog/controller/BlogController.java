@@ -1,10 +1,9 @@
 package com.example.myblog.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.myblog.pojo.Blog;
-import com.example.myblog.pojo.Tag;
-import com.example.myblog.pojo.Type;
+import com.example.myblog.pojo.*;
 import com.example.myblog.service.BlogService;
+import com.example.myblog.service.BlogTagsService;
 import com.example.myblog.service.TagService;
 import com.example.myblog.service.TypeService;
 import jakarta.servlet.http.HttpSession;
@@ -15,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -30,6 +30,9 @@ public class BlogController {
 
     @Autowired
     private TagService tagService;
+
+    @Autowired
+    private BlogTagsService blogTagsService;
 
     // 博客展示页面
     @GetMapping("/blogs")
@@ -98,6 +101,51 @@ public class BlogController {
         model.addAttribute("types",allType)
                 .addAttribute("tags",allTag);
         return  "admin/blogpublish";
+    }
+
+    //跳转到修改页面 (共用页面)
+    @GetMapping("/blogs/update")
+    public String editBlog(@RequestParam("id") String id,HttpSession session){
+        session.setAttribute("id",id);
+        return  "admin/blogpublish";
+    }
+
+   //新增和修改
+    @PostMapping("/blogs/updateoradd")
+    public String updateOrAddBlog(@RequestParam("tags")String tags, Blog blog, RedirectAttributes attributes,HttpSession session){
+        User user = (User) session.getAttribute("user");
+        blog.setUserId(user.getId());
+        String id = (String) session.getAttribute("id");
+        if (id != null){
+            //修改
+            int i = blogService.updateBlogById(Long.parseLong(id), blog);
+            if (i==1){
+               attributes.addFlashAttribute("message","更新成功!");
+            }else {
+               attributes.addFlashAttribute("error","更新失败!");
+            }
+        }else {
+            //新增
+            String[] split = tags.split(",");
+           //执行完此方法后，会自动主键回显
+            int i = blogService.saveBlog(blog);
+
+            //实现中间表更新
+            for (int j = 0; j < split.length; j++) {
+                BlogTags blogTags = new BlogTags();
+                blogTags.setBlogsId(blog.getId());
+                blogTags.setTagsId(Long.parseLong(split[j]));
+                blogTagsService.saveBlogTags(blogTags);
+            }
+            if (i==1){
+                attributes.addFlashAttribute("message","添加成功!");
+            }else {
+                attributes.addFlashAttribute("error","添加失败!");
+            }
+        }
+
+
+   return  "redirect:/admin/blogs";
     }
 
 }

@@ -9,6 +9,8 @@ import com.example.myblog.mapper.BlogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +27,22 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
 
     //新增博客
     public int saveBlog(Blog blog) {
+        //如果blog的四个属性不为true则为false,防止为null
+        if (blog.getRecommend() == null){
+            blog.setRecommend(false);
+        }
+        if (blog.getCommentabled() == null){
+            blog.setCommentabled(false);
+        }
+        if (blog.getShareStatement() == null){
+            blog.setShareStatement(false);
+        }
+        if (blog.getAppreciation() == null){
+            blog.setAppreciation(false);
+        }
+        blog.setCreateTime(new Date());
+        blog.setUpdateTime(new Date());
+        blog.setViews(0);
         int insert = blogMapper.insert(blog);
         return insert;
     }
@@ -37,6 +55,20 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
 
     //根据id修改博客
     public int updateBlogById(long id, Blog blog) {
+        //如果blog的四个属性不为true则为false,防止为null
+        if (blog.getRecommend() == null){
+            blog.setRecommend(false);
+        }
+        if (blog.getCommentabled() == null){
+            blog.setCommentabled(false);
+        }
+        if (blog.getShareStatement() == null){
+            blog.setShareStatement(false);
+        }
+        if (blog.getAppreciation() == null){
+            blog.setAppreciation(false);
+        }
+        blog.setUpdateTime(new Date());
         QueryWrapper<Blog> queryWrapper =  new QueryWrapper<>();
         queryWrapper.eq("id",id);
         int update = blogMapper.update(blog, queryWrapper);
@@ -52,7 +84,9 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
     //根据博客内容返回固定页面的数据
     public List<Blog> findBlogPage(Page<Blog> page, Blog blog) {
         if (blog == null){
-            return  blogMapper.selectPage(page, null).getRecords();
+            QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
+            queryWrapper.orderByDesc("update_time");
+            return  blogMapper.selectPage(page, queryWrapper).getRecords();
         }
         QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
         queryWrapper.orderByDesc("update_time")

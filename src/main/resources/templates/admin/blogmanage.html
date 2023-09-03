@@ -51,8 +51,8 @@
 <!--二级导航-->
 <div class="ui attached inverted pointing menu text-opacity2">
     <div class="ui container" >
-        <a href="#" class="item ">发布</a>
-        <a href="#" class="active teal item ">列表</a>
+        <a href="#" th:href="@{/admin/blogs/toadd}" class="item ">发布</a>
+        <a href="#" th:href="@{/admin/blogs}" class="active teal item ">列表</a>
     </div>
 </div>
 
@@ -64,25 +64,28 @@
         <div  class="ui secondary segment form">
             <!--隐藏域，用于传递当前页数,动态赋值-->
             <input type="hidden" name="current" >
-
-
             <div class="fields">
                 <!--field : form表单中的一行 inline:字段的标签可以在旁边而不用在上面显示-->
                 <div class="inline field">
                     <input type="text" name="title" placeholder="标题">
                 </div>
                 <div class="inline field">
-                    <!--选择下拉菜单-->
-                    <div class="ui selection dropdown" >
-                        <input type="hidden"  name="typeId">
-                        <i class="dropdown icon"></i>
-                        <!--默认显示的文本-->
-                        <div class="defualt text text-opacity">分类</div>
-                        <div class="menu"  >
-                            <!--data-value:将来传给后端的值-->
-                            <div th:each="type : ${types}" class="item" th:data-value="${type.id}"  th:text="${type.name}" >错误日志</div>
+                    <!--清除搜索条件事件按钮-->
+                    <div class="ui labeled action input">
+                        <!--选择下拉菜单-->
+                        <div class="ui type selection dropdown" >
+                            <input type="hidden"  name="typeId">
+                            <i class="dropdown icon"></i>
+                            <!--默认显示的文本-->
+                            <div class="defualt text text-opacity">分类</div>
+                            <div class="menu"  >
+                                <!--data-value:将来传给后端的值-->
+                                <div th:each="type : ${types}" class="item" th:data-value="${type.id}"  th:text="${type.name}" >错误日志</div>
+                            </div>
                         </div>
+                        <button id="clear-btn" class="ui clear button">clear</button>
                     </div>
+
 
                 </div>
                 <div class="field">
@@ -97,18 +100,29 @@
                 </div>
             </div>
         </div>
-
-
         <br>
         <div id="table-container">
         <!--表格-直接使用semantic ui 提供的样式,celled:添加网格线-->
-        <table th:fragment="bloglist" class="ui compact teal celled table">
+                <!--验证-->
+                <div class="ui success message text-opacity" th:unless="${#strings.isEmpty(message)}">
+                    <i class="close icon"></i>
+                    <div class="header">提示:</div>
+                    <p th:text="${message}">恭喜，添加成功！</p>
+                </div>
+                <div class="ui negative message text-opacity" th:unless="${#strings.isEmpty(error)}">
+                    <i class="close icon"></i>
+                    <div class="header">提示:</div>
+                    <p th:text="${error}">抱歉，添加失败！</p>
+                </div>
+
+                <table th:fragment="bloglist" class="ui compact teal celled table">
             <thead>
             <tr>
                 <th></th>
                 <th>标题</th>
                 <th>类型</th>
                 <th>推荐</th>
+                <th>状态</th>
                 <th>更新时间</th>
                 <th>操作</th>
             </tr>
@@ -123,6 +137,7 @@
                   <td th:if="${blog.typeId} == ${type.id}" th:text="${type.name}" data-label="type">认知神级</td>
               </span>
                 <td th:text="${blog.recommend}==true ? '是' : '否'" data-label="recommend">是</td>
+                <td th:text="${blog.published}==true ? '已发布' : '未发布'" data-label="recommend">草稿</td>
                 <td th:text="${blog.updateTime}" data-label="update">2023年8月13日22点40分</td>
                 <td>
                     <a href="#" th:href="@{/admin/blogs/edit(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
@@ -132,7 +147,7 @@
             </tbody>
             <!--复用semantic ui的分页样式-->
             <tfoot>
-            <tr><th colspan="6">
+            <tr><th colspan="7">
                 <div class="ui  pagination mini menu" th:if="${pagetotal > 1}">
                     <!--根据后端传来的当前页和总页数调整分页样式-->
                     <a onclick="page(this)" th:attr="current=${current}-1" th:if="${current > 1}" class="item" >上一页</a>
@@ -147,7 +162,7 @@
             </th>
             </tr></tfoot>
         </table>
-        </div>
+            </div>
     </div>
 </div>
 <br><br><br>
@@ -187,12 +202,8 @@
             </br></br></br>
             <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2013  All Rights Reserved.</p>
         </div>
-
     </div>
-
 </footer>
-
-
 <!--/*/<th:block  th:replace="admin/_fragments :: script"/*/-->
 <!-- 引入jquery -->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
@@ -237,8 +248,16 @@
             loaddata();
         }
 
+    <!--关闭message,注意message后面有一个空格-->
+    $('.message .close').on('click',function () {
+        $(this).closest('.message').transition('fade');
+    });
 
 
+     //清除搜索条件
+    $('#clear-btn').on('click',function (){
+        $('.ui.type.dropdown').dropdown('clear');
+    });
 </script>
 
 
