@@ -96,6 +96,7 @@ public class TagController {
             }else {
                 model.addAttribute("existed","标签已存在!");
             }
+            session.removeAttribute("id");
         }else {
             //新增
             if ( tagByName == null){

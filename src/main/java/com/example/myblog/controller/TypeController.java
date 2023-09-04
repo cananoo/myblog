@@ -96,6 +96,7 @@ public class TypeController {
             }else {
                 model.addAttribute("existed","类型已存在!");
             }
+            session.removeAttribute("id");
         }else {
             //新增
             if ( typeByName == null){

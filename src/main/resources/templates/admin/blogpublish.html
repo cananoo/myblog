@@ -67,25 +67,27 @@
       <div class="ui container">
           <form id="blog-form" th:action="@{/admin/blogs/updateoradd}" method="post" class="ui form">
               <div class="required field">
-                  <div class="ui left labeled input text-opacity">
+                  <div class="ui left labeled input text-opacity" style="z-index: 99 !important;" >
                       <!--compact:使标签长度随内容变化-->
                       <div class="ui red compact basic selection dropdown label">
-                          <input type="hidden" value="原创">
+                          <input type="hidden" value="原创" name="flag">
                           <i class="dropdown icon"></i>
-                          <div class="text">原创</div>
+                          <div class="text" data-value="原创">原创</div>
                           <div class="menu">
                               <div class="item" data-value="原创">原创</div>
                               <div class="item" data-value="转载">转载</div>
                               <div class="item" data-value="翻译">翻译</div>
                           </div>
                       </div>
-                  <input type="text" name="title" placeholder="标题">
+                      <input th:unless="${#strings.isEmpty(blog)}" th:value="${blog.title}" type="text" name="title" placeholder="标题">
+                      <input th:if="${#strings.isEmpty(blog)}"  type="text" name="title" placeholder="标题">
                   </div>
                   </div>
                 <div class="required field">
                     <!--style="z-index: 1 !important;": 使编辑器在下拉框之上，叠放层次在最上层-->
                     <div id="md-content" style="z-index: 1 !important;">
-                        <textarea name="content" placeholder="内容" style="display:none;"></textarea>
+                        <textarea th:unless="${#strings.isEmpty(blog)}" th:text="${blog.content}" name="content" placeholder="内容" style="display:none;"></textarea>
+                        <textarea th:if="${#strings.isEmpty(blog)}"  name="content" placeholder="内容" style="display:none;"></textarea>
                     </div>
                 </div>
               <div class="two fields" >
@@ -95,7 +97,8 @@
                             <label class="ui  compact red basic label">分类</label>
                             <!--选择下拉菜单-->
                             <div class="ui fluid selection dropdown" >
-                                <input type="hidden"  name="typeId">
+                                <input th:if="${#strings.isEmpty(blog)}" type="hidden"  name="typeId">
+                                <input th:unless="${#strings.isEmpty(blog)}" th:value="${otypeId}"  type="hidden"  name="typeId">
                                 <i class="dropdown icon"></i>
                                 <!--默认显示的文本-->
                                 <div class="defualt text text-opacity">分类</div>
@@ -111,9 +114,10 @@
                             <label class="ui compact red basic label">标签</label>
                             <!--multiple search:提供多选功能和搜索功能-->
                             <div class="ui fluid selection multiple search dropdown">
-                                <input type="hidden" name="tags">
+                                <input th:unless="${#strings.isEmpty(ids)}"  th:value="${ids}" type="hidden" name="tags">
+                                <input th:if="${#strings.isEmpty(ids)}"  type="hidden" name="tags">
                                 <i class="dropdown icon"></i>
-                                <div class="default text"> 标签</div>
+                                <div  class="defualt text text-opacity">标签</div>
                                 <div class="menu">
                                     <div th:each="tag : ${tags}" th:data-value="${tag.id}" th:text="${tag.name}" class="item" data-value="1">java</div>
                                 </div>
@@ -126,7 +130,8 @@
               <div class="required field">
                   <div class="ui left labeled input text-opacity">
                       <label  class="ui teal basic label">首图</label>
-                      <input type="text" name="firstPicture" placeholder="首图引用地址">
+                      <input th:unless="${#strings.isEmpty(blog)}" th:value="${blog.firstPicture}" type="text" name="firstPicture" placeholder="首图引用地址">
+                      <input th:if="${#strings.isEmpty(blog)}"  type="text" name="firstPicture" placeholder="首图引用地址">
                   </div>
               </div>
 

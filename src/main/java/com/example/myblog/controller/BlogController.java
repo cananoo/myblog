@@ -105,8 +105,18 @@ public class BlogController {
 
     //跳转到修改页面 (共用页面)
     @GetMapping("/blogs/update")
-    public String editBlog(@RequestParam("id") String id,HttpSession session){
+    public String editBlog(@RequestParam("id") String id,HttpSession session,Model model){
         session.setAttribute("id",id);
+        Blog blog = blogService.getBlogById(Long.parseLong(id));
+        String ids = blogTagsService.getBlogTagsByBlogId(Long.parseLong(id));
+        Long otypeId = blog.getTypeId();
+        List<Type> allType = typeService.findAllType();
+        List<Tag> allTag = tagService.findAllTag();
+        model.addAttribute("types",allType)
+                .addAttribute("tags",allTag)
+                .addAttribute("blog",blog)
+                .addAttribute("otypeId",otypeId)
+                .addAttribute("ids",ids);
         return  "admin/blogpublish";
     }
 
@@ -119,17 +129,28 @@ public class BlogController {
         if (id != null){
             //修改
             int i = blogService.updateBlogById(Long.parseLong(id), blog);
+            blogTagsService.deleteByBlogId(Long.parseLong(id));
+            String[] split = tags.split(",");
+            //实现中间表更新
+            for (int j = 0; j < split.length; j++) {
+                BlogTags blogTags = new BlogTags();
+                blogTags.setBlogsId(Long.parseLong(id));
+                blogTags.setTagsId(Long.parseLong(split[j]));
+                blogTagsService.saveBlogTags(blogTags);
+            }
+
             if (i==1){
                attributes.addFlashAttribute("message","更新成功!");
             }else {
                attributes.addFlashAttribute("error","更新失败!");
             }
+            //清除id 防止下次更新或者添加误判
+            session.removeAttribute("id");
         }else {
             //新增
             String[] split = tags.split(",");
            //执行完此方法后，会自动主键回显
             int i = blogService.saveBlog(blog);
-
             //实现中间表更新
             for (int j = 0; j < split.length; j++) {
                 BlogTags blogTags = new BlogTags();
@@ -146,6 +167,21 @@ public class BlogController {
 
 
    return  "redirect:/admin/blogs";
+    }
+
+
+    //删除
+    @GetMapping("/blogs/delete")
+    public String deleteBlog(@RequestParam("id") String id,RedirectAttributes attributes){
+        //先删除中间表外键约束，再删除博客
+        blogTagsService.deleteByBlogId(Long.parseLong(id));
+        int i = blogService.deleteBlogById(Long.parseLong(id));
+        if (i==1){
+            attributes.addFlashAttribute("message","删除成功!");
+        }else {
+            attributes.addFlashAttribute("error","删除失败!");
+        }
+        return  "redirect:/admin/blogs";
     }
 
 }
