@@ -74,6 +74,22 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag>
         List<Tag> tags = tagMapper.selectList(null);
         return tags;
     }
+    //根据一组id查找标签
+    public List<Tag> findTagByList(List<Long> list) {
+        QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id",list);
+        List<Tag> tags = tagMapper.selectList(queryWrapper);
+        return tags;
+    }
+
+    //根据id修改标签对应的博客数
+    public int updateTagBlogNumById(long id,int num){
+        UpdateWrapper<Tag> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",id)
+                .set("blog_num",num);
+        return tagMapper.update(null, updateWrapper);
+    }
+
 }
 
 

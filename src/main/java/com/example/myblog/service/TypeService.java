@@ -38,4 +38,7 @@ public interface TypeService extends IService<Type> {
     //查找所有分类
     List<Type> findAllType();
 
+    //根据一组分类id list查找类型
+    List<Type> findTypeByList(List<Long> list);
+
 }

@@ -138,7 +138,7 @@
               </span>
                 <td th:text="${blog.recommend}==true ? '是' : '否'" data-label="recommend">是</td>
                 <td th:text="${blog.published}==true ? '已发布' : '未发布'" data-label="recommend">草稿</td>
-                <td th:text="${blog.updateTime}" data-label="update">2023年8月13日22点40分</td>
+                <td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}" data-label="update">2023年8月13日22点40分</td>
                 <td>
                     <a href="#" th:href="@{/admin/blogs/update(id=${blog.id})}" class="ui mini teal basic button">编辑</a>
                     <a href="#" th:href="@{/admin/blogs/delete(id=${blog.id})}" class="ui mini red basic button">删除</a>

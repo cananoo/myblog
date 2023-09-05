@@ -85,9 +85,11 @@
                   </div>
                 <div class="required field">
                     <!--style="z-index: 1 !important;": 使编辑器在下拉框之上，叠放层次在最上层-->
-                    <div id="md-content" style="z-index: 1 !important;">
+                    <div id="md-content" style="z-index: 100 !important;">
                         <textarea th:unless="${#strings.isEmpty(blog)}" th:text="${blog.content}" name="content" placeholder="内容" style="display:none;"></textarea>
-                        <textarea th:if="${#strings.isEmpty(blog)}"  name="content" placeholder="内容" style="display:none;"></textarea>
+                        <textarea th:if="${#strings.isEmpty(blog)}"  name="content" placeholder="内容" style="display:none;">
+##### 描述:
+##### 正文:</textarea>
                     </div>
                 </div>
               <div class="two fields" >

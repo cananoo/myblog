@@ -48,7 +48,7 @@ public class TypeController {
 
     //局部刷新分类翻页
     @PostMapping("/types/pages")
-    public String pages(@RequestParam(value = "current",defaultValue = "1") String current, Model model,HttpSession session){  //设置页码默认为1
+    public String pages(@RequestParam(value = "current",defaultValue = "1") String current, Model model){  //设置页码默认为1
         //前端传来的均为字符串，需要字符类型转换
         long l = Long.parseLong(String.valueOf(current));
         Page<Type> page = new Page<>(l,5);

@@ -25,6 +25,8 @@ public class Type implements Serializable {
      */
     private String name;
 
+    private Integer blogNum;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

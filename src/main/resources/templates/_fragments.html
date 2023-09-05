@@ -71,11 +71,8 @@
             <div class="three wide column">
                 <h4 class="ui inverted header text-opacity">最新博客</h4>
                 <!--完成清单-->
-                <div class="ui inverted link list ">
-                    <a href="#" class="item ">Java</a>
-                    <a href="#" class="item ">Python</a>
-                    <a href="#" class="item ">Linux</a>
-                    <a href="#" class="item ">C++</a>
+                <div th:each="bl :${topNew}" class="ui inverted link list ">
+                    <a th:text="${bl.title}" th:value="${bl.id}" href="#" class="item ">Java</a>
                 </div>
             </div>
             <div class="three wide column ">

@@ -10,8 +10,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author ASUS
@@ -42,6 +44,21 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
         }
         blog.setCreateTime(new Date());
         blog.setUpdateTime(new Date());
+        //截取Content "##### 描述:" 到 "##### 正文:" 之间的内容
+        String content = blog.getContent();
+        int i = content.indexOf("##### 描述:");
+        int i1 = content.indexOf("##### 正文:");
+
+        String substring = content.substring(i + 9, i1);
+        //缩短描述长度后面用...代替
+        if (substring.length()>100){
+            substring = substring.substring(0, 150);
+            //后面用...代替
+            substring = substring+"...";
+        }
+
+
+        blog.setDescription(substring);
         blog.setViews(0);
         int insert = blogMapper.insert(blog);
         return insert;
@@ -69,6 +86,18 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
             blog.setAppreciation(false);
         }
         blog.setUpdateTime(new Date());
+        //截取Content "##### 描述:" 到 "##### 正文:" 之间的内容
+        String content = blog.getContent();
+        int i = content.indexOf("##### 描述:");
+        int i1 = content.indexOf("##### 正文:");
+        String substring = content.substring(i + 9, i1);
+        //缩短描述长度后面用...代替
+        if (substring.length()>100){
+            substring = substring.substring(0, 150);
+            //后面用...代替
+            substring = substring+"...";
+        }
+        blog.setDescription(substring);
         QueryWrapper<Blog> queryWrapper =  new QueryWrapper<>();
         queryWrapper.eq("id",id);
         int update = blogMapper.update(blog, queryWrapper);
@@ -105,6 +134,58 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
         Blog blog = blogMapper.selectOne(queryWrapper);
         return blog;
     }
+
+    //返回博客数最多的n个type的id
+    public List<Long> findTopType(int n){
+        List<Blog> list = blogMapper.selectList(null);;
+        Map<Long, Integer> map = new java.util.HashMap<>();
+        for (Blog blog : list) {
+            Long typeId = blog.getTypeId();
+            if (map.containsKey(typeId)){
+                map.put(typeId,map.get(typeId)+1);
+            }else {
+                map.put(typeId,1);
+            }
+        }
+        List<Long> list1 = new java.util.ArrayList<>();
+        for (int i = 0; i < n; i++) {
+            int max = 0;
+            Long maxId = null;
+            for (Long aLong : map.keySet()) {
+                if (map.get(aLong)>max){
+                    max = map.get(aLong);
+                    maxId = aLong;
+                }
+            }
+            list1.add(maxId);
+            map.remove(maxId);
+        }
+        return list1;
+    }
+    //获取所有博客的数目
+    public long getBlogNum(){
+        Long l = blogMapper.selectCount(null);
+        return l;
+    }
+    //获取更新时间最近的n个推荐的博客
+    public List<Blog> findTopRecommend(int n){
+        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("recommend",true)
+                .orderByDesc("update_time");
+        Page<Blog> page = new Page<>(1, n);
+        List<Blog> records = blogMapper.selectPage(page, queryWrapper).getRecords();
+        return records;
+    }
+
+    //获取最新的n个博客
+    public List<Blog> findTopNew(int n){
+        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("update_time");
+        Page<Blog> page = new Page<>(1, n);
+        List<Blog> records = blogMapper.selectPage(page, queryWrapper).getRecords();
+        return records;
+    }
+
 }
 
 

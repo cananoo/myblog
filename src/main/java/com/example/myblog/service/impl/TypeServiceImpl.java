@@ -75,6 +75,14 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type>
         List<Type> types = typeMapper.selectList(null);
         return types;
     }
+  //根据一组分类id list查找类型
+    public List<Type> findTypeByList(List<Long> list){
+        QueryWrapper<Type> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id",list);
+        List<Type> types = typeMapper.selectList(queryWrapper);
+        return types;
+    }
+
 }
 
 

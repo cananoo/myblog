@@ -20,4 +20,7 @@ public interface BlogTagsService extends IService<BlogTags> {
 
     //根据博客id得到博客标签映射
     String getBlogTagsByBlogId(Long blogId);
+
+    //查询博客数最多的n个标签的id
+    List<Long> findTopTags(int n);
 }

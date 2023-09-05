@@ -127,10 +127,31 @@ public class BlogController {
         blog.setUserId(user.getId());
         String id = (String) session.getAttribute("id");
         if (id != null){
+            //先将原来的type的博客数-1
+            Blog blog1 = blogService.getBlogById(Long.parseLong(id));
+            Type type1 = typeService.getTypeById(blog1.getTypeId());
+            type1.setBlogNum(type1.getBlogNum()-1);
+            //先将原来的tag的博客数-1
+            String ids = blogTagsService.getBlogTagsByBlogId(Long.parseLong(id));
+            String[] split1 = ids.split(",");
+            for (int j = 0; j < split1.length; j++) {
+                Tag tag = tagService.getTagById(Long.parseLong(split1[j]));
+                tag.setBlogNum(tag.getBlogNum()-1);
+                tagService.updateTagBlogNumById(tag.getId(),tag.getBlogNum());
+            }
             //修改
             int i = blogService.updateBlogById(Long.parseLong(id), blog);
             blogTagsService.deleteByBlogId(Long.parseLong(id));
             String[] split = tags.split(",");
+            //设置type的博客数+1
+            Type type = typeService.getTypeById(blog.getTypeId());
+            type.setBlogNum(type.getBlogNum()+1);
+            //设置tag的博客数+1
+            for (int j = 0; j < split.length; j++) {
+                Tag tag = tagService.getTagById(Long.parseLong(split[j]));
+                tag.setBlogNum(tag.getBlogNum()+1);
+                tagService.updateTagBlogNumById(tag.getId(),tag.getBlogNum());
+            }
             //实现中间表更新
             for (int j = 0; j < split.length; j++) {
                 BlogTags blogTags = new BlogTags();
@@ -151,6 +172,16 @@ public class BlogController {
             String[] split = tags.split(",");
            //执行完此方法后，会自动主键回显
             int i = blogService.saveBlog(blog);
+            //设置type的博客数+1
+            Type type = typeService.getTypeById(blog.getTypeId());
+            type.setBlogNum(type.getBlogNum()+1);
+            //设置tag的博客数+1
+            for (int j = 0; j < split.length; j++) {
+                Tag tag = tagService.getTagById(Long.parseLong(split[j]));
+                tag.setBlogNum(tag.getBlogNum()+1);
+                tagService.updateTagBlogNumById(tag.getId(),tag.getBlogNum());
+            }
+
             //实现中间表更新
             for (int j = 0; j < split.length; j++) {
                 BlogTags blogTags = new BlogTags();
@@ -165,15 +196,24 @@ public class BlogController {
             }
         }
 
-
    return  "redirect:/admin/blogs";
     }
-
-
     //删除
     @GetMapping("/blogs/delete")
     public String deleteBlog(@RequestParam("id") String id,RedirectAttributes attributes){
-        //先删除中间表外键约束，再删除博客
+        //设置type的博客数-1
+        Blog blog = blogService.getBlogById(Long.parseLong(id));
+        Type type = typeService.getTypeById(blog.getTypeId());
+        type.setBlogNum(type.getBlogNum()-1);
+        //设置tag的博客数-1
+        String ids = blogTagsService.getBlogTagsByBlogId(Long.parseLong(id));
+        String[] split = ids.split(",");
+        for (int j = 0; j < split.length; j++) {
+            Tag tag = tagService.getTagById(Long.parseLong(split[j]));
+            tag.setBlogNum(tag.getBlogNum()-1);
+            tagService.updateTagBlogNumById(tag.getId(),tag.getBlogNum());
+        }
+        //先删除中间表，再删除博客
         blogTagsService.deleteByBlogId(Long.parseLong(id));
         int i = blogService.deleteBlogById(Long.parseLong(id));
         if (i==1){

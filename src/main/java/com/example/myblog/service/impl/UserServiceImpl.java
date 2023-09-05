@@ -28,6 +28,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = userMapper.selectOne(wrapper);
         return user;
     }
+    //根据用户名查询用户
+    public User findUserByName(String username){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("username",username);
+        User user = userMapper.selectOne(wrapper);
+        return user;
+    }
 
 
 

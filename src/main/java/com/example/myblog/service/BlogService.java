@@ -34,4 +34,14 @@ public interface BlogService extends IService<Blog> {
     //根据name返回博客
     Blog findBlogByName(String name);
 
+    //返回博客数最多的n个type的id
+    List<Long> findTopType(int n);
+  //获取所有博客的数目
+    long getBlogNum();
+
+    //获取更新时间最近的n个推荐的博客
+    List<Blog> findTopRecommend(int n);
+
+    //获取最新的n个博客
+    List<Blog> findTopNew(int n);
 }

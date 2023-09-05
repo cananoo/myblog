@@ -13,4 +13,7 @@ public interface UserService extends IService<User> {
  //登录验证
  User checkUser(String username,String password);
 
+ //根据用户名查询用户
+    User findUserByName(String username);
+
 }

@@ -91,6 +91,11 @@ public class Blog implements Serializable {
      */
     private Long userId;
 
+    /**
+     * 描述
+     */
+    private String description;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

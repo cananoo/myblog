@@ -34,4 +34,8 @@ public interface TagService extends IService<Tag> {
     //查找所有标签
     List<Tag> findAllTag();
 
+    //根据一组id查找标签
+   List<Tag> findTagByList(List<Long> list);
+ //根据id修改标签对应的博客数
+    int updateTagBlogNumById(long id,int num);
 }
