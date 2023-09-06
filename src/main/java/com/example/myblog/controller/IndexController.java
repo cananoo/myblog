@@ -111,6 +111,63 @@ public class IndexController {
         return "index::findex";
     }
 
+    //全局搜索
+    @PostMapping("/search")
+    public String search(@RequestParam(value = "current",defaultValue = "1") String current,
+                         @RequestParam(value = "query",defaultValue = "") String query,
+                         Model model){
+        long l = Long.parseLong(String.valueOf(current));
+        Page<Blog> page = new Page<>(l,5);
+        List<Blog> list = blogService.findBlogByQuery(page,query);
+        long blogNum = blogService.getBlogNumByQuery(query);
+        long c = page.getCurrent() ;
+        long pagetotal = page.getPages();
+        long size = page.getSize();
+
+        User cananoo = userService.findUserByName("cananoo");
+
+        //获取最新的n个博客
+        List<Blog> topNew = blogService.findTopNew(4);
+
+        model.addAttribute("list",list)
+                .addAttribute("current",c)
+                .addAttribute("pagetotal",pagetotal)
+                .addAttribute("size",size)
+                .addAttribute("user",cananoo)
+                .addAttribute("topNew",topNew)
+                .addAttribute("blogNum",blogNum)
+        ;
+        return "search";
+    }
+
+    //局部刷新搜索翻页
+    @PostMapping("/searchpages")
+    public String searchpages(@RequestParam(value = "current",defaultValue = "1") String current,
+                         @RequestParam(value = "query",defaultValue = "") String query,
+                         Model model){
+        long l = Long.parseLong(String.valueOf(current));
+        Page<Blog> page = new Page<>(l,5);
+        List<Blog> list = blogService.findBlogByQuery(page,query);
+        long blogNum = blogService.getBlogNumByQuery(query);
+        long c = page.getCurrent() ;
+        long pagetotal = page.getPages();
+        long size = page.getSize();
+
+        User cananoo = userService.findUserByName("cananoo");
+
+        //获取最新的n个博客
+        List<Blog> topNew = blogService.findTopNew(4);
+
+        model.addAttribute("list",list)
+                .addAttribute("current",c)
+                .addAttribute("pagetotal",pagetotal)
+                .addAttribute("size",size)
+                .addAttribute("user",cananoo)
+                .addAttribute("topNew",topNew)
+                .addAttribute("blogNum",blogNum)
+        ;
+        return "search::fsearch";
+    }
 
 
 

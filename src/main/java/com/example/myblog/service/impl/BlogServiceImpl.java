@@ -186,6 +186,28 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
         return records;
     }
 
+
+    //根据模糊查询返回分页
+    public List<Blog> findBlogByQuery(Page<Blog> page,String query){
+        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("title",query)
+                .or()
+                .like("content",query)
+                .orderByDesc("update_time");
+         blogMapper.selectPage(page, queryWrapper);
+        List<Blog> records = page.getRecords();
+        return records;
+    }
+    //获取模糊查询的博客数
+    public long getBlogNumByQuery(String query){
+        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("title",query)
+                .or()
+                .like("content",query)
+                .orderByDesc("update_time");
+        long l = blogMapper.selectCount(queryWrapper);
+        return l;
+    }
 }
 
 

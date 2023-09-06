@@ -99,6 +99,10 @@ body {
     width: 50px !important;
     height: 50px !important;
 }
+.imgsize4 {
+    width: 250px !important;
+    height: 150px !important;
+}
 
 /*修改盒子最大宽度和居中*/
 .m-container {

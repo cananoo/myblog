@@ -70,7 +70,10 @@
                     <!-- mobile reversed 反转grid网格中的列顺序 ，使屏幕缩小的时候图片列即第二列在上面-->
                     <div class="ui middle aligned mobile reversed stackable grid">
                         <div class="eleven wide column">
-                            <h3 th:text="${blog.title}" class="ui header text-space ">你知道什么是二刺螈吗？</h3>
+                            <a href="#" target="_blank" th:href="@{/blog(id=${blog.id})}">
+                                <h3 th:text="${blog.title}" class="ui header text-space" >你知道什么是二刺螈吗？</h3>
+                            </a>
+                            <br>
                             <p  th:text="${blog.description}" class="text-space text-line"> 二刺螈（学名：Cynops orientalis）是蝾螈科蝾螈属的两栖动物，是中国特有的两栖动物，也是中国最大的两栖动物。二刺螈是一种典型的水栖两栖动物，生活在水边的草丛中，也有在水中活动的。二刺螈的体型较大...</p>
                             <div class="ui stackable grid">
                                 <div class="eleven wide column">
@@ -96,7 +99,9 @@
                         </div>
                         <div class="five wide column">
                             <!-- target="_blank"：在新窗口打开 -->
-                            <a href="#" target="_blank"><img src="https://th.bing.com/th/id/OIP.ro3LsoGuUkzyp_AtgKxuXAHaEK?pid=ImgDet&rs=1" alt="" class="ui small rounded image imgsize"></a>
+                            <a href="#" th:href="@{/blog(id=${blog.id})}" target="_blank">
+                                <img  th:src="${blog.firstPicture}" src="https://th.bing.com/th/id/OIP.ro3LsoGuUkzyp_AtgKxuXAHaEK?pid=ImgDet&rs=1" alt="" class="ui small rounded image imgsize">
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -137,6 +142,7 @@
                              <div class="ui fluid vertical menu">
                                  <a th:each="type : ${types}"  href="#" class="item">
                                      <span th:value="${type.id}" th:text="${type.name}">学习日志</span>
+                                     <!--这里也可以用${#arrays.length(...)}来获取集合的条目,但我没有给其加list属性-->
                                      <div th:text="${type.blogNum}" class="ui teal basic left pointing label">13</div>
                                  </a>
                              </div>

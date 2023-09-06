@@ -44,4 +44,12 @@ public interface BlogService extends IService<Blog> {
 
     //获取最新的n个博客
     List<Blog> findTopNew(int n);
+
+
+    //根据模糊查询返回分页
+    List<Blog> findBlogByQuery(Page<Blog> page,String query);
+
+    //获取模糊查询的博客数
+    long getBlogNumByQuery(String query);
+
 }
