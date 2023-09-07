@@ -6,6 +6,8 @@ import com.example.myblog.pojo.Tag;
 import com.example.myblog.pojo.Type;
 import com.example.myblog.pojo.User;
 import com.example.myblog.service.*;
+import com.example.myblog.util.MarkDownUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -170,10 +173,38 @@ public class IndexController {
     }
 
 
-
+ //博客详情页展示
     @GetMapping("/blog")
-    public String blog() {
+    public String blog(@RequestParam(value = "id") String id,Model model){
+        long l = Long.parseLong(String.valueOf(id));
+        Blog blog = blogService.getBlogById(l);
+        User user = userService.findUserByName("cananoo");
 
-        return "blog";
+        String tags = blogTagsService.getBlogTagsByBlogId(l);
+        //将字符串转换为关于id的list
+        String[] split = tags.split(",");
+        List<Long> list = new ArrayList<>();
+        for (String s : split) {
+            list.add(Long.parseLong(s));
+        }
+        //获取最新的n个博客
+        List<Blog> topNew = blogService.findTopNew(4);
+        List<Tag> tagList = tagService.findTagByList(list);
+        //Blog newBlog = new Blog();
+        //将blog的属性复制到newBlog中
+        //BeanUtils.copyProperties(blog,newBlog);
+        //将markdown格式转换为html格式
+
+        //先将content"##### 正文:"后的内容进行截取
+        int i1 = blog.getContent().indexOf("##### 正文:");
+        String substring = blog.getContent().substring(i1 + 11);
+        String content = MarkDownUtils.markdownToHtmlExtensions(substring);
+        blog.setContent(content);
+        model.addAttribute("blog",blog)
+                .addAttribute("user",user)
+                .addAttribute("tags",tagList)
+                .addAttribute("topNew",topNew)
+        ;
+      return "blog";
     }
 }

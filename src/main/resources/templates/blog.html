@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <!-- 设置移动端缩放比例 -->
@@ -64,31 +64,31 @@
               <div class="ui horizontal link list">
                   <div class="item">
                       <!-- avatar image：头像 -->
-                      <img src="https://pic1.zhimg.com/v2-a308441a8fa504383a2077c40b8dd0e4_r.jpg" alt="" class="ui avatar image">
-                      <div class="content"><a href="#" class="header">nikoniko</a></div>
+                      <img th:src="${user.avatar}" src="https://pic1.zhimg.com/v2-a308441a8fa504383a2077c40b8dd0e4_r.jpg" alt="" class="ui avatar image">
+                      <div class="content"><a th:text="${user.nickname}" href="#" class="header">nikoniko</a></div>
                   </div>
                   <div class="item">
-                      <i class="calendar icon"></i>2023-12-12
+                      <i class="calendar icon"></i><span style="padding-left: 5px" th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2023-12-12</span>
                   </div>
                   <div class="item">
-                      <i class="eye icon"></i>2000
+                      <i class="eye icon"></i><span style="padding-left: 5px" th:text="${blog.views}">2000</span>
                   </div>
               </div>
           </div>
           <div class="ui attached segment animate__animated animate__fadeIn">
               <!-- 图片 -->
-              <img src="https://p.qpic.cn/dnfbbspic/0/dnfbbs_dnfbbs_dnf_gamebbs_qq_com_forum_201911_22_083548z4dn4295a5ej89ad.jpg/0" alt="" class="ui fluid rounded image">
+              <img th:src="${blog.firstPicture}" src="https://p.qpic.cn/dnfbbspic/0/dnfbbs_dnfbbs_dnf_gamebbs_qq_com_forum_201911_22_083548z4dn4295a5ej89ad.jpg/0" alt="" class="ui fluid rounded image">
           </div>
           <div class="ui attached segment ">
               <!--内容-->
               <!-- basic segment：分段无边线 -->
               <div class="ui right aligned basic segment">
-                  <div class="ui pink basic label">原创</div>
+                  <div th:text="${blog.flag}" class="ui pink basic label">原创</div>
               </div>
-                     <h2 class="ui centered aligned header">二刺螈圣经</h2>
+                     <h2 th:text="${blog.title}" class="ui centered aligned header">二刺螈圣经</h2>
                        <br>
-                            <!--typo typo-selection：内容排版插件 -->
-                      <div id="content" class="typo  typo-selection me-lr-responsive js-toc-content" >
+                            <!--typo typo-selection：内容排版插件 ,utext：解析html标签-->
+                      <div th:utext="${blog.content}" id="content" class="typo  typo-selection me-lr-responsive js-toc-content" >
                           <p>1. 没必要的事就不做，必要的事就尽快做。&mdash;&mdash;冰菓</p>
                           <p>2. 因为触碰的差别而察觉到真相，应该说是侥幸吧。&mdash;&mdash;猫物语</p>
                           <p>3. 没有努力到要哭的程度，不甘心就可以了&mdash;&mdash;花牌情缘</p>
@@ -455,8 +455,8 @@ h5,h6{font-size:1em;}
 
                       </div>
                      <!--标签-->
-                      <div class="me-lr-responsive me3">
-                          <div class="ui  teal basic left  label">
+                      <div th:each="tag :${tags}" class="me-lr-responsive me3">
+                          <div th:text="${tag.name}" class="ui  teal basic left  label">
                               圣经
                           </div>
                       </div>
@@ -492,10 +492,10 @@ h5,h6{font-size:1em;}
                   <div class="eleven wide column">
                        <!--bulleted list：无序列表 -->
                       <div class="ui bulleted middle aligned list">
-                          <div class="item">作者: Cananoo</div>
-                          <div class="item">发表时间: 2023-10-02 09:08</div>
-                          <div class="item">版权声名: 转载请标明源地址</div>
-                          <div class="item">最新内容: 请添加右侧二维码</div>
+                          <div class="item" ><a th:href="@{/about}" target="_blank" style="color: inherit">作者:  </a><span th:text="${user.nickname}">Cananoo</span> </div>
+                          <div class="item">发表时间:  <span  th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2023-10-02 09:08</span></div>
+                          <div class="item" th:if="${blog.shareStatement}==true">版权声名:  转载请标明源地址</div>
+                          <div class="item">最新内容:  请添加右侧二维码</div>
                       </div>
                   </div>
                   <div class="five wide column">
@@ -702,7 +702,8 @@ h5,h6{font-size:1em;}
     <script src="../static/lib/waypoints/jquery.waypoints.min.js"></script>
   <!--/*/</th:block>/*/-->
 
-  <script>
+
+  <script th:inline="javascript">
      <!--手机端下拉菜单 -->
      $('.menu.toggle').click(function(){
             $('.gg').toggleClass('mobilehide');
@@ -738,14 +739,18 @@ h5,h6{font-size:1em;}
          position : 'left center'
      });
 
+
+    <!--根据网站的域名和当前博客的id生成二维码，script必须加上 th:inline="javascript"才有效果-->
+     var server = "localhost:8080";
+    var url = /*[[@{/blogs(id=${blog.id})}]]*/'';
      <!--qrcode.js二维码插件的使用,官方复制即可-->
      var qrcode = new QRCode("test", {
          <!--需要生成二维码的标签地址-->
-         text: "http://jindo.dev.naver.com/collie",
+         text: server+url,
          width: 110,
          height: 110,
-         colorDark : "#54fd00",
-         colorLight : "rgba(0,109,253,0.47)",
+         colorDark : "rgb(64,64,64)",
+         colorLight : "rgb(255,255,255)",
          correctLevel : QRCode.CorrectLevel.H
      });
 
