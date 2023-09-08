@@ -503,90 +503,85 @@ h5,h6{font-size:1em;}
                   </div>
               </div>
           </div>
-           <div id="comment-container" class="ui bottom attached segment">
+           <div  class="ui bottom attached segment">
                <!--留言区域列表-->
-                 <div class="ui teal segment">
-                     <!--直接复制semantic ui的评论模块代码即可-->
-                     <div class="ui comments">
-                         <h3 class="ui dividing header">评论区</h3>
-                         <div class="comment">
-                             <a class="avatar">
-                                 <img src="https://th.bing.com/th/id/OIP.vCLFLlp4ToBItAdqOpB4IwHaHa?pid=ImgDet&rs=1">
-                             </a>
-                             <div class="content">
-                                 <a class="author">Matt</a>
-                                 <div class="metadata">
-                                     <span class="date">今天下午 5:42</span>
-                                 </div>
-                                 <div class="text">太赞了！ </div>
-                                 <div class="actions">
-                                     <a class="reply">回复</a>
-                                 </div>
-                             </div>
-                         </div>
-                         <div class="comment">
-                             <a class="avatar">
-                                 <img src="https://img.nyato.com/data/upload/2020/0717/18/5f11783635fc3.jpg!autoxauto">
-                             </a>
-                             <div class="content">
-                                 <a class="author">Elliot Fu</a>
-                                 <div class="metadata">
-                                     <span class="date">昨天上午12:30</span>
-                                 </div>
-                                 <div class="text">
-                                     <p>這對我的研究是非常有用.謝謝!</p>
-                                 </div>
-                                 <div class="actions">
-                                     <a class="reply">回复</a>
+                 <div id="comment-container" class="ui teal segment">
+                     <div th:fragment="commenList">
+                         <!--直接复制semantic ui的评论模块代码即可,threaded：使父评论间明显-->
+                         <div class="ui threaded comments" style="max-width: 100%">
+                             <h3 class="ui dividing header">评论区</h3>
+                             <div class="comment">
+                                 <a class="avatar">
+                                     <img src="https://th.bing.com/th/id/OIP.vCLFLlp4ToBItAdqOpB4IwHaHa?pid=ImgDet&rs=1">
+                                 </a>
+                                 <div class="content">
+                                     <a class="author">Matt</a>
+                                     <div class="metadata">
+                                         <span class="date">今天下午 5:42</span>
+                                     </div>
+                                     <div class="text">太赞了！ </div>
+                                     <div class="actions">
+                                         <a class="reply">回复</a>
+                                     </div>
                                  </div>
                              </div>
-                             <div class="comments">
-                                 <div class="comment">
-                                     <a class="avatar">
-                                         <img src="https://th.bing.com/th/id/OIP.FUVMWHUuCm-O_JYn0F238gHaHa?pid=ImgDet&rs=1">
-                                     </a>
-                                     <div class="content">
-                                         <a class="author">Jenny Hess</a>
-                                         <div class="metadata">
-                                             <span class="date">刚刚</span>
-                                         </div>
-                                         <div class="text">艾略特你永远是多么正确 :) </div>
-                                         <div class="actions">
-                                             <a class="reply">回复</a>
+                             <div class="comment">
+                                 <a class="avatar">
+                                     <img src="https://img.nyato.com/data/upload/2020/0717/18/5f11783635fc3.jpg!autoxauto">
+                                 </a>
+                                 <div class="content">
+                                     <a class="author">Elliot Fu</a>
+                                     <div class="metadata">
+                                         <span class="date">昨天上午12:30</span>
+                                     </div>
+                                     <div class="text">
+                                         <p>這對我的研究是非常有用.謝謝!</p>
+                                     </div>
+                                     <div class="actions">
+                                         <a class="reply"  data-commentid="1" data-commentnickname="Matt"     onclick="reply(this)">回复</a>
+                                     </div>
+                                 </div>
+                                 <div class="comments">
+                                     <div class="comment">
+                                         <a class="avatar">
+                                             <img src="https://th.bing.com/th/id/OIP.FUVMWHUuCm-O_JYn0F238gHaHa?pid=ImgDet&rs=1">
+                                         </a>
+                                         <div class="content">
+                                             <a class="author">Jenny Hess</a>
+                                             <div class="metadata">
+                                                 <span class="date">刚刚</span>
+                                             </div>
+                                             <div class="text">艾略特你永远是多么正确 :) </div>
+                                             <div class="actions">
+                                                 <a class="reply">回复</a>
+                                             </div>
                                          </div>
                                      </div>
                                  </div>
                              </div>
-                         </div>
-                         <div class="comment">
-                             <a class="avatar">
-                                 <img src="https://pic1.zhimg.com/v2-8d2ea2dafb6042c27bebf768984f72a8_r.jpg">
-                             </a>
-                             <div class="content">
-                                 <a class="author">Joe Henderson</a>
-                                 <div class="metadata">
-                                     <span class="date">5 天以前</span>
+                             <div class="comment">
+                                 <a class="avatar">
+                                     <img src="https://pic1.zhimg.com/v2-8d2ea2dafb6042c27bebf768984f72a8_r.jpg">
+                                 </a>
+                                 <div class="content">
+                                     <a class="author">Joe Henderson</a>
+                                     <div class="metadata">
+                                         <span class="date">5 天以前</span>
+                                     </div>
+                                     <div class="text">老兄，这太棒了。非常感谢。 </div>
+                                     <div class="actions">
+                                         <a class="reply">回复</a>
+                                     </div>
                                  </div>
-                                 <div class="text">老兄，这太棒了。非常感谢。 </div>
-                                 <div class="actions">
-                                     <a class="reply">回复</a>
-                                 </div>
                              </div>
                          </div>
-                         <form class="ui reply form">
-                             <div class="field">
-                                 <textarea></textarea>
-                             </div>
-                             <div class="ui basic right aligned segment">
-                             <div class="ui  blue labeled submit icon button">
-                                 <i class="icon edit"></i>  添加回复
-                             </div>
-                             </div>
-                         </form>
                      </div>
+
                  </div>
                 <!--留言区域表单-->
-               <div class="ui form">
+               <div id="comment-form" class="ui form">
+                   <input type="hidden" name="blogId" th:value="${blog.id}">
+                   <input type="hidden" name="parentCommentId" value="-1">
                    <div class="field">
                     <textarea  name="content" placeholder="请输入.." ></textarea>
                </div>
@@ -605,14 +600,17 @@ h5,h6{font-size:1em;}
                            </div>
                        </div>
                            <div class="field m-mobile-full ">
-                               <button class="ui teal button m-mobile-full "><i class="small edit icon"></i> 发布</button>
+                               <button  id="comment-submit" type="button" class="ui teal button m-mobile-full "><i class="small edit icon"></i> 发布</button>
                            </div>
                        </div>
+                   <!--展示错误提示-->
+                   <div class="ui error message text-opacity"></div>
                    </div>
                </div>
            </div>
       </div>
   </div>
+
 
   <!--右侧固定栏,style="display: none" 默认不显示-->
   <div  class="ui vertical icon buttons m-fixed "   style="display: none">
@@ -773,6 +771,81 @@ h5,h6{font-size:1em;}
 
          }
      })
+  // 表单验证
+     $('.ui.form').form({
+         fields:{
+             content:{
+                 identifier:'content',
+                 rules:[
+                     {
+                         type:'empty',
+                         prompt:'请输入内容'
+                     }
+                 ]
+             },
+
+                name:{
+                    identifier:'name',
+                    rules:[
+                        {
+                            type:'empty',
+                            prompt:'请输入昵称'
+                        }
+                    ]
+                },
+                email:{
+                    identifier:'email',
+                    rules:[
+                        {
+                            type:'email',
+                            prompt:'请输入邮箱'
+                        }
+                    ]
+                }
+         }
+     });
+
+     $('#comment-submit').click(function () {
+         <!--必须写上validate form,否则不会验证-->
+         var boo = $('.ui.form').form("validate form");
+       if (boo){
+           console.log('验证成功');
+           load();
+       }else {
+           console.log('验证失败');
+       }
+     });
+
+     function load(){
+         $('#comment-container').load(/*[[@{/comments}]]*/"/comments",{
+             parentCommentId:$('[name="parentCommentId"]').val(),
+             content:$('[name="content"]').val(),
+             name:$('[name="name"]').val(),
+             email:$('[name="email"]').val(),
+             blogId:$('[name="blogId"]').val()
+         },function (response,status,xhr) {
+             if (status == 'success'){
+                 <!--清空表单-->
+                 $('.ui.form').form('reset');
+                 <!--滚动到评论区域-->
+                 $.scrollTo('#comment-container',500);
+                 $('[name="content"]').attr("placeholder",'请输入评论信息...');
+             }else {
+                 alert('评论失败');
+             }
+         });
+     }
+
+     function  reply(obj){
+         var commentId = $(obj).data('commentid');
+            var commentNickname = $(obj).data('commentnickname');
+         <!--focus()：光标聚焦-->
+            $('[name="content"]').attr("placeholder",'@'+commentNickname+' ').focus();
+            $('[name="parentCommentId"]').val(commentId);
+         <!--滚动到评论区域-->
+            $.scrollTo('#comment-form',500);
+     }
+
  </script>
 </body>
 </html>
