@@ -506,25 +506,47 @@ h5,h6{font-size:1em;}
            <div  class="ui bottom attached segment">
                <!--留言区域列表-->
                  <div id="comment-container" class="ui teal segment">
-                     <div th:fragment="commenList">
+                     <div th:fragment="commentList">
                          <!--直接复制semantic ui的评论模块代码即可,threaded：使父评论间明显-->
                          <div class="ui threaded comments" style="max-width: 100%">
                              <h3 class="ui dividing header">评论区</h3>
-                             <div class="comment">
+                             <div th:each="comment : ${comments}"  class="comment">
                                  <a class="avatar">
-                                     <img src="https://th.bing.com/th/id/OIP.vCLFLlp4ToBItAdqOpB4IwHaHa?pid=ImgDet&rs=1">
+                                     <img th:src="${comment.avatar}" src="https://th.bing.com/th/id/OIP.vCLFLlp4ToBItAdqOpB4IwHaHa?pid=ImgDet&rs=1">
                                  </a>
                                  <div class="content">
-                                     <a class="author">Matt</a>
+                                     <a th:text="${comment.nickname}" class="author">Matt</a>
                                      <div class="metadata">
-                                         <span class="date">今天下午 5:42</span>
+                                         <span th:text="${#dates.format(comment.createTime,'yyy-MM-dd HH:mm')}" class="date">今天下午 5:42</span>
                                      </div>
-                                     <div class="text">太赞了！ </div>
+                                     <div th:text="${comment.content}" class="text">太赞了！ </div>
                                      <div class="actions">
-                                         <a class="reply">回复</a>
+                                         <a   th:attr="data-commentid=${comment.id},data-commentnickname=${comment.nickname}"   onclick="reply(this)" class="reply">回复</a>
                                      </div>
                                  </div>
+                                    <div  class="comments" th:if="${!#maps.isEmpty(childrenComment)}">
+                                        <div th:each="cComment : ${childrenComment}" th:if="${comment.id}==${cComment.getKey()}"   >
+                                        <div th:each="child : ${cComment.getValue()}" class="comment">
+                                            <a class="avatar">
+                                                <img th:src="${child.avatar}" src="https://th.bing.com/th/id/OIP.FUVMWHUuCm-O_JYn0F238gHaHa?pid=ImgDet&rs=1">
+                                            </a>
+                                            <div class="content">
+                                                <a   class="author">
+                                                    <span th:text="${child.nickname}">Jenny Hess</span><span th:if="${child.parentCommentId!=comment.id}" style="color: #00c4ff">&nbsp;@<span th:each="co : ${allComment}" th:if="${co.id}==${child.parentCommentId}" th:text="${co.nickname}" ></span></span>
+                                                </a>
+                                                <div class="metadata">
+                                                    <span th:text="${#dates.format(child.createTime,'yyy-MM-dd HH:mm')}" class="date">刚刚</span>
+                                                </div>
+                                                <div th:text="${child.content}" class="text">艾略特你永远是多么正确 :) </div>
+                                                <div class="actions">
+                                                    <a th:attr="data-commentid=${child.id},data-commentnickname=${child.nickname}"   onclick="reply(this)" class="reply">回复</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                   </div>
                              </div>
+                             <!--/*-->
                              <div class="comment">
                                  <a class="avatar">
                                      <img src="https://img.nyato.com/data/upload/2020/0717/18/5f11783635fc3.jpg!autoxauto">
@@ -538,7 +560,7 @@ h5,h6{font-size:1em;}
                                          <p>這對我的研究是非常有用.謝謝!</p>
                                      </div>
                                      <div class="actions">
-                                         <a class="reply"  data-commentid="1" data-commentnickname="Matt"     onclick="reply(this)">回复</a>
+                                         <a class="reply" >回复</a>
                                      </div>
                                  </div>
                                  <div class="comments">
@@ -574,9 +596,9 @@ h5,h6{font-size:1em;}
                                      </div>
                                  </div>
                              </div>
+                             <!--*/-->
                          </div>
                      </div>
-
                  </div>
                 <!--留言区域表单-->
                <div id="comment-form" class="ui form">
@@ -590,7 +612,7 @@ h5,h6{font-size:1em;}
                           <div class="field m-mobile-full">
                               <div class="ui left icon input">
                              <i class="user icon"></i>
-                            <input type="text" name="name" placeholder="请输入昵称">
+                            <input type="text" name="nickname" placeholder="请输入昵称">
                             </div>
                           </div>
                        <div class="field m-mobile-full">
@@ -817,10 +839,10 @@ h5,h6{font-size:1em;}
      });
 
      function load(){
-         $('#comment-container').load(/*[[@{/comments}]]*/"/comments",{
+         $('#comment-container').load(/*[[@{/comments/save}]]*/"/comments/save",{
              parentCommentId:$('[name="parentCommentId"]').val(),
              content:$('[name="content"]').val(),
-             name:$('[name="name"]').val(),
+             nickname:$('[name="nickname"]').val(),
              email:$('[name="email"]').val(),
              blogId:$('[name="blogId"]').val()
          },function (response,status,xhr) {
@@ -838,13 +860,25 @@ h5,h6{font-size:1em;}
 
      function  reply(obj){
          var commentId = $(obj).data('commentid');
-            var commentNickname = $(obj).data('commentnickname');
+         var commentNickname = $(obj).data('commentnickname');
          <!--focus()：光标聚焦-->
             $('[name="content"]').attr("placeholder",'@'+commentNickname+' ').focus();
             $('[name="parentCommentId"]').val(commentId);
          <!--滚动到评论区域-->
             $.scrollTo('#comment-form',500);
      }
+
+     //加载页面时，发送/comments/{blogId}请求，获取评论列表
+     $(function () {
+         $('#comment-container').load(/*[[@{/comments/{blogId}(blogId=${blog.id})}]]*/"/comments/1",function (response,status,xhr) {
+             if (status == 'success'){
+                 console.log('评论列表加载成功');
+             }else {
+                 console.log('评论列表加载失败');
+             }
+         });
+     });
+
 
  </script>
 </body>

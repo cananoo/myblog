@@ -1,13 +1,9 @@
 package com.example.myblog.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.myblog.pojo.Blog;
-import com.example.myblog.pojo.Tag;
-import com.example.myblog.pojo.Type;
-import com.example.myblog.pojo.User;
+import com.example.myblog.pojo.*;
 import com.example.myblog.service.*;
 import com.example.myblog.util.MarkDownUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 @Controller
@@ -32,6 +29,9 @@ public class IndexController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/")
     public String index(@RequestParam(value = "current",defaultValue = "1") String current, Model model) {
@@ -200,10 +200,23 @@ public class IndexController {
         String substring = blog.getContent().substring(i1 + 11);
         String content = MarkDownUtils.markdownToHtmlExtensions(substring);
         blog.setContent(content);
+
+        //获取博客顶级评论
+        List<Comment> comments = commentService.getComment(l);
+
+        //获取博客的子评论
+        Map<Long, List<Comment>> chidrenComment = commentService.getChidrenComment(comments);
+
+          //获取所有评论
+        List<Comment> allComment = commentService.getAllComment();
         model.addAttribute("blog",blog)
                 .addAttribute("user",user)
                 .addAttribute("tags",tagList)
                 .addAttribute("topNew",topNew)
+                .addAttribute("comments",comments)
+                .addAttribute("childrenComment",chidrenComment)
+                .addAttribute("allComment",allComment)
+
         ;
       return "blog";
     }
