@@ -209,6 +209,14 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
         long l = blogMapper.selectCount(queryWrapper);
         return l;
     }
+
+    //更新浏览次数
+    public void updateViews(Long id){
+        Blog blog = blogMapper.selectById(id);
+        blog.setViews(blog.getViews()+1);
+        blogMapper.updateById(blog);
+    }
+
 }
 
 

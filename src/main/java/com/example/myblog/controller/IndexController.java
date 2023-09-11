@@ -178,6 +178,11 @@ public class IndexController {
     public String blog(@RequestParam(value = "id") String id,Model model){
         long l = Long.parseLong(String.valueOf(id));
         Blog blog = blogService.getBlogById(l);
+
+
+        //博客浏览次数+1
+        blogService.updateViews(l);
+
         User user = userService.findUserByName("cananoo");
 
         String tags = blogTagsService.getBlogTagsByBlogId(l);

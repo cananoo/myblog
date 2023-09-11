@@ -29,6 +29,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
         QueryWrapper<Comment> wrapper = new QueryWrapper<>();
         wrapper.eq("blog_id",blogId);
         wrapper.isNull("parent_comment_id");
+        wrapper.orderByDesc("create_time");
         List<Comment> comments1 = commentMapper.selectList(wrapper);
         for (Comment comment : comments1) {
             comments.add(comment);
@@ -45,8 +46,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
         }
         comment.setCreateTime(new Date());
 
-        //随机生成头像
-        comment.setAvatar(AvatarDatabase.getAvatar());
         int insert = commentMapper.insert(comment);
 
 
@@ -81,7 +80,9 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment>
     //获取所有评论
     @Override
     public List<Comment> getAllComment() {
-        return commentMapper.selectList(null);
+        QueryWrapper<Comment> wrapper = new QueryWrapper<>();
+        List<Comment> comments = commentMapper.selectList(wrapper);
+        return comments;
     }
 }
 

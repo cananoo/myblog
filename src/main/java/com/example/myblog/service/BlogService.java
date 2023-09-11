@@ -51,5 +51,6 @@ public interface BlogService extends IService<Blog> {
 
     //获取模糊查询的博客数
     long getBlogNumByQuery(String query);
-
+    //根据id更新浏览次数
+    void updateViews(Long id);
 }

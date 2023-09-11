@@ -56,6 +56,12 @@ public class Comment implements Serializable {
      */
     private Long parentCommentId;
 
+    /**
+     * 是否为管理员评论
+     */
+    private Boolean isAdmin;
+
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 }

@@ -515,7 +515,10 @@ h5,h6{font-size:1em;}
                                      <img th:src="${comment.avatar}" src="https://th.bing.com/th/id/OIP.vCLFLlp4ToBItAdqOpB4IwHaHa?pid=ImgDet&rs=1">
                                  </a>
                                  <div class="content">
-                                     <a th:text="${comment.nickname}" class="author">Matt</a>
+                                     <a  class="author">
+                                       <span th:text="${comment.nickname}">Matt</span>
+                                         <div class="ui mini basic teal left pointing label me " th:if="${comment.isAdmin}==true">博主</div>
+                                     </a>
                                      <div class="metadata">
                                          <span th:text="${#dates.format(comment.createTime,'yyy-MM-dd HH:mm')}" class="date">今天下午 5:42</span>
                                      </div>
@@ -532,7 +535,8 @@ h5,h6{font-size:1em;}
                                             </a>
                                             <div class="content">
                                                 <a   class="author">
-                                                    <span th:text="${child.nickname}">Jenny Hess</span><span th:if="${child.parentCommentId!=comment.id}" style="color: #00c4ff">&nbsp;@<span th:each="co : ${allComment}" th:if="${co.id}==${child.parentCommentId}" th:text="${co.nickname}" ></span></span>
+                                                    <span th:text="${child.nickname}">Jenny Hess</span><div class="ui mini basic teal left pointing label me " th:if="${child.isAdmin}==true">博主</div>
+                                                    <span th:if="${child.parentCommentId!=comment.id}" style="color: #00c4ff">&nbsp;@<span th:each="co : ${allComment}" th:if="${co.id}==${child.parentCommentId}" th:text="${co.nickname}" ></span></span>
                                                 </a>
                                                 <div class="metadata">
                                                     <span th:text="${#dates.format(child.createTime,'yyy-MM-dd HH:mm')}" class="date">刚刚</span>
@@ -610,18 +614,18 @@ h5,h6{font-size:1em;}
                    <div class="fields">
 
                           <div class="field m-mobile-full">
-                              <div class="ui left icon input">
+                              <div th:if="${session.user == null}" class="ui left icon input">
                              <i class="user icon"></i>
-                            <input type="text" name="nickname" placeholder="请输入昵称">
+                            <input type="text" name="nickname"  placeholder="请输入昵称">
                             </div>
                           </div>
                        <div class="field m-mobile-full">
-                           <div class="ui left icon input">
+                           <div th:if="${session.user}==null" class="ui left icon input">
                                <i class="mail icon"></i>
-                               <input type="text" name="email" placeholder="请输入邮箱">
+                               <input type="text" name="email"  placeholder="请输入邮箱">
                            </div>
                        </div>
-                           <div class="field m-mobile-full ">
+                           <div style="margin-left: auto" class="field m-mobile-full ">
                                <button  id="comment-submit" type="button" class="ui teal button m-mobile-full "><i class="small edit icon"></i> 发布</button>
                            </div>
                        </div>
@@ -850,7 +854,7 @@ h5,h6{font-size:1em;}
                  <!--清空表单-->
                  $('.ui.form').form('reset');
                  <!--滚动到评论区域-->
-                 $.scrollTo('#comment-container',500);
+              //   $.scrollTo('#comment-container',500);
                  $('[name="content"]').attr("placeholder",'请输入评论信息...');
              }else {
                  alert('评论失败');
