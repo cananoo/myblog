@@ -35,7 +35,7 @@
 <img src="https://user-images.githubusercontent.com/103165360/266838891-ee5a19a6-f6ff-4cd6-8a9d-e3116038b6da.png" alt="版本" width="800">    
 
 
-### 1.2.3 管理员评论实现
+### 1.2.3 管理员评论实现 （Comment添加isAdmin字段判断是否为管理员）
 
 
 #### 提交版本
