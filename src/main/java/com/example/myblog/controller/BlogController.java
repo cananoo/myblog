@@ -146,6 +146,7 @@ public class BlogController {
             //设置type的博客数+1
             Type type = typeService.getTypeById(blog.getTypeId());
             type.setBlogNum(type.getBlogNum()+1);
+            typeService.updateTypeBlogNumById(type.getId(),type.getBlogNum());
             //设置tag的博客数+1
             for (int j = 0; j < split.length; j++) {
                 Tag tag = tagService.getTagById(Long.parseLong(split[j]));
@@ -175,6 +176,7 @@ public class BlogController {
             //设置type的博客数+1
             Type type = typeService.getTypeById(blog.getTypeId());
             type.setBlogNum(type.getBlogNum()+1);
+            typeService.updateTypeBlogNumById(type.getId(),type.getBlogNum());
             //设置tag的博客数+1
             for (int j = 0; j < split.length; j++) {
                 Tag tag = tagService.getTagById(Long.parseLong(split[j]));
@@ -205,6 +207,7 @@ public class BlogController {
         Blog blog = blogService.getBlogById(Long.parseLong(id));
         Type type = typeService.getTypeById(blog.getTypeId());
         type.setBlogNum(type.getBlogNum()-1);
+        typeService.updateTypeBlogNumById(type.getId(),type.getBlogNum());
         //设置tag的博客数-1
         String ids = blogTagsService.getBlogTagsByBlogId(Long.parseLong(id));
         String[] split = ids.split(",");

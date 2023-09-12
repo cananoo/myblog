@@ -36,7 +36,7 @@ public interface BlogService extends IService<Blog> {
 
     //返回博客数最多的n个type的id
     List<Long> findTopType(int n);
-  //获取所有博客的数目
+   //获取所有博客的数目
     long getBlogNum();
 
     //获取更新时间最近的n个推荐的博客
@@ -53,4 +53,5 @@ public interface BlogService extends IService<Blog> {
     long getBlogNumByQuery(String query);
     //根据id更新浏览次数
     void updateViews(Long id);
+
 }

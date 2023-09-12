@@ -41,4 +41,6 @@ public interface TypeService extends IService<Type> {
     //根据一组分类id list查找类型
     List<Type> findTypeByList(List<Long> list);
 
+    //根据分类id更新博客数
+    void updateTypeBlogNumById(Long id, Integer blogNum);
 }

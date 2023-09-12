@@ -83,6 +83,13 @@ public class TypeServiceImpl extends ServiceImpl<TypeMapper, Type>
         return types;
     }
 
+    @Override
+    public void updateTypeBlogNumById(Long id, Integer blogNum) {
+        UpdateWrapper<Type> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("id",id)
+                .set("blog_num",blogNum);
+        typeMapper.update(null, updateWrapper);
+    }
 }
 
 

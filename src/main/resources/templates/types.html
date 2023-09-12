@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" >
-<head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <!-- 设置移动端缩放比例 -->
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -14,7 +14,7 @@
 
   <!--导航栏-->
     <!-- 解释ui inverted attached segment：ui是semantic-ui的样式，inverted是反色，attached是附着在上面，segment用于分段,me是css类标签 -->
-  <nav class="ui inverted attached segment me text-opacity ui-shadow ">
+  <nav th:replace="_fragments :: menu(2)" class="ui inverted attached segment me text-opacity ui-shadow ">
       	<!-- 解释ui container：container是容器,用于达到最佳显示效果 -->
     <div class="ui container">
         <!-- 解释ui inverted secondary menu：inverted是反色，secondary次要菜单，menu是菜单,stackable：堆叠的,屏幕小时可堆叠在一块 -->
@@ -44,8 +44,8 @@
   </nav>
 
   <!--主体内容-->
-  <div class="m-container-small me4 text-opacity">
-      <div class="ui container">
+  <div id="blog-container" class="m-container-small me4 text-opacity">
+      <div th:fragment="blogBypages" class="ui container">
           <!--header-->
           <div class="ui top attached segment">
               <!--two column：两列，middle aligned：垂直居中-->
@@ -54,241 +54,81 @@
                       <div class="ui teal header">分类</div>
                   </div>
                   <div class="right aligned column">
-                      共 <h2 class="ui orange header toLineBlock ">14</h2>篇
+                      共 <h2 th:text="${#arrays.length(types)}" class="ui orange header toLineBlock ">14</h2>个
                   </div>
               </div>
           </div>
           <!--标签-->
           <div class="ui attached segment me4">
               <!--semantic ui 中的组合标签按钮-->
-              <div class="ui labeled button mymargin" >
-                  <a href="#" class="ui basic teal button">痛的感悟</a>
-                  <div class="ui basic teal left pointing label">24</div>
-              </div>
-              <div class="ui labeled button mymargin" >
-                  <a href="#" class="ui basic  button">爱的供养</a>
-                  <div class="ui basic  left pointing label">24</div>
-              </div>
-              <div class="ui labeled button mymargin" >
-                  <a href="#" class="ui basic  button">爱的痛苦</a>
-                  <div class="ui basic  left pointing label">24</div>
-              </div>
-              <div class="ui labeled button mymargin" >
-                  <a href="#" class="ui basic  button">轰隆轰隆</a>
-                  <div class="ui basic  left pointing label">24</div>
-              </div>
-              <div class="ui labeled button mymargin" >
-                  <a href="#" class="ui basic  button">叮咚叮咚</a>
-                  <div class="ui basic  left pointing label">24</div>
-              </div>
-              <div class="ui labeled button mymargin" >
-                  <a href="#" class="ui basic  button">把卡把卡</a>
-                  <div class="ui basic  left pointing label">24</div>
-              </div>
-              <div class="ui labeled button mymargin" >
-                  <a href="#" class="ui basic  button">芭比芭比</a>
-                  <div class="ui basic  left pointing label">24</div>
-              </div>
-              <div class="ui labeled button mymargin" >
-                  <a href="#" class="ui basic  button">妈妈咪呀</a>
-                  <div class="ui basic  left pointing label">24</div>
-              </div>
-              <div class="ui labeled button mymargin" >
-                  <a href="#" class="ui basic  button">巴拉巴拉</a>
-                  <div class="ui basic  left pointing label">24</div>
+              <div th:each="type : ${types}" class="ui labeled button mymargin" >
+                  <a href="#" th:text="${type.name}" th:href="@{/types(id=${type.id})}" class="ui basic  button" th:classappend="${type.id==activeId} ? 'teal'">痛的感悟</a>
+                  <div  th:text="${type.blogNum}" class="ui basic  left pointing label"  th:classappend="${type.id==activeId} ? 'teal'"  >24</div>
+
               </div>
           </div>
+          <input type="hidden" name="activeId" th:value="${activeId}">
           <!--内容-->
-          <div class="ui top attached orange segment ">
+          <div th:each="blog : ${list}" class="ui top attached orange segment ">
               <!-- padded：内边距显大 ,vertical：垂直的,用横线分割 -->
-              <div class="ui vertical padded  segment me4">
-                  <!-- mobile reversed 反转grid网格中的列顺序 ，使屏幕缩小的时候图片列即第二列在上面-->
-                  <div class="ui mobile reversed stackable grid">
-                      <div class="eleven wide column">
-                          <h3 class="ui header text-space ">你知道什么是二刺螈吗？</h3>
-                          <p class="text-space text-line"> 二刺螈（学名：Cynops orientalis）是蝾螈科蝾螈属的两栖动物，是中国特有的两栖动物，也是中国最大的两栖动物。二刺螈是一种典型的水栖两栖动物，生活在水边的草丛中，也有在水中活动的。二刺螈的体型较大...</p>
-                          <div class="ui stackable grid">
-                              <div class="eleven wide column">
-                                  <div class="ui horizontal link list">
-                                      <div class="item">
-                                          <!-- avatar image：头像 -->
-                                          <img src="https://pic1.zhimg.com/v2-a308441a8fa504383a2077c40b8dd0e4_r.jpg" alt="" class="ui avatar image">
-                                          <div class="content"><a href="#" class="header">nikoniko</a></div>
-                                      </div>
-                                      <div class="item">
-                                          <i class="calendar icon"></i>2023-12-12
-                                      </div>
-                                      <div class="item">
-                                          <i class="eye icon"></i>2000
-                                      </div>
-                                  </div>
-
-                              </div>
-                              <div class="right aligned five wide column">
-                                  <a href="#" target="_blank" class="ui teal basic label pd text-size">二次元</a>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="five wide column">
-                          <!-- target="_blank"：在新窗口打开 -->
-                          <a href="#" target="_blank"><img src="https://th.bing.com/th/id/OIP.ro3LsoGuUkzyp_AtgKxuXAHaEK?pid=ImgDet&rs=1" alt="" class="ui small rounded image imgsize"></a>
-                      </div>
-                  </div>
-              </div>
               <div class="ui padded vertical segment me4">
                   <!-- mobile reversed 反转grid网格中的列顺序 ，使屏幕缩小的时候图片列即第二列在上面-->
-                  <div class="ui mobile reversed stackable grid">
+                  <div class="ui middle aligned mobile reversed stackable grid">
                       <div class="eleven wide column">
-                          <h3 class="ui header text-space ">你知道什么是二刺螈吗？</h3>
-                          <p class="text-space text-line"> 二刺螈（学名：Cynops orientalis）是蝾螈科蝾螈属的两栖动物，是中国特有的两栖动物，也是中国最大的两栖动物。二刺螈是一种典型的水栖两栖动物，生活在水边的草丛中，也有在水中活动的。二刺螈的体型较大...</p>
+                          <a href="#" target="_blank" th:href="@{/blog(id=${blog.id})}">
+                              <h3 th:text="${blog.title}" class="ui header text-space" >你知道什么是二刺螈吗？</h3>
+                          </a>
+                          <br>
+                          <p  th:text="${blog.description}" class="text-space text-line"> 二刺螈（学名：Cynops orientalis）是蝾螈科蝾螈属的两栖动物，是中国特有的两栖动物，也是中国最大的两栖动物。二刺螈是一种典型的水栖两栖动物，生活在水边的草丛中，也有在水中活动的。二刺螈的体型较大...</p>
                           <div class="ui stackable grid">
                               <div class="eleven wide column">
                                   <div class="ui horizontal link list">
                                       <div class="item">
                                           <!-- avatar image：头像 -->
-                                          <img src="https://pic1.zhimg.com/v2-a308441a8fa504383a2077c40b8dd0e4_r.jpg" alt="" class="ui avatar image">
-                                          <div class="content"><a href="#" class="header">nikoniko</a></div>
+                                          <img th:src="${user.avatar}" src="https://pic1.zhimg.com/v2-a308441a8fa504383a2077c40b8dd0e4_r.jpg" alt="" class="ui avatar image">
+                                          <div th:text="${user.nickname}" class="content"><a href="#" class="header">nikoniko</a></div>
                                       </div>
                                       <div class="item">
-                                          <i class="calendar icon"></i>2023-12-12
+                                          <i class="calendar icon"></i><span style="padding-left: 5px" th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2023-12-12</span>
                                       </div>
                                       <div class="item">
-                                          <i class="eye icon"></i>2000
+                                          <i class="eye icon"></i><span style="padding-left: 5px" th:text="${blog.views}">2000</span>
                                       </div>
                                   </div>
 
                               </div>
                               <div class="right aligned five wide column">
-                                  <a href="#" target="_blank" class="ui teal basic label pd text-size">二次元</a>
+                                  <a th:each="type :${types}" th:if="${blog.typeId} == ${type.id}"  th:text="${type.name}" href="#" target="_blank" class="ui teal basic label pd text-size">二次元</a>
                               </div>
                           </div>
                       </div>
                       <div class="five wide column">
                           <!-- target="_blank"：在新窗口打开 -->
-                          <a href="#" target="_blank"><img src="https://th.bing.com/th/id/OIP.ro3LsoGuUkzyp_AtgKxuXAHaEK?pid=ImgDet&rs=1" alt="" class="ui small rounded image imgsize"></a>
-                      </div>
-                  </div>
-              </div>
-              <div class="ui padded vertical segment me4">
-                  <!-- mobile reversed 反转grid网格中的列顺序 ，使屏幕缩小的时候图片列即第二列在上面-->
-                  <div class="ui mobile reversed stackable grid">
-                      <div class="eleven wide column">
-                          <h3 class="ui header text-space ">你知道什么是二刺螈吗？</h3>
-                          <p class="text-space text-line"> 二刺螈（学名：Cynops orientalis）是蝾螈科蝾螈属的两栖动物，是中国特有的两栖动物，也是中国最大的两栖动物。二刺螈是一种典型的水栖两栖动物，生活在水边的草丛中，也有在水中活动的。二刺螈的体型较大...</p>
-                          <div class="ui stackable grid">
-                              <div class="eleven wide column">
-                                  <div class="ui horizontal link list">
-                                      <div class="item">
-                                          <!-- avatar image：头像 -->
-                                          <img src="https://pic1.zhimg.com/v2-a308441a8fa504383a2077c40b8dd0e4_r.jpg" alt="" class="ui avatar image">
-                                          <div class="content"><a href="#" class="header">nikoniko</a></div>
-                                      </div>
-                                      <div class="item">
-                                          <i class="calendar icon"></i>2023-12-12
-                                      </div>
-                                      <div class="item">
-                                          <i class="eye icon"></i>2000
-                                      </div>
-                                  </div>
-
-                              </div>
-                              <div class="right aligned five wide column">
-                                  <a href="#" target="_blank" class="ui teal basic label pd text-size">二次元</a>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="five wide column">
-                          <!-- target="_blank"：在新窗口打开 -->
-                          <a href="#" target="_blank"><img src="https://th.bing.com/th/id/OIP.ro3LsoGuUkzyp_AtgKxuXAHaEK?pid=ImgDet&rs=1" alt="" class="ui small rounded image imgsize"></a>
-                      </div>
-                  </div>
-              </div>
-              <div class="ui padded vertical segment me4">
-                  <!-- mobile reversed 反转grid网格中的列顺序 ，使屏幕缩小的时候图片列即第二列在上面-->
-                  <div class="ui mobile reversed stackable grid">
-                      <div class="eleven wide column">
-                          <h3 class="ui header text-space ">你知道什么是二刺螈吗？</h3>
-                          <p class="text-space text-line"> 二刺螈（学名：Cynops orientalis）是蝾螈科蝾螈属的两栖动物，是中国特有的两栖动物，也是中国最大的两栖动物。二刺螈是一种典型的水栖两栖动物，生活在水边的草丛中，也有在水中活动的。二刺螈的体型较大...</p>
-                          <div class="ui stackable grid">
-                              <div class="eleven wide column">
-                                  <div class="ui horizontal link list">
-                                      <div class="item">
-                                          <!-- avatar image：头像 -->
-                                          <img src="https://pic1.zhimg.com/v2-a308441a8fa504383a2077c40b8dd0e4_r.jpg" alt="" class="ui avatar image">
-                                          <div class="content"><a href="#" class="header">nikoniko</a></div>
-                                      </div>
-                                      <div class="item">
-                                          <i class="calendar icon"></i>2023-12-12
-                                      </div>
-                                      <div class="item">
-                                          <i class="eye icon"></i>2000
-                                      </div>
-                                  </div>
-
-                              </div>
-                              <div class="right aligned five wide column">
-                                  <a href="#" target="_blank" class="ui teal basic label pd text-size">二次元</a>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="five wide column">
-                          <!-- target="_blank"：在新窗口打开 -->
-                          <a href="#" target="_blank"><img src="https://th.bing.com/th/id/OIP.ro3LsoGuUkzyp_AtgKxuXAHaEK?pid=ImgDet&rs=1" alt="" class="ui small rounded image imgsize"></a>
-                      </div>
-                  </div>
-              </div>
-              <div class="ui padded vertical segment me4">
-                  <!-- mobile reversed 反转grid网格中的列顺序 ，使屏幕缩小的时候图片列即第二列在上面-->
-                  <div class="ui mobile reversed stackable grid">
-                      <div class="eleven wide column">
-                          <h3 class="ui header text-space ">你知道什么是二刺螈吗？</h3>
-                          <p class="text-space text-line"> 二刺螈（学名：Cynops orientalis）是蝾螈科蝾螈属的两栖动物，是中国特有的两栖动物，也是中国最大的两栖动物。二刺螈是一种典型的水栖两栖动物，生活在水边的草丛中，也有在水中活动的。二刺螈的体型较大...</p>
-                          <div class="ui stackable grid">
-                              <div class="eleven wide column">
-                                  <div class="ui horizontal link list">
-                                      <div class="item">
-                                          <!-- avatar image：头像 -->
-                                          <img src="https://pic1.zhimg.com/v2-a308441a8fa504383a2077c40b8dd0e4_r.jpg" alt="" class="ui avatar image">
-                                          <div class="content"><a href="#" class="header">nikoniko</a></div>
-                                      </div>
-                                      <div class="item">
-                                          <i class="calendar icon"></i>2023-12-12
-                                      </div>
-                                      <div class="item">
-                                          <i class="eye icon"></i>2000
-                                      </div>
-                                  </div>
-
-                              </div>
-                              <div class="right aligned five wide column">
-                                  <a href="#" target="_blank" class="ui teal basic label pd text-size">二次元</a>
-                              </div>
-                          </div>
-                      </div>
-                      <div class="five wide column">
-                          <!-- target="_blank"：在新窗口打开 -->
-                          <a href="#" target="_blank"><img src="https://th.bing.com/th/id/OIP.ro3LsoGuUkzyp_AtgKxuXAHaEK?pid=ImgDet&rs=1" alt="" class="ui small rounded image imgsize"></a>
+                          <a href="#" th:href="@{/blog(id=${blog.id})}" target="_blank">
+                              <img  th:src="${blog.firstPicture}" src="https://th.bing.com/th/id/OIP.ro3LsoGuUkzyp_AtgKxuXAHaEK?pid=ImgDet&rs=1" alt="" class="ui small rounded image imgsize">
+                          </a>
                       </div>
                   </div>
               </div>
           </div>
-          <div class="ui bottom attached segment">
+          <div class="ui bottom attached segment" th:if="${pagetotal > 1}">
               <div class="ui middle aligned two column grid">
                   <div class="column">
                       <!-- mini：小型按钮,teal basic：蓝绿色基础按钮 -->
-                      <a href="#" class="ui mini teal basic button">上一页</a>
+                      <a onclick="page(this)" th:attr="current=${current}-1" th:if="${current > 1}" class="ui mini teal basic button">上一页</a>
                   </div>
                   <div class="right aligned column">
-                      <a href="#" class="ui mini teal basic button">下一页</a>
+                      <a onclick="page(this)" th:attr="current=${current}+1" th:if="${current < pagetotal}"  class="ui mini teal basic button">下一页</a>
                   </div>
               </div>
+              <input name="current" type="hidden">
           </div>
       </div>
   </div>
 
   <!--底部-->
   <!-- 解释ui inverted vertical segment:vertical填充类似于attached，segment是模块 -->
-  <footer class="ui  vertical inverted segment foot text-opacity">
+  <footer th:replace="_fragments :: footer" class="ui  vertical inverted segment foot text-opacity">
      <div class="ui  center aligned container ">
           <!-- 解释:grid是网格 把整个横向页面分为16份，便于拆分 divided 显示分割线 -->
          <div class="ui divided inverted stackable grid ">
@@ -329,16 +169,36 @@
 
 
 
-<!-- 引入jquery -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
-<!-- 引入semantic-ui样式 -->
-<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+  <!--/*/<th:block  th:replace="_fragments :: script"/*/-->
+  <!-- 引入jquery -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
+  <!-- 引入semantic-ui样式 -->
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+  <!--/*/</th:block>/*/-->
+
 <!-- 获取样式标签,进行操作,实现点击切换--如果含gg的标签中有m-mobile-hide类，就删除，否则添加 -->
  <script>
      <!--手机端下拉菜单 -->
      $('.menu.toggle').click(function(){
             $('.gg').toggleClass('mobilehide');
      });
+
+     //列表局部刷新
+     //把值传给后端
+     function loadf(){
+         $('#blog-container').load(/*[[@{/typesPage}]]*/"/typesPage",{
+             current:$('[name="current"]').val(),
+             activeId:$('[name="activeId"]').val()
+         });
+     }
+     //给前端赋值
+     function page(obj){
+         $("[name='current']").val($(obj).attr('current'));
+         loadf();
+     }
+
+
+
  </script>
 </body>
 </html>
