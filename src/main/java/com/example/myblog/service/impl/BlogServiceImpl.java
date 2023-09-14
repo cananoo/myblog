@@ -9,9 +9,9 @@ import com.example.myblog.mapper.BlogMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -215,6 +215,37 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
         Blog blog = blogMapper.selectById(id);
         blog.setViews(blog.getViews()+1);
         blogMapper.updateById(blog);
+    }
+
+    //根据博客id查询博客
+    public List<Blog> findBlogsByIds(List<Long> blogIds){
+        if (blogIds.size() == 0){
+            return null;
+        }
+        QueryWrapper<Blog> queryWrapper = new QueryWrapper<>();
+        queryWrapper.in("id",blogIds);
+        List<Blog> blogs = blogMapper.selectList(queryWrapper);
+        return blogs;
+    }
+
+    //根据博客创建年份查询博客
+    public Map<String,List<Blog>> findBlogsByYear(){
+        Map<String,List<Blog>> map = new HashMap<>();
+        List<Blog> list = blogMapper.selectList(null);
+        for (Blog blog : list) {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy");
+            String year = simpleDateFormat.format(blog.getCreateTime());
+            if (map.containsKey(year)){
+                List<Blog> blogs = map.get(year);
+                blogs.add(blog);
+                map.put(year,blogs);
+            }else {
+                List<Blog> blogs = new java.util.ArrayList<>();
+                blogs.add(blog);
+                map.put(year,blogs);
+            }
+        }
+       return map;
     }
 
 

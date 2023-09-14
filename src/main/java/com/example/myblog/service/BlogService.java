@@ -7,6 +7,7 @@ import com.example.myblog.pojo.Blog;
 import com.example.myblog.pojo.Type;
 
 import java.util.List;
+import java.util.Map;
 
 /**
 * @author ASUS
@@ -54,4 +55,10 @@ public interface BlogService extends IService<Blog> {
     //根据id更新浏览次数
     void updateViews(Long id);
 
+
+    //根据博客id查询博客
+    List<Blog> findBlogsByIds(List<Long> blogIds);
+
+    //根据博客创建年份查询博客
+    Map<String,List<Blog>> findBlogsByYear();
 }

@@ -80,6 +80,18 @@ public int saveBlogTags(BlogTags blogTags) {
         return list;
     }
 
+    //根据标签id查询博客id
+    public List<Long> findBlogsByTagId(long id){
+        QueryWrapper<BlogTags> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("tags_id",id);
+        List<BlogTags> blogTags = blogTagsMapper.selectList(queryWrapper);
+        List<Long> list = new ArrayList<>();
+        for (BlogTags blogTags1 : blogTags) {
+            list.add(blogTags1.getBlogsId());
+        }
+        return list;
+    }
+
 }
 
 
