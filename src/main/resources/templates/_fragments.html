@@ -38,7 +38,7 @@
             <!-- 解释ui teal header item：teal是蓝绿色，header是标题，item表示一组条目 -->
             <h2 class="ui teal header item">Blog</h2>
             <!-- 解释<i class="home icon"></i>：i是图标，home是图标名字，icon是图标,mobilehide：手机端隐藏,gg:为JS获取标签实现显示隐藏条目而用 -->
-            <a href="#" th:href="@{/}" class="gg item mobilehide " th:classappend="${n == 1} ? 'active'"><i class="home icon"></i>首页</a>    <!--th:classappend="${n == 1} ? 'active'"：Thymeleaf的条件判断，如果n==1，就添加active样式-->
+            <a href="#" th:href="@{/}" class="gg item mobilehide " th:classappend="${n == 1} ? 'active'"><i class="home icon"></i><span th:text="#{nav.index}">首页</span></a>    <!--th:classappend="${n == 1} ? 'active'"：Thymeleaf的条件判断，如果n==1，就添加active样式-->
             <a href="#" th:href="@{/types}" class="gg item mobilehide " th:classappend="${n == 2} ? 'active'"><i class="idea icon" ></i>分类</a>
             <a href="#" th:href="@{/tags}" class="gg item mobilehide " th:classappend="${n == 3} ? 'active'"><i class="tags icon"></i>标签</a>
             <a href="#" th:href="@{/archives}" class="gg item mobilehide " th:classappend="${n == 4} ? 'active'"><i class="clone icon"></i>归档</a>
@@ -73,12 +73,13 @@
                 <h4 class="ui inverted header text-opacity">最新博客</h4>
                 <!--完成清单-->
                 <div th:each="bl :${topNew}" class="ui inverted link list ">
-                    <a th:text="${bl.title}" th:value="${bl.id}" href="#" class="item ">Java</a>
+                    <a th:href="@{/blog(id=${bl.id})}" th:text="${bl.title}" th:value="${bl.id}" href="#" class="item ">Java</a>
                 </div>
             </div>
             <div class="three wide column ">
                 <h4 class="ui inverted header text-opacity ">联系方式</h4>
-                <h6 class="ui text-opacity text-size " >QQ: 123456789</h6>
+                <!--th:text="#{index.QQ}"：Thymeleaf的国际化，从index.properties中获取QQ的值-->
+                <h6 class="ui text-opacity text-size " th:text="#{index.QQ}" >QQ: 123456789</h6>
                 <h6 class="text-opacity text-size ">微信: 123456789</h6>
             </div>
             <div class="seven wide column">

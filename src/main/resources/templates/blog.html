@@ -460,33 +460,35 @@ h5,h6{font-size:1em;}
                               圣经
                           </div>
                       </div>
-                    <!-- 赞赏 -->
-              <div class="ui center aligned basic segment">
-                  <!-- circular button：圆形按钮 -->
-                     <button id="payButton" class="ui orange basic circular button">
-                         赞赏
-                     </button>
-              </div>
-               <!-- ui fluid popup  transition hidden：引入一个隐藏的弹出框弹出二维码（需要配合js）payQ无样式-用来传递js -->
-              <div class="ui payQ flowing popup  transition hidden " >
-              <div class="ui orange basic label" >
-                    <!--inherit：继承上级label字体大小，不然images标签会默认设置为0-->
-                  <div class="ui images " style="font-size: inherit !important;">
-                  <div class="image">
-                      <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}"  alt="" class="ui rounded bordered image " style="width: 120px">
-                      <div>微信</div>
+              <div th:if="${blog.appreciation}">
+                  <!-- 赞赏 -->
+                  <div class="ui center aligned basic segment">
+                      <!-- circular button：圆形按钮 -->
+                      <button id="payButton" class="ui orange basic circular button">
+                          赞赏
+                      </button>
                   </div>
-                  <div class="image">
-                      <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}" alt="" class="ui rounded bordered image" style="width: 120px">
-                      <div>支付宝</div>
+                  <!-- ui fluid popup  transition hidden：引入一个隐藏的弹出框弹出二维码（需要配合js）payQ无样式-用来传递js -->
+                  <div class="ui payQ flowing popup  transition hidden " >
+                      <div class="ui orange basic label" >
+                          <!--inherit：继承上级label字体大小，不然images标签会默认设置为0-->
+                          <div class="ui images " style="font-size: inherit !important;">
+                              <div class="image">
+                                  <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}"  alt="" class="ui rounded bordered image " style="width: 120px">
+                                  <div>微信</div>
+                              </div>
+                              <div class="image">
+                                  <img src="../static/images/wechat.png" th:src="@{/images/wechat.png}" alt="" class="ui rounded bordered image" style="width: 120px">
+                                  <div>支付宝</div>
+                              </div>
+                          </div>
+                      </div>
                   </div>
-                  </div>
-              </div>
               </div>
           </div>
 
             <!--positive message：一个消息框样式 -->
-          <div class="ui attached positive message">
+          <div class="ui attached positive message" th:if="${blog.shareStatement}==true">
               <!--博客信息-->
               <div class="ui grid">
                   <div class="eleven wide column">
@@ -494,7 +496,7 @@ h5,h6{font-size:1em;}
                       <div class="ui bulleted middle aligned list">
                           <div class="item" ><a th:href="@{/about}" target="_blank" style="color: inherit">作者:  </a><span th:text="${user.nickname}">Cananoo</span> </div>
                           <div class="item">发表时间:  <span  th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm')}">2023-10-02 09:08</span></div>
-                          <div class="item" th:if="${blog.shareStatement}==true">版权声名:  转载请标明源地址</div>
+                          <div class="item" >版权声名:  转载请标明源地址</div>
                           <div class="item">最新内容:  请添加右侧二维码</div>
                       </div>
                   </div>
@@ -503,9 +505,9 @@ h5,h6{font-size:1em;}
                   </div>
               </div>
           </div>
-           <div  class="ui bottom attached segment">
+           <div  class="ui bottom attached segment" th:if="${blog.commentabled}">
                <!--留言区域列表-->
-                 <div id="comment-container" class="ui teal segment">
+                 <div id="comment-container" class="ui teal segment" >
                      <div th:fragment="commentList">
                          <!--直接复制semantic ui的评论模块代码即可,threaded：使父评论间明显-->
                          <div class="ui threaded comments" style="max-width: 100%">
@@ -765,7 +767,7 @@ h5,h6{font-size:1em;}
 
 
     <!--根据网站的域名和当前博客的id生成二维码，script必须加上 th:inline="javascript"才有效果-->
-     var server = "localhost:8080";
+     var server = /*[[#{blog.server}]]*/"localhost:8080";
     var url = /*[[@{/blogs(id=${blog.id})}]]*/'';
      <!--qrcode.js二维码插件的使用,官方复制即可-->
      var qrcode = new QRCode("test", {

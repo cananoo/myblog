@@ -225,4 +225,15 @@ public class IndexController {
         ;
       return "blog";
     }
+
+    //跳转到关于我页面
+    @GetMapping("/about")
+    public String about(Model model){
+        List<Blog> topNew = blogService.findTopNew(4);
+
+        model.addAttribute("topNew",topNew);
+
+        return "about";
+    }
+
 }

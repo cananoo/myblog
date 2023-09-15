@@ -133,14 +133,14 @@
                                      <i class="idea icon"></i>分类
                                  </div>
                               <div class="right aligned column">
-                                  <a href="#">more <i class=" tiny angle double right icon"></i></a>
+                                  <a th:href="@{/types}" href="#">more <i class=" tiny angle double right icon"></i></a>
                               </div>
                               </div>
                           </div>
                          <div class="ui teal segment">
                              <!-- vertical menu：垂直菜单,fluid --填充其外层容器 -->
                              <div class="ui fluid vertical menu">
-                                 <a th:each="type : ${types}"  href="#" class="item">
+                                 <a th:each="type : ${types}"  th:href="@{/types(id=${type.id})}" href="#" class="item">
                                      <span th:value="${type.id}" th:text="${type.name}">学习日志</span>
                                      <!--这里也可以用${#arrays.length(...)}来获取集合的条目,但我没有给其加list属性-->
                                      <div th:text="${type.blogNum}" class="ui teal basic left pointing label">13</div>
@@ -158,13 +158,13 @@
                             <i class="tags icon"></i> 标签
                         </div>
                         <div class="right aligned column">
-                            <a href="#">more <i class=" tiny angle double right icon"></i></a>
+                            <a th:href="@{/tags}" href="#">more <i class=" tiny angle double right icon"></i></a>
                         </div>
                     </div>
                 </div>
                 <div class="ui teal segment">
                     <!-- detail：标明细节 -->
-                    <a th:each="tag : ${tags}"  href="#" target="_blank" class="ui teal basic  label mymargin">
+                    <a th:each="tag : ${tags}" th:href="@{/tags(id=${tag.id})}"  href="#" target="_blank" class="ui teal basic  label mymargin">
                         <span th:value="${tag.id}" th:text="${tag.name}">金</span>
                         <div th:text="${tag.blogNum}" class="detail">23</div>
                     </a>
@@ -181,7 +181,7 @@
                            </div>
                    </div>
                    <div th:each="blog : ${topRecommend}" class="ui segment">
-                       <a  th:text="${blog.title}" th:value="${blog.id}" href="#" target="_blank" class="cDark text-size"> 命运石之门</a>
+                       <a  th:text="${blog.title}" th:value="${blog.id}" th:href="@{/blog(id=${blog.id})}" href="#" target="_blank" class="cDark text-size"> 命运石之门</a>
                    </div>
                </div>
 
