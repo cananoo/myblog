@@ -767,7 +767,7 @@ h5,h6{font-size:1em;}
 
 
     <!--根据网站的域名和当前博客的id生成二维码，script必须加上 th:inline="javascript"才有效果-->
-     var server = /*[[#{blog.server}]]*/"localhost:8080";
+     var server = /*[[#{blog.server}]]*/"localhost";
     var url = /*[[@{/blogs(id=${blog.id})}]]*/'';
      <!--qrcode.js二维码插件的使用,官方复制即可-->
      var qrcode = new QRCode("test", {
