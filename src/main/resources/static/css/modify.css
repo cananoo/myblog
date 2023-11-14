@@ -50,6 +50,10 @@ body {
     padding-bottom: 5em !important;
 }
 
+/*右边距*/
+.mr {
+   margin-right: 0.5em !important;
+}
 
 .foot {
     padding-top: 5em !important;
@@ -102,6 +106,11 @@ body {
 .imgsize4 {
     width: 250px !important;
     height: 150px !important;
+}
+
+.imgsize5 {
+    width: 15px !important;
+    height: 15px !important;
 }
 
 /*修改盒子最大宽度和居中*/
