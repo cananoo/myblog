@@ -131,6 +131,7 @@ public class BlogController {
             Blog blog1 = blogService.getBlogById(Long.parseLong(id));
             Type type1 = typeService.getTypeById(blog1.getTypeId());
             type1.setBlogNum(type1.getBlogNum()-1);
+            typeService.updateTypeBlogNumById(type1.getId(),type1.getBlogNum());
             //先将原来的tag的博客数-1
             String ids = blogTagsService.getBlogTagsByBlogId(Long.parseLong(id));
             String[] split1 = ids.split(",");
