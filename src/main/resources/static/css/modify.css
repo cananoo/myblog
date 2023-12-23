@@ -3,7 +3,7 @@
 设置背景图片
  */
 body {
-   background: url("https://i.hexuexiao.cn/up/83/20/47/b408c957b6f70ba03477001b1e472083.jpg.source.jpg") no-repeat center center fixed;
+   background: url("https://w.wallhaven.cc/full/e7/wallhaven-e7eowk.jpg") no-repeat center center fixed;
 }
 
 
@@ -83,6 +83,9 @@ body {
 .text-opacity2 {
     opacity: 0.5 !important;
 }
+
+
+
 
 /*
 使block元素变成行内元素
@@ -188,7 +191,7 @@ body {
     color: #800080 !important;
 }
 .cOrange {
-    color: #ffa500 !important;
+    color: #FE9A76 !important;
 }
 .cBrown {
     color: #a52a2a !important;
@@ -212,6 +215,11 @@ body {
 .cDark {
     color: #2f2f2f !important;
 }
+
+
+
+
+
 /*
         改变左右间距
         */

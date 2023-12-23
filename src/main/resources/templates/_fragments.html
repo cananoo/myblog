@@ -30,13 +30,15 @@
 
 <!--导航栏-->
 <!-- 解释ui inverted attached segment：ui是semantic-ui的样式，inverted是反色，attached是附着在上面，segment用于分段,me是css类标签 -->
-<nav th:fragment="menu(n)" class="ui inverted attached segment me text-opacity ui-shadow ">
+<nav th:fragment="menu(n)" class="ui inverted attached segment me  ui-shadow" style="background-color: rgba(
+    0,0,0,0.3
+)" >
     <!-- 解释ui container：container是容器,用于达到最佳显示效果 -->
     <div class="ui container">
         <!-- 解释ui inverted secondary menu：inverted是反色，secondary次要菜单，menu是菜单,stackable：堆叠的,屏幕小时可堆叠在一块 -->
         <div class="ui inverted secondary stackable menu">
             <!-- 解释ui teal header item：teal是蓝绿色，header是标题，item表示一组条目 -->
-            <h2 class="ui teal header item">Blog</h2>
+            <h2 class="ui teal header item">阿敏の窝</h2>
             <!-- 解释<i class="home icon"></i>：i是图标，home是图标名字，icon是图标,mobilehide：手机端隐藏,gg:为JS获取标签实现显示隐藏条目而用 -->
             <a href="#" th:href="@{/}" class="gg item mobilehide " th:classappend="${n == 1} ? 'active'"><i class="home icon"></i><span th:text="#{nav.index}">首页</span></a>    <!--th:classappend="${n == 1} ? 'active'"：Thymeleaf的条件判断，如果n==1，就添加active样式-->
             <a href="#" th:href="@{/types}" class="gg item mobilehide " th:classappend="${n == 2} ? 'active'"><i class="idea icon" ></i>分类</a>
@@ -62,8 +64,10 @@
 
 <!--底部-->
 <!-- 解释ui inverted vertical segment:vertical填充类似于attached，segment是模块 -->
-<footer th:fragment="footer" class="ui  vertical inverted segment foot text-opacity">
-    <div class="ui  center aligned container ">
+<footer th:fragment="footer" class="ui  vertical inverted segment foot " style="background-color: rgba(
+0,0,0,0.3
+) " >
+    <div class="ui  center aligned container " >
         <!-- 解释:grid是网格 把整个横向页面分为16份，便于拆分 divided 显示分割线 -->
         <div class="ui divided inverted stackable grid ">
             <div class=" three wide column">
@@ -84,7 +88,6 @@
             </div>
             <div class="seven wide column">
                 <h4 class="ui inverted header text-opacity ">关于我</h4>
-
                 <p class="text-opacity text-size text-line ">我是一个热爱技术的小白，喜欢研究新技术，喜欢分享，喜欢交流，喜欢结交朋友，喜欢看书，喜欢运动，喜欢旅游，喜欢美食，喜欢生活，喜欢一切美好的事物。</p>
             </div>
         </div>
@@ -94,9 +97,8 @@
             </br>
             <a class="ace-link ace-link-primary ali-report-link" href="http://beian.miit.gov.cn/" target="_blank"><img src="//img.alicdn.com/tfs/TB1..50QpXXXXX7XpXXXXXXXXXX-40-40.png" class="ali-report-img imgsize5 mr"/><span class="ali-report-link-text">湘ICP备 2023030386号</span></a>
             </br> </br>
-            <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2023  All Rights Reserved.</p>
+            <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2024  All Rights Reserved.</p>
         </div>
-
     </div>
 
 </footer>
@@ -123,6 +125,11 @@
 <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
     <!-- 音乐播放器插件-->
     <script type="text/javascript" id="myhk" src="https://myhkw.cn/api/player/1703315245146" key="1703315245146" m="1"></script>
+    <!-- 动态花雨背景 -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/Ukenn2112/UkennWeb@3.0/index/web.js"></script>
+    <!-- 鼠标动态效果 -->
+    <script  color="255,182,193" opacity='1' zIndex="-1" count="100" src="https://cdn.bootcss.com/canvas-nest.js/2.0.4/canvas-nest.js" type="text/javascript"></script>
+
 </th:block>
 
 </html>
