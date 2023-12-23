@@ -3,7 +3,7 @@
 设置背景图片
  */
 body {
-   background: url("https://w.wallhaven.cc/full/e7/wallhaven-e7eowk.jpg") no-repeat center center fixed;
+   background: url(../images/background.jpg)  no-repeat center center fixed;
 }
 
 
