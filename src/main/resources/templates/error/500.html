@@ -9,6 +9,15 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css">
     <!-- 引入自定义样式 -->
     <link rel="stylesheet" href="../../static/css/modify.css" > <!--th:href="@{/css/modify.css}" Thymeleaf模板引擎，否则无法引入成功-->
+    <!-- catch the cat -->
+    <script src="../../static/js/phaser.min.js"></script>
+    <script src="../../static/js/catch-the-cat.js"></script>
+    <style>
+        #catch-the-cat{
+            display: flex;
+            justify-content: center;
+        }
+    </style>
 </head>
 <body>
 <!--导航栏-->
@@ -50,6 +59,8 @@
             <p>对不起，服务异常，请联系管理员！</p>
         </div>
     </div>
+    <!-- catch the cat -->
+    <div id="catch-the-cat"></div>
 </div>
 <!--底部-->
 <!-- 解释ui inverted vertical segment:vertical填充类似于attached，segment是模块 -->
@@ -96,4 +107,16 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.4.1/dist/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
 </body>
+<!-- catch the cat -->
+<script>
+    window.game = new CatchTheCatGame({
+        w: 11,
+        h: 11,
+        r: 20,
+        backgroundColor: 0xeeeeee,
+        parent: 'catch-the-cat',
+        statusBarAlign: 'center',
+        credit: '木纹'
+    });
+</script>
 </html>
