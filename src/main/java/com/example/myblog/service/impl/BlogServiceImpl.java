@@ -52,7 +52,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
 
         String substring = content.substring(i + 9, i1);
         //缩短描述长度后面用...代替
-        if (substring.length()>100){
+        if (substring.length()>150){
             substring = substring.substring(0, 150);
             //后面用...代替
             substring = substring+"...";
@@ -93,7 +93,7 @@ public class BlogServiceImpl extends ServiceImpl<BlogMapper, Blog>
         int i1 = content.indexOf("##### 正文:");
         String substring = content.substring(i + 9, i1);
         //缩短描述长度后面用...代替
-        if (substring.length()>100){
+        if (substring.length()>150){
             substring = substring.substring(0, 150);
             //后面用...代替
             substring = substring+"...";
