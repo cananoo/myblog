@@ -200,7 +200,7 @@
         <!-- 解释ui inverted section divider：section是模块，divider是分割线 -->
         <div class="ui inverted section divider">
             </br></br></br>
-            <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2013  All Rights Reserved.</p>
+            <p class="text-size text-opacity text-space text-line "> CopyRight © 2023---2025  All Rights Reserved.</p>
         </div>
     </div>
 </footer>
@@ -226,7 +226,7 @@
         }
     );
 
-    <!--Ajax实现局部刷新-->
+    //<!--Ajax实现局部刷新-->
     $('#search-btn').click(function(){
         loaddata();
     });
@@ -236,7 +236,7 @@
         $('#table-container').load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search",{
             title:$('[name="title"]').val(),
             typeId:$('[name="typeId"]').val(),
-            <!--如果这个复选框被选中， 返回 true。否则，返回 false。-->
+            //<!--如果这个复选框被选中， 返回 true。否则，返回 false。-->
             recommend:$('[name="recommend"]').prop('checked'),
             current:$('[name="current"]').val(),
         });
@@ -248,7 +248,7 @@
             loaddata();
         }
 
-    <!--关闭message,注意message后面有一个空格-->
+    //<!--关闭message,注意message后面有一个空格-->
     $('.message .close').on('click',function () {
         $(this).closest('.message').transition('fade');
     });

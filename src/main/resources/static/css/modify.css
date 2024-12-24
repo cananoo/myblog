@@ -1,4 +1,3 @@
-
 /*
 设置背景图片
  */
@@ -158,7 +157,7 @@ body {
     position: fixed !important;
     top: 500px !important;
     right: 0 !important;
-    z-index: 1; !important;
+    z-index: 1 !important; 
 }
 
 
@@ -248,7 +247,7 @@ body {
     }
 
     /*
-        手机端充满宽度
+        手机端充���宽度
         */
     .m-mobile-full{
         width: 100% !important;
@@ -287,4 +286,12 @@ PC端
 /*圆角*/
 .ui-corner-all {
     border-radius: 0.5em !important;
+}
+
+/* 博客栏背景颜色 */
+.blog-background {
+    background-color: rgba(0, 0, 0, 0.8) !important; /* 白色半透明背景 */
+    /* 或者你也可以使用其他颜色，比如: */
+    /* background-color: rgba(230, 230, 250, 0.8) !important; */ /* 淡紫色半透明 */
+    /* background-color: rgba(255, 182, 193, 0.8) !important; */ /* 淡粉色半透明 */
 }

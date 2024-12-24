@@ -47,7 +47,7 @@
   <div id="blog-container" class="m-container-small me4 text-opacity">
       <div th:fragment="blogBypages" class="ui container">
           <!--header-->
-          <div class="ui top attached segment">
+          <div class="ui top attached segment" style="background-color: #eae3fd;">
               <!--two column：两列，middle aligned：垂直居中-->
               <div class="ui middle aligned two column grid">
                   <div class="column">
@@ -59,7 +59,7 @@
               </div>
           </div>
           <!--标签-->
-          <div class="ui attached segment me4">
+          <div class="ui attached segment me4" >
               <!--semantic ui 中的组合标签按钮-->
               <div th:each="type : ${types}" class="ui labeled button mymargin" >
                   <a href="#" th:text="${type.name}" th:href="@{/types(id=${type.id})}" class="ui basic  button" th:classappend="${type.id==activeId} ? 'teal'">痛的感悟</a>

@@ -67,13 +67,13 @@
       <div class="ui container">
           <form id="blog-form" th:action="@{/admin/blogs/updateoradd}" method="post" class="ui form">
               <div class="required field">
-                  <div class="ui left labeled input text-opacity" style="z-index: 99 !important;" >
+                  <div class="ui left labeled input text-opacity" style="z-index: 98 !important;" >
                       <!--compact:使标签长度随内容变化-->
                       <div class="ui red compact basic selection dropdown label">
-                          <input type="hidden" value="原创" name="flag">
+                          <input type="hidden" value="���创" name="flag">
                           <i class="dropdown icon"></i>
                           <div class="text" data-value="原创">原创</div>
-                          <div class="menu">
+                          <div class="menu" >
                               <div class="item" data-value="原创">原创</div>
                               <div class="item" data-value="转载">转载</div>
                               <div class="item" data-value="翻译">翻译</div>
@@ -83,9 +83,13 @@
                       <input th:if="${#strings.isEmpty(blog)}"  type="text" name="title" placeholder="标题">
                   </div>
                   </div>
+                 <!-- 空出100px给下拉栏 -->
+                 <div style="height: 100px;"></div>
+
+
                 <div class="required field">
                     <!--style="z-index: 1 !important;": 使编辑器在下拉框之上，叠放层次在最上层-->
-                    <div id="md-content" style="z-index: 100 !important;">
+                    <div id="md-content" style="z-index: 99 !important;">
                         <textarea th:unless="${#strings.isEmpty(blog)}" th:text="${blog.content}" name="content" placeholder="内容" style="display:none;"></textarea>
                         <textarea th:if="${#strings.isEmpty(blog)}"  name="content" placeholder="内容" style="display:none;">
 ##### 描述:
@@ -244,33 +248,31 @@
      //初始化markdown编辑器
      var contentEditor;
      $(function() {
-         <!--解释：这里的md-content是textarea外层div的id-->
+         //这里的md-content是textarea外层div的id
          contentEditor = editormd("md-content", {
              width   : "100%",
              height  : 640,
              syncScrolling : "single",
-             <!--解释：这里的path是lib文件夹的路径,一定要写对-->
+             //这里的path是lib文件夹的路径,一定要写对
              path    : "/lib/editormd/lib/",          //thymeleaf 下可以直接指定static下路径
              emoji:true,
          });
      });
 
 
-     <!--手机端下拉菜单,通过toggle实现 -->
-     <!-- 获取样式标签,进行操作,实现点击切换,如果含gg的标签中有mobilehide类标签,就删除,否则添加 -->
+     //手机端下拉菜单,通过toggle实现
+     //获取样式标签,进行操作,实现点击切换,如果含gg的标签中有mobilehide类标签,就删除,否则添加
      $('.menu.toggle').click(function(){
             $('.gg').toggleClass('mobilehide');
      });
 
-        <!--下拉菜单-->
-     $('.ui.dropdown').dropdown(
-            {
-                //触发方式:鼠标悬浮
-                on:'hover'
-            }
-     );
+     //下拉菜单
+     $('.ui.dropdown').dropdown({
+         //触发方式:鼠标悬浮
+         on:'hover'
+     });
 
-     <!--表单验证-->
+     //表单验证
      $('.ui.form').form({
          fields:{
              title:{
@@ -312,7 +314,7 @@
          }
      });
 
-     <!--隐藏域，当点击保存的时候pubulished赋值为false，点击发布的时候，published赋值为true-->
+     //隐藏域，当点击保存的时候pubulished赋值为false，点击发布的时候，published赋值为true
      $('#sava-btn').click(function (){
          $('[name="published"]').val(false);
          $('#blog-form').submit();
